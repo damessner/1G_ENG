@@ -67,6 +67,11 @@ def build_clips(vocab: dict, spell_join: str, with_sounds: bool) -> list[dict]:
     clips: list[dict] = []
 
     def add(key: str, text: str, group: str):
+        # Keys are lowercased to match LG.Q.wordKey() in the game, which
+        # lower-cases whatever the topic asks for. Without this, a vocab entry
+        # like "Open the window" builds "word/Open the window" while the game
+        # requests "word/open the window" and silently falls back to Web Speech.
+        key = key.lower()
         if key in keys:
             return                    # e.g. "light" appears in blend and long
         keys.add(key)
@@ -111,6 +116,22 @@ def build_clips(vocab: dict, spell_join: str, with_sounds: bool) -> list[dict]:
             word(w)
         for w in data.get("words", []):
             word(w)
+        # Generic list for any topic that just needs words rendered. Lets a
+        # new topic pack ship audio without touching this file.
+        for w in data.get("clips", []):
+            word(w)
+        # Structured lists: plurals are [singular, plural, kind]; names and
+        # instructions are objects. Render whatever is actually spoken.
+        for pair in data.get("pairs", []):
+            for form in pair[:2]:
+                if isinstance(form, str) and form:
+                    word(form)
+        for group in ("names", "emails", "zWords", "sWords"):
+            for w in data.get(group, []):
+                word(w)
+        for a in data.get("actions", []):
+            if a.get("text"):
+                word(a["text"])
         for item in data.get("items", []):
             word(item["word"])
             # A spoken clue ("You write with it.") lets pupils identify an
@@ -439,12 +460,18 @@ def main() -> int:
     size = write_outputs(all_clips, vocab)
 
     if args.prune and not args.variant:
-        # Prune against the full manifest too, so a partial run cannot
-        # delete the other 349 clips as "orphans".
+        # Prune against the full manifest, so a partial run cannot delete the
+        # other 349 clips as "orphans". Variant clips are addressed relative
+        # to their own folder, so they are kept by path prefix -- comparing
+        # them against the primary list would delete every alternative voice.
         keep = {c["file"] for c in all_clips}
         removed = 0
         for p in AUDIO.rglob("*.mp3"):
-            if str(p.relative_to(AUDIO)).replace("\\", "/") not in keep:
+            rel = p.relative_to(AUDIO).as_posix()
+            parts = rel.split("/")
+            if parts[0] == "variants":
+                continue                      # alternative voices are never pruned
+            if rel not in keep:
                 p.unlink()
                 removed += 1
         if removed:

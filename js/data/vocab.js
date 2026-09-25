@@ -206,7 +206,12 @@ LG.VOCAB = {
     "seventeen",
     "eighteen",
     "nineteen",
-    "twenty"
+    "twenty",
+    "twenty-one",
+    "twenty-two",
+    "twenty-three",
+    "twenty-four",
+    "twenty-five"
    ]
   },
   "colors": {
@@ -406,6 +411,338 @@ LG.VOCAB = {
      "desc": "It shows you where places are.",
      "confusable": "📏",
      "place": "on the wall"
+    }
+   ]
+  },
+  "plurals": {
+   "_readme": "[singular, plural, kind]. kind is 'r' regular (+s) or 'i' irregular.",
+   "pairs": [
+    [
+     "book",
+     "books",
+     "r"
+    ],
+    [
+     "chair",
+     "chairs",
+     "r"
+    ],
+    [
+     "pen",
+     "pens",
+     "r"
+    ],
+    [
+     "desk",
+     "desks",
+     "r"
+    ],
+    [
+     "bag",
+     "bags",
+     "r"
+    ],
+    [
+     "clock",
+     "clocks",
+     "r"
+    ],
+    [
+     "bottle",
+     "bottles",
+     "r"
+    ],
+    [
+     "window",
+     "windows",
+     "r"
+    ],
+    [
+     "door",
+     "doors",
+     "r"
+    ],
+    [
+     "pencil",
+     "pencils",
+     "r"
+    ],
+    [
+     "ruler",
+     "rulers",
+     "r"
+    ],
+    [
+     "crayon",
+     "crayons",
+     "r"
+    ],
+    [
+     "box",
+     "boxes",
+     "r"
+    ],
+    [
+     "baby",
+     "babies",
+     "r"
+    ],
+    [
+     "city",
+     "cities",
+     "r"
+    ],
+    [
+     "knife",
+     "knives",
+     "i"
+    ],
+    [
+     "leaf",
+     "leaves",
+     "i"
+    ],
+    [
+     "photo",
+     "photos",
+     "r"
+    ],
+    [
+     "man",
+     "men",
+     "i"
+    ],
+    [
+     "woman",
+     "women",
+     "i"
+    ],
+    [
+     "child",
+     "children",
+     "i"
+    ],
+    [
+     "person",
+     "people",
+     "i"
+    ],
+    [
+     "foot",
+     "feet",
+     "i"
+    ],
+    [
+     "tooth",
+     "teeth",
+     "i"
+    ],
+    [
+     "mouse",
+     "mice",
+     "i"
+    ],
+    [
+     "sheep",
+     "sheep",
+     "i"
+    ],
+    [
+     "fish",
+     "fish",
+     "i"
+    ],
+    [
+     "goose",
+     "geese",
+     "i"
+    ]
+   ]
+  },
+  "spellname": {
+   "_readme": "Names and email addresses for the spelling-by-sound levels.",
+   "names": [
+    "anna",
+    "ben",
+    "chloe",
+    "david",
+    "emma",
+    "felix",
+    "grace",
+    "hugo",
+    "isla",
+    "jack",
+    "katy",
+    "liam",
+    "maya",
+    "noah",
+    "olivia",
+    "peter",
+    "ruby",
+    "sam",
+    "tara",
+    "zoe",
+    "george",
+    "harry",
+    "jasper",
+    "ellie",
+    "freddie",
+    "josie"
+   ],
+   "emails": [
+    "sam@ok.com",
+    "anna@ok.com",
+    "ben@ok.com",
+    "ruby@ok.com",
+    "liam@ok.com",
+    "zoe@ok.com",
+    "emma@ok.com",
+    "noah@ok.com"
+   ]
+  },
+  "soundsz": {
+   "_readme": "The /z/ sound. zWords contain it; sWords are near misses with /s/ or /sh/ and no /z/.",
+   "zWords": [
+    "zebra",
+    "zoo",
+    "zip",
+    "zap",
+    "nose",
+    "buzz",
+    "quiz",
+    "fizz",
+    "size",
+    "prize",
+    "these",
+    "rose",
+    "lazy",
+    "crazy",
+    "is",
+    "his"
+   ],
+   "sWords": [
+    "sun",
+    "sing",
+    "sheep",
+    "ship",
+    "fish",
+    "sock",
+    "six",
+    "fox",
+    "box",
+    "bus",
+    "sit",
+    "sip",
+    "mouse",
+    "press",
+    "grass",
+    "lost"
+   ]
+  },
+  "instructions": {
+   "_readme": [
+    "pairs are minimal pairs: they differ by one word, so the pupil has",
+    "to attend to open/close, sit/stand, up/down rather than to the topic.",
+    "actions have a distinct picture for the 'which one did you hear' level."
+   ],
+   "pairs": [
+    [
+     "Open the window",
+     "Close the window"
+    ],
+    [
+     "Open your book",
+     "Close your book"
+    ],
+    [
+     "Sit down",
+     "Stand up"
+    ],
+    [
+     "Look up",
+     "Look down"
+    ],
+    [
+     "Put your hand up",
+     "Put your hands down"
+    ],
+    [
+     "Take out a pencil",
+     "Put away a pencil"
+    ],
+    [
+     "Come here",
+     "Go away"
+    ],
+    [
+     "Start writing",
+     "Stop writing"
+    ],
+    [
+     "Turn to page five",
+     "Turn to page six"
+    ],
+    [
+     "Listen to me",
+     "Listen to the radio"
+    ],
+    [
+     "Pass me the pen",
+     "Show me the pen"
+    ],
+    [
+     "Use your pencil",
+     "Use your ruler"
+    ]
+   ],
+   "actions": [
+    {
+     "text": "Sit down",
+     "emoji": "💡"
+    },
+    {
+     "text": "Stand up",
+     "emoji": "🧍"
+    },
+    {
+     "text": "Listen carefully",
+     "emoji": "🎧"
+    },
+    {
+     "text": "Look at the board",
+     "emoji": "📝"
+    },
+    {
+     "text": "Write your name",
+     "emoji": "✍️"
+    },
+    {
+     "text": "Put up your hand",
+     "emoji": "✋"
+    },
+    {
+     "text": "Line up",
+     "emoji": "🙂"
+    },
+    {
+     "text": "Work in pairs",
+     "emoji": "👥"
+    },
+    {
+     "text": "Be quiet",
+     "emoji": "🤫"
+    },
+    {
+     "text": "Open the window",
+     "emoji": "🧯"
+    },
+    {
+     "text": "Close the door",
+     "emoji": "🚪"
+    },
+    {
+     "text": "Turn around",
+     "emoji": "🔄"
     }
    ]
   }

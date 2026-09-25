@@ -1,9 +1,9 @@
 # Word Quest
 
-English practice games for young learners: **alphabet & spelling, numbers,
-colours, classroom objects**. Every prompt is spoken, so pupils who cannot yet
-read the instructions can still play. All audio is pre-recorded MP3, so it
-sounds identical on every device and works with no internet connection.
+English practice games for young learners. Every prompt is spoken, so pupils
+who cannot yet read the instructions can still play. All audio is
+pre-recorded MP3, so it sounds identical on every device and works with no
+internet connection.
 
 Built for ages 10-11, one device per pupil. Progress is stored per device.
 
@@ -20,16 +20,56 @@ over HTTP instead, that works too:
 python -m http.server 8777
 ```
 
+While you are editing, use the bundled dev server instead. `http.server` sends
+no `Cache-Control` at all, so the browser invents a freshness lifetime and
+serves you a stale copy of a file you just changed — which looks exactly like
+a code bug:
+
+```
+python tools\serve.py            # adds Cache-Control: no-store
+```
+
+If a file still looks stale after that, try a different port (`serve.py 8778`).
+Ports are separate origins with separate caches, which is the quickest way to
+rule caching out when something impossible is on screen.
+
 ---
 
-## What's in it
+## Structure: units, topics, levels
+
+```
+Unit 1  (js/units/unit1/)          <- a syllabus unit, a folder
+  Alphabet    7 levels              <- a topic, a folder
+    levels.js   the curriculum for that topic
+    index.js    its name, icon, colour
+  Numbers     8
+  Colors      6
+  Classroom   5
+  Plurals     5
+  Names       5
+  The /z/ Sound  4
+  Instructions  4
+```
+
+Nothing above the topic layer knows what "Unit 1" means — a unit is just a
+name, a number and an ordering, which is why Unit 2 is a copy of Unit 1 rather
+than a refactor. The home screen mirrors the syllabus, showing each unit as a
+section.
 
 | Topic | Levels | What they practise |
 |---|---|---|
 | Alphabet | 7 | letter names, first sound, missing letter, spelling, tricky pairs (b/d, p/q), blends (sh, ch, th), longer words |
-| Numbers | 6 | counting to 10 and 20, counting on, taking away, comparing, missing numbers |
+| Numbers | 8 | counting to 10, 20 and 25, counting on, taking away, comparing, missing numbers, hearing 11-25 |
 | Colors | 6 | hear→tap, read→tap, mixed, colour trap, colour→word, odd one out |
 | Classroom | 5 | listen→find, read→find, spoken clues, lookalikes, where things go |
+| Plurals | 5 | one or many, irregular plurals (child/children, mouse/mice), reading plurals, odd one out |
+| Names | 5 | spelling names, spelling with no help, telling two names apart, email addresses |
+| The /z/ Sound | 4 | z and zz discrimination, buzz vs hiss, two z-words or two s-words, spelling a /z/ word |
+| Instructions | 4 | which instruction did you hear (minimal pairs), read it and do it, which picture, what did they ask |
+
+Each level is 5-12 questions. Three stars need 90% correct. No lives, no
+punishment for mistakes — wrong answers are explained and the round continues,
+because being stuck should never cost a child their confidence.
 
 Each level is 8-12 questions. Three stars need 90% correct. No lives, no
 punishment for mistakes — wrong answers are explained and the round continues,
@@ -268,14 +308,13 @@ engine. It never goes quiet.
 
 ## Adding a whole new topic
 
-Say you want animals. Create `js/topics/animals/levels.js`:
+Say you want animals. Create `js/units/unit1/animals/levels.js`:
 
 ```js
 (function () {
   'use strict';
   var Q = LG.Q;
-  var V = LG.VOCAB.topics.animals;      // add this array to data/vocab.json too
-  var ANIMALS = V.words;
+  var ANIMALS = LG.VOCAB.topics.animals.items;   // add this to data/vocab.json too
 
   LG.topicData('animals', [
     {
@@ -289,7 +328,8 @@ Say you want animals. Create `js/topics/animals/levels.js`:
           options: Q.emojis(a.emoji, Q.sample(ANIMALS, 3).map(function (x) {
             return x.emoji;
           })),
-          answer: a.emoji
+          answer: a.emoji,
+          dedupe: 'lf' + a.word
         });
       }
     }
@@ -297,11 +337,12 @@ Say you want animals. Create `js/topics/animals/levels.js`:
 })();
 ```
 
-And `js/topics/animals/index.js`:
+And `js/units/unit1/animals/index.js`:
 
 ```js
 LG.registerTopic({
   id: 'animals',
+  unit: 'unit1',
   name: 'Animals',
   tagline: 'Pets and wild animals',
   icon: '\uD83D\uDC2E',
@@ -311,8 +352,32 @@ LG.registerTopic({
 });
 ```
 
-Then add two `<script>` tags to `index.html` after the other topics. **The order
-of those tags is the order of the cards on the home screen.**
+Then add two `<script>` tags to `index.html`. **The order of those tags is the
+order of the cards inside the unit.**
+
+Always give a level a `dedupe` key. The engine uses it to avoid asking the
+same thing twice in one round; without it, repeat avoidance falls back to
+comparing whole questions and only works by accident. `validate.py` will tell
+you if a level's word pool is too small to fill a round without repeats.
+
+### Adding a whole new unit
+
+```
+js/units/unit2/index.js
+js/units/unit2/<topic>/levels.js  +  index.js
+```
+
+`index.js` is six lines — an id, a number, a name, a tagline and a colour:
+
+```js
+LG.Units.register({
+  id: 'unit2', number: 2, name: 'Unit 2',
+  tagline: '...', icon: '\uD83C\uDFAF', accent: '#0ea5e9'
+});
+```
+
+Then copy the Unit 1 block in `index.html` and change the paths. Nothing else
+in the codebase needs to know the unit exists.
 
 That's the whole process. The engine, the audio player and the scoring need no
 changes.

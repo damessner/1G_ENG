@@ -152,16 +152,35 @@ def main() -> int:
         variants = _extract(text, "LG.AUDIO_VARIANTS")
 
         if manifest:
-            for i in items:
-                for key in (f"word/{i['word']}", f"spell/{i['word']}"):
-                    if key not in manifest:
-                        err(f"no audio clip for '{key}' - run: python tools/build_audio.py --force")
-            for w in colors.get("words", []):
-                if f"word/{w}" not in manifest:
-                    err(f"no audio clip for 'word/{w}'")
-            for n in vocab.get("topics", {}).get("numbers", {}).get("words", []):
-                if f"word/{n}" not in manifest:
-                    err(f"no audio clip for 'word/{n}'")
+            # The definitive list of clips comes from the builder itself, so
+            # this file cannot fall behind when a topic introduces a new
+            # kind of vocabulary (plurals, names, instructions and so on).
+            expected: set = set()
+            try:
+                import importlib.util
+
+                spec = importlib.util.spec_from_file_location(
+                    "build_audio", ROOT / "tools" / "build_audio.py"
+                )
+                mod = importlib.util.module_from_spec(spec)
+                spec.loader.exec_module(mod)
+                expected = {c["key"] for c in mod.build_clips(vocab, ", ", False)}
+            except Exception as exc:                       # noqa: BLE001
+                err(f"could not ask tools/build_audio.py what clips to expect: {exc}")
+
+            for key in sorted(expected):
+                if key not in manifest:
+                    err(f"no audio clip for '{key}' - run: python tools/build_audio.py")
+            print(f"expected {len(expected)} clips, manifest has {len(manifest)}")
+
+            # Clip keys are lower-cased so they match what the game asks for
+            # (LG.Q.wordKey lower-cases its argument). An upper-case key here
+            # means a level requests a key that will never resolve, and the
+            # game quietly falls back to Web Speech for that word.
+            shouty = [k for k in manifest if k != k.lower()]
+            if shouty:
+                err(f"{len(shouty)} clip keys contain capitals and will never match a "
+                    f"request, e.g. {shouty[:3]}")
 
             # files referenced must actually exist
             missing_files = [v for v in manifest.values() if not (ROOT / v).exists()]

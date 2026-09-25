@@ -58,22 +58,37 @@ LG.App = (function () {
     chip.hidden = days < 2;
     document.getElementById('streakDays').textContent = days;
 
-    // topic cards
+    // topic cards, grouped under their unit
     var grid = document.getElementById('topicGrid');
     UI.clear(grid);
-    LG.topics.forEach(function (t) {
-      var stars = LG.Game.topicStars(t.id);
-      var max = t.levels.length * 3;
-      var card = el('button', { class: 'topic-card', type: 'button', style: '--accent:' + t.color + ';--soft:' + t.soft });
-      card.appendChild(el('span', { class: 'topic-icon', text: t.icon }));
-      card.appendChild(el('span', { class: 'topic-name', text: t.name }));
-      card.appendChild(el('span', { class: 'topic-tag', text: t.tagline }));
-      var bar = el('span', { class: 'topic-bar' });
-      bar.appendChild(el('i', { style: 'width:' + (max ? (stars / max) * 100 : 0) + '%' }));
-      card.appendChild(bar);
-      card.appendChild(el('span', { class: 'topic-score', text: stars + ' / ' + max + ' stars' }));
-      card.addEventListener('click', function () { showLevels(t); });
-      grid.appendChild(card);
+    LG.Units.grouped().forEach(function (unit) {
+      var sec = el('section', { class: 'unit-block' });
+      var head = el('div', { class: 'unit-head', style: '--accent:' + (unit.accent || '#4f46e5') });
+      head.appendChild(el('span', { class: 'unit-name', text: unit.name }));
+      if (unit.tagline) head.appendChild(el('span', { class: 'unit-tag', text: unit.tagline }));
+      head.appendChild(el('span', { class: 'unit-stars', text: unit.stars + '/' + unit.maxStars + ' ★' }));
+      sec.appendChild(head);
+
+      var cards = el('div', { class: 'unit-topics' });
+      unit.topics.forEach(function (t) {
+        var stars = LG.Game.topicStars(t.id);
+        var max = t.levels.length * 3;
+        var card = el('button', {
+          class: 'topic-card', type: 'button',
+          style: '--accent:' + t.color + ';--soft:' + t.soft
+        });
+        card.appendChild(el('span', { class: 'topic-icon', text: t.icon }));
+        card.appendChild(el('span', { class: 'topic-name', text: t.name }));
+        card.appendChild(el('span', { class: 'topic-tag', text: t.tagline }));
+        var bar = el('span', { class: 'topic-bar' });
+        bar.appendChild(el('i', { style: 'width:' + (max ? (stars / max) * 100 : 0) + '%' }));
+        card.appendChild(bar);
+        card.appendChild(el('span', { class: 'topic-score', text: stars + ' / ' + max + ' stars' }));
+        card.addEventListener('click', function () { showLevels(t); });
+        cards.appendChild(card);
+      });
+      sec.appendChild(cards);
+      grid.appendChild(sec);
     });
 
     // badges

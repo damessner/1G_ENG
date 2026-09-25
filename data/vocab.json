@@ -58,7 +58,8 @@
       "words": [
         "zero", "one", "two", "three", "four", "five", "six", "seven",
         "eight", "nine", "ten", "eleven", "twelve", "thirteen", "fourteen",
-        "fifteen", "sixteen", "seventeen", "eighteen", "nineteen", "twenty"
+        "fifteen", "sixteen", "seventeen", "eighteen", "nineteen", "twenty",
+        "twenty-one", "twenty-two", "twenty-three", "twenty-four", "twenty-five"
       ]
     },
 
@@ -108,6 +109,84 @@
         { "word": "pencil case","emoji": "\uD83E\uDDF0", "desc": "It keeps your pencils safe.",         "confusable": "\uD83D\uDC8B", "place": "in the bag" },
         { "word": "calendar",  "emoji": "\uD83D\uDCC5", "desc": "It shows the days of the month.",     "confusable": "\uD83D\uDCC6", "place": "on the wall" },
         { "word": "map",       "emoji": "\uD83D\uDDFA\uFE0F", "desc": "It shows you where places are.", "confusable": "\uD83D\uDCCF", "place": "on the wall" }
+      ]
+    },
+
+    "plurals": {
+      "_readme": "[singular, plural, kind]. kind is 'r' regular (+s) or 'i' irregular.",
+      "pairs": [
+        ["book", "books", "r"], ["chair", "chairs", "r"], ["pen", "pens", "r"],
+        ["desk", "desks", "r"], ["bag", "bags", "r"], ["clock", "clocks", "r"],
+        ["bottle", "bottles", "r"], ["window", "windows", "r"], ["door", "doors", "r"],
+        ["pencil", "pencils", "r"], ["ruler", "rulers", "r"], ["crayon", "crayons", "r"],
+        ["box", "boxes", "r"], ["baby", "babies", "r"], ["city", "cities", "r"],
+        ["knife", "knives", "i"], ["leaf", "leaves", "i"], ["photo", "photos", "r"],
+        ["man", "men", "i"], ["woman", "women", "i"], ["child", "children", "i"],
+        ["person", "people", "i"], ["foot", "feet", "i"], ["tooth", "teeth", "i"],
+        ["mouse", "mice", "i"], ["sheep", "sheep", "i"], ["fish", "fish", "i"],
+        ["goose", "geese", "i"]
+      ]
+    },
+
+    "spellname": {
+      "_readme": "Names and email addresses for the spelling-by-sound levels.",
+      "names": [
+        "anna", "ben", "chloe", "david", "emma", "felix", "grace", "hugo",
+        "isla", "jack", "katy", "liam", "maya", "noah", "olivia", "peter",
+        "ruby", "sam", "tara", "zoe", "george", "harry", "jasper", "ellie",
+        "freddie", "josie"
+      ],
+      "emails": [
+        "sam@ok.com", "anna@ok.com", "ben@ok.com", "ruby@ok.com",
+        "liam@ok.com", "zoe@ok.com", "emma@ok.com", "noah@ok.com"
+      ]
+    },
+
+    "soundsz": {
+      "_readme": "The /z/ sound. zWords contain it; sWords are near misses with /s/ or /sh/ and no /z/.",
+      "zWords": [
+        "zebra", "zoo", "zip", "zap", "nose", "buzz", "quiz", "fizz",
+        "size", "prize", "these", "rose", "lazy", "crazy", "is", "his"
+      ],
+      "sWords": [
+        "sun", "sing", "sheep", "ship", "fish", "sock", "six", "fox",
+        "box", "bus", "sit", "sip", "mouse", "press", "grass", "lost"
+      ]
+    },
+
+    "instructions": {
+      "_readme": [
+        "pairs are minimal pairs: they differ by one word, so the pupil has",
+        "to attend to open/close, sit/stand, up/down rather than to the topic.",
+        "actions have a distinct picture for the 'which one did you hear' level."
+      ],
+      "pairs": [
+        ["Open the window", "Close the window"],
+        ["Open your book", "Close your book"],
+        ["Sit down", "Stand up"],
+        ["Look up", "Look down"],
+        ["Put your hand up", "Put your hands down"],
+        ["Take out a pencil", "Put away a pencil"],
+        ["Come here", "Go away"],
+        ["Start writing", "Stop writing"],
+        ["Turn to page five", "Turn to page six"],
+        ["Listen to me", "Listen to the radio"],
+        ["Pass me the pen", "Show me the pen"],
+        ["Use your pencil", "Use your ruler"]
+      ],
+      "actions": [
+        { "text": "Sit down",            "emoji": "\uD83D\uDCA1" },
+        { "text": "Stand up",            "emoji": "\uD83E\uDDCD" },
+        { "text": "Listen carefully",     "emoji": "\uD83C\uDFA7" },
+        { "text": "Look at the board",    "emoji": "\uD83D\uDCDD" },
+        { "text": "Write your name",      "emoji": "\u270D\uFE0F" },
+        { "text": "Put up your hand",     "emoji": "\u270B" },
+        { "text": "Line up",              "emoji": "\uD83D\uDE42" },
+        { "text": "Work in pairs",        "emoji": "\uD83D\uDC65" },
+        { "text": "Be quiet",             "emoji": "\uD83E\uDD2B" },
+        { "text": "Open the window",      "emoji": "\uD83E\uDDEF" },
+        { "text": "Close the door",       "emoji": "\uD83D\uDEAA" },
+        { "text": "Turn around",          "emoji": "\uD83D\uDD04" }
       ]
     }
   }

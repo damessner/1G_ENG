@@ -142,10 +142,18 @@ LG.Q = (function () {
   function wordKey(w) { return 'word/' + String(w).toLowerCase(); }
   function spellKey(w) { return 'spell/' + String(w).toLowerCase(); }
   function numberWord(n) {
-    var names = ['zero', 'one', 'two', 'three', 'four', 'five', 'six', 'seven',
-      'eight', 'nine', 'ten', 'eleven', 'twelve', 'thirteen', 'fourteen',
-      'fifteen', 'sixteen', 'seventeen', 'eighteen', 'nineteen', 'twenty'];
-    return names[n] != null ? names[n] : String(n);
+    if (n < 21) {
+      var names = ['zero', 'one', 'two', 'three', 'four', 'five', 'six', 'seven',
+        'eight', 'nine', 'ten', 'eleven', 'twelve', 'thirteen', 'fourteen',
+        'fifteen', 'sixteen', 'seventeen', 'eighteen', 'nineteen', 'twenty'];
+      return names[n] != null ? names[n] : String(n);
+    }
+    if (n <= 25) {
+      // hyphenated, so the audio reads "twenty-one" rather than running
+      // the two parts together
+      return 'twenty-' + ['one', 'two', 'three', 'four', 'five'][n - 21];
+    }
+    return String(n);
   }
   function numberKey(n) { return 'word/' + numberWord(n); }
 

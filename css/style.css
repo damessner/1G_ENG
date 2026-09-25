@@ -119,6 +119,22 @@ h2, h3, h4 { margin: 0; }
 .section-title:first-child { margin-top: 6px; }
 
 .topic-grid {
+  display: grid; gap: 20px;
+  grid-template-columns: 1fr;
+}
+
+.unit-head {
+  display: flex; align-items: baseline; gap: 10px; flex-wrap: wrap;
+  padding: 0 4px 10px; margin-bottom: 2px;
+  border-bottom: 2px solid var(--line);
+  border-left: 4px solid var(--accent, #4f46e5);
+  border-radius: 2px;
+}
+.unit-name { font-size: 19px; font-weight: 800; }
+.unit-tag { font-size: 13px; color: var(--ink-soft); flex: 1; min-width: 0; }
+.unit-stars { font-size: 12.5px; font-weight: 800; color: #b45309; white-space: nowrap; }
+
+.unit-topics {
   display: grid; gap: 14px;
   grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
 }
