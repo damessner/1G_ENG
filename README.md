@@ -40,6 +40,30 @@ streak, and stars per level.
 
 ---
 
+## Audio behaviour
+
+Every prompt is heard **three times** with a gap, and there is a small 🔊
+button in the top right to hear it again on demand. Both are deliberate: a
+pupil who has not caught a word should be able to re-hear it without penalty
+and without a visible "I am stuck" signal.
+
+| Setting | Default | Where |
+|---|---|---|
+| Times each prompt repeats | 3 | Settings → *Play each question* (once / twice / three times) |
+| Gap between repeats | ~1.9 s | `TIMING.repeatGapMs` in `js/core/engine.js` |
+| Silence after "Well done!" | 2.0 s | `TIMING.afterCorrectMs` |
+| Silence after a mistake | 2.3 s | `TIMING.afterWrongMs` |
+
+The pause after feedback **chains off the audio's own end event** rather than a
+fixed timer, so the next question can never start on top of the praise. An
+8-second safety timeout backstops a missing clip so a round can never freeze.
+
+The 🔊 button plays a single re-hear; the large **Listen** button replays the
+full set of repeats. On reading-only levels (the number sequences, "Read and
+Tap") there is nothing to hear, so both are hidden.
+
+---
+
 ## Layout
 
 ```

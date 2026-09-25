@@ -83,9 +83,22 @@ LG.Modes.choice = (function () {
 
       container.appendChild(grid);
 
+      /* Number keys 1-4 answer, for a keyboard or a laptop projector.
+         Guarded three ways: the grid must still be on screen (a leaked
+         listener from an earlier question would otherwise answer the
+         current one), typing must be in a text field, and the round must
+         still accept an answer. */
       function onKey(e) {
+        if (e.metaKey || e.ctrlKey || e.altKey) return;
+        var t = e.target;
+        if (t && (t.tagName === 'INPUT' || t.tagName === 'TEXTAREA' || t.isContentEditable)) return;
+        if (!grid.isConnected) return;
+        if (api.isLocked()) return;
         var n = parseInt(e.key, 10);
-        if (n >= 1 && n <= buttons.length) { buttons[n - 1].click(); }
+        if (n >= 1 && n <= buttons.length) {
+          e.preventDefault();
+          buttons[n - 1].click();
+        }
       }
       document.addEventListener('keydown', onKey);
 

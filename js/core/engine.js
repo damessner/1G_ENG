@@ -156,13 +156,48 @@ LG.Engine = (function () {
     LG.Audio.stop();
   }
 
+  /* ---------------- pending timers ----------------
+     Every deferred action for the current question is registered here so it
+     can be cancelled. Previously a single `S.timer` slot was reused for both
+     the audio and the advance, which meant whichever wrote last won and the
+     other leaked. A leaked advance timer would fire later against whatever
+     question happened to be on screen and skip straight past it -- which is
+     exactly the "a question vanished" symptom pupils reported. */
+  function setTimer(fn, ms) {
+    if (!S) return null;
+    var id = setTimeout(fn, ms);
+    S.timers.push(id);
+    return id;
+  }
+
+  function clearTimers() {
+    if (!S || !S.timers) return;
+    S.timers.forEach(clearTimeout);
+    S.timers = [];
+  }
+
+  /* A mode may hold resources outside the DOM (choice.js listens on
+     document). Tear it down before the next question renders, or listeners
+     pile up one per question for the whole round. */
+  function destroyHandle() {
+    if (S && S.handle && typeof S.handle.destroy === 'function') {
+      try { S.handle.destroy(); } catch (e) { /* never block the round */ }
+    }
+    if (S) S.handle = null;
+  }
+
   /* ---------------- one question ---------------- */
 
   function next() {
+    clearTimers();
+    stopPrompt();
+    destroyHandle();
+
     if (S.index >= S.questions.length) return finish();
 
     S.locked = false;
     S.submitted = false;
+    S.advanced = false;
     S.hinted = false;
     S.startedAt = Date.now();
     S.current = S.questions[S.index];
@@ -198,10 +233,8 @@ LG.Engine = (function () {
     }
 
     // Give the layout a frame before audio, so the first syllable is
-    // not swallowed by the render. Bumping the token cancels any repeats
-    // left over from the previous question.
-    stopPrompt();
-    S.timer = setTimeout(function () {
+    // not swallowed by the render.
+    setTimer(function () {
       if (S && !S.locked && S.current) playPrompt(S.current);
     }, TIMING.firstPlayMs);
   }
@@ -264,19 +297,26 @@ LG.Engine = (function () {
 
     /* Wait for the praise to finish, THEN pause, THEN move on. Chaining
        off the audio end event is what guarantees the next prompt cannot
-       start on top of this one. The safety timeout stops a missing or
-       broken clip from freezing the round for good. */
+       start on top of this one.
+
+       `advanced` makes advance() idempotent: the promise chain and the
+       safety timer both call it, and whichever loses must do nothing at
+       all -- not even a second index increment. */
     var gap = ok ? TIMING.afterCorrectMs : TIMING.afterWrongMs;
     var round = S;
     var advance = function () {
-      if (S !== round) return;          // pupil quit or moved on
+      if (round.advanced) return;
+      round.advanced = true;
+      if (S !== round) return;          // pupil quit, or a new level started
       S.index += 1;
       next();
     };
     feedbackSound
       .then(function () { return LG.Audio.wait(gap); })
       .then(advance, advance);
-    S.timer = setTimeout(advance, gap + 8000);
+    // Safety net: a missing or broken clip must never freeze the round.
+    // Registered so the next question can cancel it.
+    setTimer(advance, gap + 8000);
   }
 
   function Q_pick(a) { return a[Math.floor(Math.random() * a.length)]; }
@@ -284,6 +324,9 @@ LG.Engine = (function () {
   /* ---------------- finishing ---------------- */
 
   function finish() {
+    clearTimers();
+    stopPrompt();
+    destroyHandle();
     LG.Audio.stop();
     var stars = LG.Game.starsFor(S.correct, S.answered);
     var accuracy = S.answered ? S.correct / S.answered : 0;
@@ -322,8 +365,10 @@ LG.Engine = (function () {
       questions: makeQuestions(level),
       index: 0, answered: 0, correct: 0,
       streak: 0, bestStreak: 0, xp: 0,
-      locked: false, submitted: false, hinted: false, hintsUsed: 0,
-      startedAt: 0, handle: null, timer: null
+      locked: false, submitted: false, advanced: false,
+      hinted: false, hintsUsed: 0,
+      timers: [],
+      startedAt: 0, handle: null
     };
 
     cacheDom();
@@ -354,11 +399,11 @@ LG.Engine = (function () {
   }
 
   function quit() {
-    if (S && S.timer) clearTimeout(S.timer);
     // Prefer the running level's own topic: App.currentTopic is only set if
     // we arrived via the level list, and quitting should still land
     // somewhere sensible if a level was started directly.
     var topic = (S && S.topic) || LG.App.currentTopic;
+    if (S) { clearTimers(); destroyHandle(); }
     LG.Audio.stop();
     stopPrompt();
     S = null;

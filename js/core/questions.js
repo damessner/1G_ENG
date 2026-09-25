@@ -103,6 +103,9 @@ LG.Q = (function () {
       options: spec.options,
       correct: spec.correct != null ? spec.correct
         : spec.options.findIndex(function (o) { return o.value === spec.answer; }),
+      // Must be carried through, or the engine cannot tell two questions
+      // about the same word apart and may repeat one.
+      dedupe: spec.dedupe || spec.answer,
       explain: spec.explain || null
     };
   }
@@ -115,6 +118,7 @@ LG.Q = (function () {
       answer: word,
       letters: word.split(''),
       revealFirst: spec.revealFirst != null ? spec.revealFirst : (word.length <= 3 ? 1 : 0),
+      dedupe: spec.dedupe || word,
       explain: spec.explain || null
     };
   }
@@ -126,7 +130,10 @@ LG.Q = (function () {
       answer: spec.answer,
       pool: spec.pool != null ? spec.pool : Math.max(spec.answer + 6, 12),
       item: spec.item || { kind: 'emoji', value: '⭐' },
-      operation: spec.operation || 'count'
+      operation: spec.operation || 'count',
+      // Answer plus the starting number, so "count 7" and "count up to 12"
+      // in the same level are treated as different questions.
+      dedupe: spec.dedupe || (spec.operation + ':' + (spec.start != null ? spec.start : '') + ':' + spec.answer)
     };
   }
 
