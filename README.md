@@ -50,15 +50,48 @@ and without a visible "I am stuck" signal.
 | Setting | Default | Where |
 |---|---|---|
 | Times each prompt repeats | 3 | Settings → *Play each question* (once / twice / three times) |
+| Long spoken clues | 1 | Settings → *Long spoken clues* |
 | Number keys answer | off | Settings → *Number keys answer* |
-| Gap between repeats | ~1.9 s | `TIMING.repeatGapMs` in `js/core/engine.js` |
+| Gap between repeats | ~0.7 s | `TIMING.repeatGapMs` in `js/core/engine.js` |
 | Silence after "Well done!" | 2.0 s | `TIMING.afterCorrectMs` |
 | Silence after a mistake | 2.3 s | `TIMING.afterWrongMs` |
+
+**Words repeat three times; sentences do not.** The classroom clues ("It keeps
+your pencils safe.") are whole sentences, about 2.7 s against 1.9 s for a word.
+Hearing "pencil" three times is practice; hearing a full sentence three times is
+just waiting, so clue levels play once and rely on the re-hear button.
+
+That is a teaching decision, so it is declared on the level
+(`longPrompt: true` in `js/topics/classroom/levels.js`) rather than inferred.
+Clip lengths are measured at build time and published as `LG.AUDIO_DURATIONS`,
+and are used only as a fallback for a level added later without the flag — not
+for the spelling levels, where a word plus its letter-by-letter spelling is two
+clips and repetition is exactly the point.
 
 Number-key answering is **off by default**. It is handy when the site is on a
 projector and a teacher calls answers out, but on a pupil's own laptop a
 stray brush of the number row would answer the question for them — the most
 confusing thing this game could do. Turn it on only for whole-class use.
+
+### Comparing voices
+
+`audio-preview/` holds the same clips rendered with an alternative voice, kept
+out of the deployed site and out of the manifest. To A/B two voices for the
+clues, render the second one there and open the files in any audio player:
+
+```
+audio/desc/classroom/pencil.mp3            <- the voice currently in the game
+audio-preview/desc/classroom/pencil.mp3    <- the alternative
+```
+
+Render a different voice into it with:
+
+```powershell
+python tools\build_audio.py --engine kokoro --only desc --kokoro-voice bf_emma
+```
+
+Keep the comparison British (`b_` voices). The `a_` voices are American, and
+an American "colour" teaches the wrong thing.
 
 The pause after feedback **chains off the audio's own end event** rather than a
 fixed timer, so the next question can never start on top of the praise. An

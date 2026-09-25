@@ -63,6 +63,11 @@
       id: 'o3', name: 'What Is It?', mode: 'choice',
       difficulty: 3, count: 10,
       blurb: 'No picture. Just a clue. Which object is it?',
+      /* The prompt here is a whole spoken sentence, not a word. Repeating
+         it three times is waiting rather than practice, so it plays once
+         and leans on the re-hear button. Every other level speaks a single
+         word, which does benefit from repetition. */
+      longPrompt: true,
       build: function () {
         var it = Q.pick(ITEMS.filter(function (i) { return !!i.desc; }));
         return Q.choice({

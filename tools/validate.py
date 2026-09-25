@@ -40,6 +40,46 @@ def visible(emoji: str) -> str:
     return "".join(c for c in unicodedata.normalize("NFC", emoji) if c not in "\uFE0E\uFE0F")
 
 
+def _extract(text: str, name: str) -> dict:
+    """Pull a JSON object assigned to `name` out of a generated JS file.
+
+    Brace-counting rather than a regex: the file assigns more than one
+    object, so a non-greedy pattern would stop at the first `};` and a
+    greedy one would swallow the rest of the file.
+    """
+    m = re.search(re.escape(name) + r"\s*=\s*", text)
+    if not m:
+        return {}
+    start = text.find("{", m.end())
+    if start == -1:
+        return {}
+    depth = 0
+    in_str = False
+    esc = False
+    for i in range(start, len(text)):
+        c = text[i]
+        if in_str:
+            if esc:
+                esc = False
+            elif c == "\\":
+                esc = True
+            elif c == '"':
+                in_str = False
+            continue
+        if c == '"':
+            in_str = True
+        elif c == "{":
+            depth += 1
+        elif c == "}":
+            depth -= 1
+            if depth == 0:
+                try:
+                    return json.loads(text[start:i + 1])
+                except json.JSONDecodeError:
+                    return {}
+    return {}
+
+
 def main() -> int:
     vocab = json.loads(VOCAB.read_text(encoding="utf-8"))
 
@@ -105,13 +145,10 @@ def main() -> int:
         err("audio/manifest.js is missing — run: python tools/build_audio.py")
     else:
         text = MANIFEST.read_text(encoding="utf-8")
-        # Grab the object literal assigned to LG.AUDIO_MANIFEST. A plain
-        # text.index("{") would match the {} in the "window.LG || {}" line.
-        m = re.search(r"LG\.AUDIO_MANIFEST\s*=\s*(\{.*\})\s*;", text, re.S)
-        if not m:
-            err("audio/manifest.js does not assign LG.AUDIO_MANIFEST")
-            m = None
-        manifest = json.loads(m.group(1)) if m else {}
+        manifest = _extract(text, "LG.AUDIO_MANIFEST")
+        if not manifest:
+            err("audio/manifest.js does not assign a readable LG.AUDIO_MANIFEST")
+        durations = _extract(text, "LG.AUDIO_DURATIONS")
 
         if manifest:
             for i in items:
@@ -143,6 +180,19 @@ def main() -> int:
 
             total = sum((ROOT / v).stat().st_size for v in manifest.values() if (ROOT / v).exists())
             print(f"audio pack: {len(manifest)} clips, {total / 1_048_576:.2f} MB")
+
+            # The duration map is optional, but if it is present it must
+            # line up with the manifest or the repeat heuristic is guessing.
+            if durations:
+                missing_dur = set(manifest) - set(durations)
+                if missing_dur:
+                    warn(f"{len(missing_dur)} clips have no recorded duration, so they will "
+                         f"always use the normal repeat count")
+                bogus = [k for k, v in durations.items() if not isinstance(v, (int, float)) or v <= 0]
+                if bogus:
+                    err(f"durations contain invalid values, e.g. {bogus[:3]}")
+            else:
+                warn("no LG.AUDIO_DURATIONS in the manifest; long prompts will not be capped")
 
     print(f"vocabulary: {len(items)} classroom objects, {len(colors.get('words', []))} colours, "
           f"{len(places)} locations")

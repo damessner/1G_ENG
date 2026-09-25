@@ -10,6 +10,10 @@ Thumbs.db
 .vscode/
 .idea/
 
+# Alternative voices rendered for listening comparison. Never deployed:
+# these live outside audio/ and outside the manifest on purpose.
+audio-preview/
+
 # Never commit credentials. If you ever put a token in a file,
 # it must be ignored. See DEPLOY.md.
 .env

@@ -27,7 +27,7 @@ LG.Store = (function () {
       /* Every persisted setting MUST be declared here. merge() copies only
          keys that already exist in this shape, so a setting added to the
          app but not to this list would be silently dropped on reload. */
-      settings: { voiceURI: 'auto', rate: 0.9, repeats: 3, keyboard: false },
+      settings: { voiceURI: 'auto', rate: 0.9, repeats: 3, repeatsLong: 1, keyboard: false },
       topics: {},              // topicId -> { stars: {levelId: n}, best: {levelId: n} }
       badges: {},              // badgeId -> ISO date earned
       stats: { xp: 0, answered: 0, correct: 0, streakDays: 0, lastPlayed: '', perfectLevels: 0 }

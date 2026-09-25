@@ -29,7 +29,16 @@ LG.Engine = (function () {
     firstPlayMs: 320,      // let the layout settle before the first word
     repeatGapMs: 700,      // silence between repeats of the same prompt
     afterCorrectMs: 2000,  // silence between "Well done!" and the next one
-    afterWrongMs: 2300     // longer on a mistake -- time to read the answer
+    afterWrongMs: 2300,    // longer on a mistake -- time to read the answer
+    /* A single prompt longer than this is a spoken sentence rather than a
+       word -- the classroom clues ("It keeps your pencils safe.") run to
+       about 2.7s, against 1.9s for a word. Hearing "pencil" three times
+       helps; hearing a full sentence three times is just waiting. Long
+       prompts therefore play once and lean on the re-hear button.
+       Only single-clip prompts qualify: the spelling levels send a word
+       AND its letter-by-letter spelling, which together exceed this limit
+       and are exactly where repetition matters most, so they are exempt. */
+    longPromptSeconds: 2.4
   };
 
   /* Guards the repeat loop. Starting a new playthrough (or leaving the
@@ -129,7 +138,25 @@ LG.Engine = (function () {
   function playPrompt(q, repeats) {
     var keys = speakKeysOf(q);
     if (!keys.length) return Promise.resolve();
+
     var times = repeats || LG.Store.get('settings.repeats', 3);
+
+    /* Repeating a short word helps; repeating a whole sentence is just
+       waiting. Two ways a prompt is treated as "long":
+         1. the level says so explicitly (longPrompt) -- this is the
+            mechanism that matters, because it is a teaching decision and
+            all the clues in a level are the same kind of thing;
+         2. otherwise, a single clip that turns out to be a long sentence,
+            as a safety net for a level added later without the flag.
+       Multi-clip prompts (a word followed by its spelling) are never
+       capped -- repetition is exactly what those levels are for. */
+    var isLong = !!S.level.longPrompt;
+    if (!isLong && !repeats && keys.length === 1) {
+      var dur = (window.LG.AUDIO_DURATIONS || {})[keys[0]];
+      if (dur && dur > TIMING.longPromptSeconds) isLong = true;
+    }
+    if (isLong && !repeats) times = LG.Store.get('settings.repeatsLong', 1);
+
     var token = ++playToken;
 
     function once() {

@@ -211,6 +211,25 @@ LG.App = (function () {
     repRow.appendChild(rep);
     body.appendChild(repRow);
 
+    // long prompts (the spoken clues) default to once, since a full
+    // sentence repeated three times is waiting rather than practice
+    var repL = el('select', { class: 'select' });
+    [['1', 'once'], ['2', 'twice'], ['3', 'three times']].forEach(function (o) {
+      repL.appendChild(el('option', { value: o[0], text: o[1] }));
+    });
+    repL.value = String(LG.Store.get('settings.repeatsLong', 1));
+    repL.addEventListener('change', function () { LG.Store.set('settings.repeatsLong', parseInt(repL.value, 10)); });
+    var repLRow = el('label', { class: 'set-row' });
+    repLRow.appendChild(el('span', { text: 'Long spoken clues' }));
+    repLRow.appendChild(repL);
+    body.appendChild(repLRow);
+    body.appendChild(el('p', {
+      class: 'set-note',
+      text: 'A clue like "It keeps your pencils safe." is a whole sentence. Repeating it ' +
+            'three times is tedious rather than useful, so it plays once and waits for ' +
+            'the re-hear button. Single words still repeat as above.'
+    }));
+
     // number keys answer — useful on a projector, risky on a pupil's laptop
     var kb = el('input', { type: 'checkbox' });
     kb.checked = !!LG.Store.get('settings.keyboard', false);
