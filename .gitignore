@@ -1,0 +1,16 @@
+# Python virtualenv for the audio build tools -- never commit this (~40 MB)
+.venv/
+venv/
+__pycache__/
+*.pyc
+
+# OS / editor noise
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+
+# Never commit credentials. If you ever put a token in a file,
+# it must be ignored. See DEPLOY.md.
+.env
+*.token

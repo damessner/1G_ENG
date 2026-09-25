@@ -1,0 +1,54 @@
+# Publishes the site to GitHub Pages on every push to main.
+#
+# No secrets are involved. GITHUB_TOKEN is issued automatically for this
+# run, scoped to this repository, and discarded when the job ends -- so
+# there is no personal access token to create, store, rotate or leak.
+#
+# First run: Settings -> Pages -> Source: GitHub Actions
+# (usually not needed, the workflow enables it on the first successful build)
+
+name: Deploy to GitHub Pages
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read        # read the repo
+  pages: write          # upload the built site
+  id-token: write       # sign the deployment (this is what "Deploy" means)
+
+# Let a new push supersede a running one, but never cancel mid-deploy
+# in a way that leaves Pages half-updated.
+concurrency:
+  group: pages
+  cancel-in-progress: false
+
+jobs:
+  deploy:
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      # The site is plain static files, so "building" is just collecting
+      # them. Everything the browser needs is already committed.
+      - name: Collect static files
+        run: |
+          mkdir -p _site
+          cp -r index.html css js audio _site/
+          # Fail loudly rather than shipping a site with a missing script.
+          test -f _site/audio/manifest.js
+          test -f _site/js/data/vocab.js
+          echo "files: $(find _site -type f | wc -l)"
+          echo "size:  $(du -sh _site | cut -f1)"
+
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: _site
+
+      - id: deployment
+        uses: actions/deploy-pages@v4
