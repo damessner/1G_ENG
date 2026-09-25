@@ -46,6 +46,14 @@ jobs:
           echo "files: $(find _site -type f | wc -l)"
           echo "size:  $(du -sh _site | cut -f1)"
 
+      # Guard: the manifest must describe every clip the game can ask for.
+      # A partial `--only` render once rewrote it with only 24 of 373
+      # entries; the game still "worked" by silently falling back to Web
+      # Speech, which is far easier to miss than a failed build.
+      # validate.py is standard library only, so no setup is needed.
+      - name: Validate vocabulary and audio pack
+        run: python3 tools/validate.py
+
       - uses: actions/upload-pages-artifact@v3
         with:
           path: _site

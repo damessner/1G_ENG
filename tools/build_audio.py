@@ -155,6 +155,103 @@ async def render(clips: list[dict], voice: str, rate: str, volume: str, force: b
     return done, skipped, failed, errors
 
 
+# ---------------------------------------------------------------------------
+# Kokoro: a local, fully offline neural voice.
+#
+# Same clip list, same manifest, same game code -- only the bytes differ. That
+# is the point of keeping every prompt as a pre-rendered MP3: the engine that
+# produced them is an implementation detail the browser never sees.
+# ---------------------------------------------------------------------------
+
+# Kokoro voice ids start with a language code: a=American, b=British,
+# e=Spanish, f=French, h=Hindi, i=Italian, j=Japanese, p=Portuguese, z=Chinese.
+# The pipeline is constructed per language, so the code is read off the voice.
+KOKORO_LANG = {
+    "a": "a", "b": "b", "e": "e", "f": "f", "h": "h",
+    "i": "i", "j": "j", "p": "p", "z": "z",
+}
+
+KOKORO_VOICES = {
+    "british": ["bf_emma", "bm_george", "bf_isabella", "bm_lewis", "bf_alice", "bm_fable"],
+    "american": ["af_heart", "am_michael", "af_bella", "am_fenrir", "af_nicole", "af_sarah"],
+}
+
+
+def encode_mp3(samples, sample_rate: int, bitrate: int = 48) -> bytes:
+    """PCM -> MP3, in pure Python (no ffmpeg or lame binary).
+
+    Kokoro 0.9.x yields a torch Tensor while 1.x yields a numpy array, so
+    normalise both here rather than at every call site.
+    """
+    import lameenc
+    import numpy as np
+
+    if hasattr(samples, "detach"):                 # torch tensor
+        samples = samples.detach().cpu().numpy()
+    pcm = np.asarray(samples, dtype=np.float32)
+    pcm = np.clip(pcm, -1.0, 1.0)
+    pcm = (pcm * 32767.0).astype(np.int16).tobytes()
+
+    enc = lameenc.Encoder()
+    enc.set_bit_rate(bitrate)      # 48 kbps mono is plenty for spoken words
+    enc.set_in_sample_rate(sample_rate)
+    enc.set_channels(1)
+    enc.set_quality(2)             # 2 = high quality, near-best speed
+    return enc.encode(pcm) + enc.flush()
+
+
+def render_kokoro(clips: list[dict], voice: str, speed: float, force: bool, bitrate: int):
+    import sys
+    from pathlib import Path as _P
+
+    from kokoro import KPipeline
+    import soundfile as sf
+
+    lang = KOKORO_LANG.get(voice[:1].lower())
+    if not lang:
+        raise SystemExit(
+            f"Cannot infer a language from voice '{voice}'. "
+            f"Use one of: " + ", ".join(sum(KOKORO_VOICES.values(), []))
+        )
+
+    print(f"  loading Kokoro (lang={lang}, voice={voice}, speed={speed}) ...")
+    pipe = KPipeline(lang_code=lang)
+
+    done = skipped = failed = 0
+    errors: list[tuple[str, str]] = []
+    total = len(clips)
+
+    for n, clip in enumerate(clips, 1):
+        target = AUDIO / clip["file"]
+        if target.exists() and target.stat().st_size > 200 and not force:
+            skipped += 1
+            continue
+        try:
+            target.parent.mkdir(parents=True, exist_ok=True)
+            audio = None
+            for _graphemes, _phonemes, samples in pipe(clip["text"], voice=voice, speed=speed):
+                if samples is not None and len(samples) > 0:
+                    audio = samples           # keep the last non-empty chunk
+            if audio is None or len(audio) == 0:
+                raise RuntimeError("engine produced no audio")
+            # KPipeline does not expose sample_rate on every version, so fall
+            # back to Kokoro's native 24 kHz rather than encoding at the wrong
+            # rate (which would play back fast and chipmunky).
+            rate = (getattr(pipe, "sample_rate", None)
+                    or getattr(pipe, "sr", None)
+                    or 24000)
+            target.write_bytes(encode_mp3(audio, rate, bitrate))
+            done += 1
+        except Exception as exc:                   # noqa: BLE001
+            failed += 1
+            if len(errors) < 12:
+                errors.append((clip["key"], str(exc)[:110]))
+        if n % 25 == 0 or n == total:
+            print(f"    {n}/{total}  rendered={done} skipped={skipped} failed={failed}", flush=True)
+
+    return done, skipped, failed, errors
+
+
 def write_outputs(clips: list[dict], vocab: dict) -> int:
     """Manifest for the audio player + a classic-script copy of the vocab."""
     # Paths are written relative to the SITE ROOT, because the page loads
@@ -193,7 +290,16 @@ def main() -> int:
     ap.add_argument("--force", action="store_true", help="re-render clips that already exist")
     ap.add_argument("--check", action="store_true", help="list missing clips, render nothing")
     ap.add_argument("--sounds", action="store_true", help="also render phonics-sound spelling")
-    ap.add_argument("--voice", help="override the voice from vocab.json")
+    ap.add_argument("--voice", help="override the edge-tts voice from vocab.json")
+    ap.add_argument("--engine", choices=["edge", "kokoro"], default="edge",
+                    help="edge = Microsoft's online voice (default); "
+                         "kokoro = local offline neural voice")
+    ap.add_argument("--kokoro-voice", default="bf_emma",
+                    help="Kokoro voice id, e.g. bf_emma or bm_george (British), "
+                         "af_heart or am_michael (American)")
+    ap.add_argument("--speed", type=float, default=0.95,
+                    help="Kokoro speaking speed; 1.0 is normal, lower is slower")
+    ap.add_argument("--bitrate", type=int, default=48, help="MP3 kbps for Kokoro output")
     ap.add_argument("--rate", help="e.g. -12%%")
     ap.add_argument("--jobs", type=int, default=6, help="parallel requests (default 6)")
     ap.add_argument("--spell-joiner", default=", ", help="separator between spelled letters")
@@ -203,8 +309,31 @@ def main() -> int:
 
     vocab = json.loads(VOCAB.read_text(encoding="utf-8"))
     clips = build_clips(vocab, args.spell_joiner, args.sounds)
+    # The manifest must always describe the WHOLE pack. `--only` narrows
+    # which clips get rendered, never which clips the game may ask for --
+    # otherwise a partial run would silently delete the other entries and
+    # the game would quietly fall back to Web Speech for everything else.
+    all_clips = build_clips(vocab, args.spell_joiner, args.sounds)
+
     if args.only:
-        clips = [c for c in clips if f"/{args.only}" in c["file"] or c["group"].endswith(args.only)]
+        # Groups are shaped like "words/colors" or "letters", so match the
+        # whole group, its first segment ("desc", "place", "words") or the
+        # topic segment ("colors"). This is what makes the two-voice
+        # workflow possible: render the clue clips with a different voice.
+        want = args.only.lower()
+
+        def matches(clip: dict) -> bool:
+            parts = clip["group"].split("/")
+            return (
+                clip["group"] == want
+                or parts[0] == want
+                or (len(parts) > 1 and parts[1] == want)
+            )
+
+        clips = [c for c in all_clips if matches(c)]
+        if not clips:
+            raise SystemExit(f"--only {args.only!r} matched no clips. Groups are: "
+                             + ", ".join(sorted({c['group'] for c in all_clips})))
 
     missing = [c for c in clips if not (AUDIO / c["file"]).exists()]
 
@@ -220,14 +349,24 @@ def main() -> int:
     rate = args.rate or vocab.get("settings", {}).get("rate", "-12%")
     volume = vocab.get("settings", {}).get("volume", "+0%")
 
-    print(f"voice={voice}  rate={rate}  clips={len(clips)}  missing={len(missing)}")
-    done, skipped, failed, errors = asyncio.run(
-        render(clips, voice, rate, volume, args.force, args.jobs)
-    )
-    size = write_outputs(clips, vocab)
+    if args.engine == "kokoro":
+        print(f"engine=kokoro  voice={args.kokoro_voice}  speed={args.speed}  "
+              f"clips={len(clips)}  missing={len(missing)}")
+        done, skipped, failed, errors = render_kokoro(
+            clips, args.kokoro_voice, args.speed, args.force, args.bitrate
+        )
+    else:
+        print(f"engine=edge-tts  voice={voice}  rate={rate}  clips={len(clips)}  missing={len(missing)}")
+        done, skipped, failed, errors = asyncio.run(
+            render(clips, voice, rate, volume, args.force, args.jobs)
+        )
+    # Always the full pack, never the --only subset.
+    size = write_outputs(all_clips, vocab)
 
     if args.prune:
-        keep = {c["file"] for c in clips}
+        # Prune against the full manifest too, so a partial run cannot
+        # delete the other 349 clips as "orphans".
+        keep = {c["file"] for c in all_clips}
         removed = 0
         for p in AUDIO.rglob("*.mp3"):
             if str(p.relative_to(AUDIO)).replace("\\", "/") not in keep:
@@ -235,7 +374,7 @@ def main() -> int:
                 removed += 1
         if removed:
             print(f"pruned {removed} orphaned clip(s)")
-            size = write_outputs(clips, vocab)
+            size = write_outputs(all_clips, vocab)
 
     print(f"rendered={done}  already_had={skipped}  failed={failed}")
     print(f"pack size = {size / 1_048_576:.2f} MB")

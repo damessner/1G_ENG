@@ -134,15 +134,65 @@ Useful flags:
 | `build_audio.py --voice en-GB-RyanNeural` | a different voice |
 | `build_audio.py --rate -5%` | change speaking speed |
 
-Then check the vocabulary is sound:
+### Choosing a voice
+
+Two engines are available. Both produce the same clip list, the same
+manifest, and the same game code — only the bytes behind each clip differ,
+which is the whole point of pre-recording.
+
+| Engine | Internet | Quality | Setup |
+|---|---|---|---|
+| `edge` (default) | needed to render | Excellent | small |
+| `kokoro` | **fully offline** | Excellent, more natural | ~1 GB, first run downloads a model |
 
 ```
-.venv\Scripts\python tools\validate.py
+# Microsoft's voice (default)
+python tools\build_audio.py
+
+# Kokoro, local and offline
+python tools\build_audio.py --engine kokoro --kokoro-voice bf_emma --force
 ```
 
-`validate.py` catches the mistakes that quietly ruin a game: two objects drawn
-with the same emoji, a "real or fake" lookalike identical to the answer, a
-colour word with no swatch, a word with no audio clip.
+Kokoro voice ids begin with a language code (`b`=British, `a`=American) and
+the pipeline is built per language from that code:
+
+- British: `bf_emma`, `bm_george`, `bf_isabella`, `bm_lewis`
+- American: `af_heart`, `am_michael`, `af_bella`
+
+Other flags: `--speed` (1.0 normal, lower is slower), `--bitrate` (48 kbps
+mono suits spoken words), `--force` to re-render.
+
+Kokoro emits 24 kHz WAV, so it is encoded to MP3 with `lameenc` — pure
+Python, no ffmpeg or lame binary needed.
+
+#### Two voices in one game
+
+`--only` narrows **which clips get rendered**, never which clips the game may
+ask for, so a second voice can be layered onto part of the pack:
+
+```
+# give the spoken clues a different speaker from the words
+python tools\build_audio.py --engine kokoro --only desc --kokoro-voice bm_george --force
+```
+
+`--only` accepts a group (`desc`, `place`, `letters`, `ui`, `words`), a topic
+(`colors`, `classroom`), or the whole group (`spell/alphabet`). This is
+useful because the "What Is It?" and "Real or Fake?" levels speak a *clue*
+("You write with it.") — a second voice turns an abstract question into a
+character talking, and children listen differently to a character than to a
+narrator.
+
+### Checking the pack
+
+```
+python tools\validate.py
+```
+
+Standard library only, so it runs in CI too — and the deploy workflow will
+**refuse to publish** if it fails. It catches the mistakes that quietly ruin a
+game: two objects drawn with the same emoji, a "real or fake" lookalike
+identical to the answer, a colour word with no swatch, and a manifest
+referencing clips that do not exist.
 
 ### Clip naming
 

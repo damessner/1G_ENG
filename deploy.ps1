@@ -86,7 +86,25 @@ Ok "$($files.Count) paths staged, including $mp3 audio files"
 Ok ".venv correctly excluded"
 
 # ---------------------------------------------------------------- 4
-Step 4 "Committing"
+Step 4 "Validating the audio pack"
+
+# Catch a broken pack before it is published rather than after. validate.py
+# uses only the standard library, so it needs no virtualenv. It exits
+# non-zero when the manifest references clips that do not exist, which is
+# exactly what a partial `--only` render used to do silently.
+$validator = if (Test-Path ".venv\Scripts\python.exe") { ".venv\Scripts\python.exe" } else { "python" }
+$check = & $validator tools\validate.py 2>&1
+if ($LASTEXITCODE -ne 0) {
+    $check | ForEach-Object { Write-Host "    $_" -ForegroundColor DarkYellow }
+    Need "validation failed - refusing to publish. Fix the errors above, or run:"
+    Write-Host "        $validator tools\build_audio.py           # re-render anything missing" -ForegroundColor Yellow
+    Write-Host "        $validator tools\build_audio.py --prune   # and drop orphans`n" -ForegroundColor Yellow
+    exit 1
+}
+$check | Select-Object -First 2 | ForEach-Object { Ok $_ }
+
+# ---------------------------------------------------------------- 5
+Step 5 "Committing"
 
 git add -A
 if ($LASTEXITCODE -ne 0) { Need "git add failed"; exit 1 }
@@ -100,7 +118,7 @@ if ([string]::IsNullOrWhiteSpace((git diff --cached --name-only))) {
 }
 
 # ---------------------------------------------------------------- 5
-Step 5 "Creating the repository and publishing"
+Step 6 "Creating the repository and publishing"
 
 # Keep this in step with the published URL in DEPLOY.md and the README.
 $repoName = "1G_ENG"
@@ -151,7 +169,7 @@ if ($exists) {
 }
 
 # ---------------------------------------------------------------- 6
-Step 6 "Enabling Pages"
+Step 7 "Enabling Pages"
 
 Write-Host "    Trying to switch Pages on ..." -ForegroundColor Gray
 try { gh api -X POST "repos/$ghUser/$repoName/pages" -f "source[branch]=main" -f "source[path]=/" *> $null } catch { }
