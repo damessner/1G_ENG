@@ -149,6 +149,7 @@ def main() -> int:
         if not manifest:
             err("audio/manifest.js does not assign a readable LG.AUDIO_MANIFEST")
         durations = _extract(text, "LG.AUDIO_DURATIONS")
+        variants = _extract(text, "LG.AUDIO_VARIANTS")
 
         if manifest:
             for i in items:
@@ -168,12 +169,16 @@ def main() -> int:
                 err(f"{len(missing_files)} manifest entries point at files that do not exist, "
                     f"e.g. {missing_files[:3]}")
 
-            # and the reverse: rendered files nothing references
+            # and the reverse: rendered files nothing references. Variant
+            # clips are referenced too, so count them as used.
+            referenced = set(manifest.values())
+            for table in (variants or {}).values():
+                referenced.update(table.values())
             on_disk = {
                 str(p.relative_to(ROOT)).replace("\\", "/")
                 for p in (ROOT / "audio").rglob("*.mp3")
             }
-            orphans = sorted(on_disk - set(manifest.values()))
+            orphans = sorted(on_disk - referenced)
             if orphans:
                 warn(f"{len(orphans)} rendered clips are not referenced by the manifest "
                      f"(harmless, but they bloat the repo): {orphans[:3]}")
@@ -193,6 +198,27 @@ def main() -> int:
                     err(f"durations contain invalid values, e.g. {bogus[:3]}")
             else:
                 warn("no LG.AUDIO_DURATIONS in the manifest; long prompts will not be capped")
+
+            # ---- alternative voices ----
+            for name, table in (variants or {}).items():
+                if not isinstance(table, dict) or not table:
+                    err(f"variant '{name}' is empty; remove the folder or render some clips")
+                    continue
+                for k, path in table.items():
+                    if k not in manifest:
+                        err(f"variant '{name}' covers '{k}', which is not in the main manifest")
+                    if not (ROOT / path).exists():
+                        err(f"variant '{name}' points at a missing file: {path}")
+                print(f"variant '{name}': {len(table)} alternative clips")
+
+            # variant folders present on disk but not in the manifest would
+            # be deployed but unreachable
+            vdir = ROOT / "audio" / "variants"
+            if vdir.is_dir():
+                for sub in sorted(p for p in vdir.iterdir() if p.is_dir()):
+                    if sub.name not in (variants or {}):
+                        warn(f"audio/variants/{sub.name}/ exists but is not in the manifest, "
+                             f"so the game cannot use it")
 
     print(f"vocabulary: {len(items)} classroom objects, {len(colors.get('words', []))} colours, "
           f"{len(places)} locations")

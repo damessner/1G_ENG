@@ -753,3 +753,31 @@ LG.AUDIO_DURATIONS = {
  "word/yellow": 1.872,
  "word/zero": 1.872
 };
+LG.AUDIO_VARIANTS = {
+ "emma": {
+  "desc/bag": "audio/variants/emma/desc/classroom/bag.mp3",
+  "desc/book": "audio/variants/emma/desc/classroom/book.mp3",
+  "desc/bottle": "audio/variants/emma/desc/classroom/bottle.mp3",
+  "desc/calendar": "audio/variants/emma/desc/classroom/calendar.mp3",
+  "desc/chair": "audio/variants/emma/desc/classroom/chair.mp3",
+  "desc/clipboard": "audio/variants/emma/desc/classroom/clipboard.mp3",
+  "desc/clock": "audio/variants/emma/desc/classroom/clock.mp3",
+  "desc/computer": "audio/variants/emma/desc/classroom/computer.mp3",
+  "desc/crayon": "audio/variants/emma/desc/classroom/crayon.mp3",
+  "desc/desk": "audio/variants/emma/desc/classroom/desk.mp3",
+  "desc/door": "audio/variants/emma/desc/classroom/door.mp3",
+  "desc/eraser": "audio/variants/emma/desc/classroom/eraser.mp3",
+  "desc/glasses": "audio/variants/emma/desc/classroom/glasses.mp3",
+  "desc/glue": "audio/variants/emma/desc/classroom/glue.mp3",
+  "desc/keys": "audio/variants/emma/desc/classroom/keys.mp3",
+  "desc/map": "audio/variants/emma/desc/classroom/map.mp3",
+  "desc/notebook": "audio/variants/emma/desc/classroom/notebook.mp3",
+  "desc/paper": "audio/variants/emma/desc/classroom/paper.mp3",
+  "desc/pen": "audio/variants/emma/desc/classroom/pen.mp3",
+  "desc/pencil": "audio/variants/emma/desc/classroom/pencil.mp3",
+  "desc/pencil case": "audio/variants/emma/desc/classroom/pencil_case.mp3",
+  "desc/ruler": "audio/variants/emma/desc/classroom/ruler.mp3",
+  "desc/scissors": "audio/variants/emma/desc/classroom/scissors.mp3",
+  "desc/window": "audio/variants/emma/desc/classroom/window.mp3"
+ }
+};

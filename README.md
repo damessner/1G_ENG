@@ -52,6 +52,7 @@ and without a visible "I am stuck" signal.
 | Times each prompt repeats | 3 | Settings → *Play each question* (once / twice / three times) |
 | Long spoken clues | 1 | Settings → *Long spoken clues* |
 | Number keys answer | off | Settings → *Number keys answer* |
+| Voice | main | Settings → *Voice*, or the 👤 button in-game |
 | Gap between repeats | ~0.7 s | `TIMING.repeatGapMs` in `js/core/engine.js` |
 | Silence after "Well done!" | 2.0 s | `TIMING.afterCorrectMs` |
 | Silence after a mistake | 2.3 s | `TIMING.afterWrongMs` |
@@ -198,22 +199,41 @@ mono suits spoken words), `--force` to re-render.
 Kokoro emits 24 kHz WAV, so it is encoded to MP3 with `lameenc` — pure
 Python, no ffmpeg or lame binary needed.
 
-#### Two voices in one game
+#### Two voices, switchable at runtime
 
-`--only` narrows **which clips get rendered**, never which clips the game may
-ask for, so a second voice can be layered onto part of the pack:
+Alternative voices live in `audio/variants/<name>/`, at the same relative path
+as the clip they replace. The build discovers them automatically, so a third
+voice is just a new folder — nothing to configure.
 
 ```
-# give the spoken clues a different speaker from the words
-python tools\build_audio.py --engine kokoro --only desc --kokoro-voice bm_george --force
+audio/desc/classroom/pencil.mp3                 ← main voice
+audio/variants/emma/desc/classroom/pencil.mp3   ← alternative
 ```
 
-`--only` accepts a group (`desc`, `place`, `letters`, `ui`, `words`), a topic
-(`colors`, `classroom`), or the whole group (`spell/alphabet`). This is
-useful because the "What Is It?" and "Real or Fake?" levels speak a *clue*
-("You write with it.") — a second voice turns an abstract question into a
-character talking, and children listen differently to a character than to a
-narrator.
+Create one with `--variant`, which writes into that folder and leaves the main
+pack untouched:
+
+```powershell
+python tools\build_audio.py --engine kokoro --only desc --variant emma --kokoro-voice bf_emma
+```
+
+A variant only has to record the clips it actually replaces. Anything it
+doesn't cover falls through to the main voice, so recording only the 24 clue
+sentences is enough.
+
+**Switching.** A small 👤 button appears in the game header, but *only* on
+questions that have an alternative recording — on the clue levels, nowhere
+else. Tapping it switches voice and immediately re-hears, so the change is
+audible at once. The choice is remembered. Settings → *Voice* picks one
+directly, with the clip count shown.
+
+Which voice is a teaching decision: on the "What Is It?" and "Real or Fake?"
+levels the prompt is a spoken *clue* ("You write with it."), so a different
+speaker turns an abstract question into a character talking. Worth A/B-ing
+with a few pupils before settling.
+
+Keep comparisons British (`b_` voices). The `a_` voices are American, and an
+American "colour" teaches the wrong thing.
 
 ### Checking the pack
 

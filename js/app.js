@@ -230,6 +230,34 @@ LG.App = (function () {
             'the re-hear button. Single words still repeat as above.'
     }));
 
+    // which alternative voice, if any
+    var vSel = el('select', { class: 'select' });
+    vSel.appendChild(el('option', { value: 'default', text: 'Main voice' }));
+    LG.Audio.listVariants().forEach(function (v) {
+      var n = Object.keys((window.LG.AUDIO_VARIANTS || {})[v] || {}).length;
+      vSel.appendChild(el('option', { value: v, text: v + ' (' + n + ' clips)' }));
+    });
+    if (vSel.options.length === 1) {
+      vSel.disabled = true;
+    }
+    vSel.value = LG.Store.get('settings.variant', 'default');
+    vSel.addEventListener('change', function () {
+      LG.Audio.setVariant(vSel.value);
+      LG.Store.set('settings.variant', vSel.value);
+    });
+    var vRow = el('label', { class: 'set-row' });
+    vRow.appendChild(el('span', { text: 'Voice' }));
+    vRow.appendChild(vSel);
+    body.appendChild(vRow);
+    if (vSel.options.length > 1) {
+      body.appendChild(el('p', {
+        class: 'set-note',
+        text: 'A variant only needs to record the clips it replaces; the rest fall back to ' +
+              'the main voice. On a question that has an alternative, a small button in the ' +
+              'game header switches voice straight away.'
+      }));
+    }
+
     // number keys answer — useful on a projector, risky on a pupil's laptop
     var kb = el('input', { type: 'checkbox' });
     kb.checked = !!LG.Store.get('settings.keyboard', false);
@@ -280,6 +308,8 @@ LG.App = (function () {
 
   function boot() {
     LG.Audio.init(LG.AUDIO_MANIFEST || {});
+    // Honour a voice chosen in a previous session.
+    LG.Audio.setVariant(LG.Store.get('settings.variant', 'default'));
     LG.Speech.refresh();
 
     document.getElementById('btnSettings').addEventListener('click', openSettings);

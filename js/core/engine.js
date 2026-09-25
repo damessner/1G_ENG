@@ -81,6 +81,7 @@ LG.Engine = (function () {
     dom.promptBox = document.getElementById('promptBox');
     dom.answer    = document.getElementById('answerArea');
     dom.replay    = document.getElementById('btnReplay');
+    dom.voice     = document.getElementById('btnVoice');
     dom.feedback  = document.getElementById('feedback');
   }
 
@@ -108,6 +109,13 @@ LG.Engine = (function () {
        hear. Reading levels (the number sequences, "Read and Tap") have no
        prompt audio, so it is hidden rather than left there doing nothing. */
     if (dom.replay) dom.replay.hidden = keys.length === 0;
+
+    /* The voice button is only shown when some alternative voice records
+       this particular prompt, so it appears on the clue levels and nowhere
+       else rather than sitting on screen permanently and inert. */
+    if (dom.voice) {
+      dom.voice.hidden = !(keys.length && LG.Audio.anyVariantHas(keys[0]));
+    }
 
     var listen = UI.el('button', { class: 'listen-btn', type: 'button' });
     listen.appendChild(UI.el('span', { class: 'spk', text: '\uD83D\uDD0A' }));
@@ -411,6 +419,29 @@ LG.Engine = (function () {
         playPrompt(S.current, 1);
         UI.flashClass(dom.replay, 'pulse', 400);
       });
+    }
+
+    /* Switch to the next available voice and immediately re-hear, so the
+       change is audible immediately rather than on the next question. The
+       choice is remembered, so it survives for the rest of the lesson.
+       The ring includes 'default', otherwise a pack with a single variant
+       would have nothing to cycle back to. */
+    if (dom.voice) {
+      dom.voice.addEventListener('click', function () {
+        if (!S) return;
+        var names = ['default'].concat(LG.Audio.listVariants());
+        if (names.length < 2) return;
+        var at = names.indexOf(LG.Audio.getVariant());
+        if (at === -1) at = 0;
+        var next = names[(at + 1) % names.length];
+        LG.Audio.setVariant(next);
+        LG.Store.set('settings.variant', next);
+        dom.voice.title = 'Voice: ' + next + ' — tap to change';
+        stopPrompt();
+        if (S.current) playPrompt(S.current, 1);
+        UI.flashClass(dom.voice, 'pulse', 400);
+      });
+      dom.voice.title = 'Voice: ' + LG.Audio.getVariant() + ' — tap to change';
     }
 
     dom.streak.hidden = true;

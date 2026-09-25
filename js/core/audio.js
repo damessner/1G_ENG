@@ -25,6 +25,7 @@ LG.Audio = (function () {
   var current = null;
   var muted = false;
   var prefetched = {};
+  var variant = 'default';
 
   function key(text) {
     return String(text).trim().toLowerCase();
@@ -34,7 +35,40 @@ LG.Audio = (function () {
     return Object.prototype.hasOwnProperty.call(manifest, k);
   }
 
+  /* Alternative voices live in LG.AUDIO_VARIANTS, keyed by variant name and
+     then by clip key. A variant only has to cover the clips it actually
+     replaces -- anything it misses falls through to the primary pack, so a
+     variant holding just the 24 clue sentences is enough. */
+  function variantTable() {
+    return (window.LG.AUDIO_VARIANTS || {})[variant] || null;
+  }
+
+  function hasVariant(k) {
+    var t = variantTable();
+    return !!(t && t[k]);
+  }
+
+  /* "Does any alternative voice have this clip?" -- used to decide whether
+     to offer the switch button at all. Checking only the *selected* variant
+     would hide the button precisely when it is needed, since switching is
+     the act of moving to a different one. */
+  function anyVariantHas(k) {
+    var all = window.LG.AUDIO_VARIANTS || {};
+    for (var name in all) {
+      if (Object.prototype.hasOwnProperty.call(all, name) && all[name] && all[name][k]) {
+        return true;
+      }
+    }
+    return false;
+  }
+
+  function listVariants() {
+    return Object.keys(window.LG.AUDIO_VARIANTS || {}).sort();
+  }
+
   function srcFor(k) {
+    var t = variantTable();
+    if (t && t[k]) return t[k];
     return manifest[k] || null;
   }
 
@@ -167,6 +201,15 @@ LG.Audio = (function () {
     if (muted) stop();
   }
 
+  function setVariant(name) {
+    variant = name || 'default';
+    // A pooled element may still be mid-load; drop them so nothing speaks
+    // in the old voice by accident.
+    pool.forEach(function (el) { try { el.pause(); } catch (e) { /* ignore */ } });
+    pool = [];
+    return variant;
+  }
+
   return {
     init: init,
     has: has,
@@ -178,6 +221,11 @@ LG.Audio = (function () {
     stop: stop,
     setMuted: setMuted,
     isMuted: function () { return muted; },
+    setVariant: setVariant,
+    getVariant: function () { return variant; },
+    hasVariant: hasVariant,
+    anyVariantHas: anyVariantHas,
+    listVariants: listVariants,
     key: key
   };
 })();
