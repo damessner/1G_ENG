@@ -56,7 +56,7 @@ To do the same thing by hand:
 git init
 git add .
 git commit -m "Word Quest: alphabet, numbers, colours, classroom"
-gh repo create word-quest --public --source=. --push
+gh repo create 1G_ENG --public --source=. --push
 ```
 
 `--public` is required, because GitHub Pages free hosting does not serve
@@ -74,7 +74,7 @@ itself on at the first successful run. If you need to set it manually:
 Your site appears at:
 
 ```
-https://<your-username>.github.io/word-quest/
+https://<your-username>.github.io/1G_ENG/
 ```
 
 Allow a minute or two for the first build.
@@ -85,7 +85,7 @@ Allow a minute or two for the first build.
 
 If you would rather not install anything:
 
-1. On GitHub, click **New repository**, name it `word-quest`, set it to
+1. On GitHub, click **New repository**, name it `1G_ENG`, set it to
    **Public**, and create it **without** a README.
 2. On the repo page click **uploading an existing file**.
 3. Drag the whole project folder in — but **skip `.venv/`**, which is

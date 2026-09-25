@@ -199,6 +199,18 @@ LG.App = (function () {
     muteRow.appendChild(el('span', { text: 'Mute all sound' }));
     body.appendChild(muteRow);
 
+    // how many times each prompt is heard before the pupil answers
+    var rep = el('select', { class: 'select' });
+    [['1', 'once'], ['2', 'twice'], ['3', 'three times']].forEach(function (o) {
+      rep.appendChild(el('option', { value: o[0], text: o[1] }));
+    });
+    rep.value = String(LG.Store.get('settings.repeats', 3));
+    rep.addEventListener('change', function () { LG.Store.set('settings.repeats', parseInt(rep.value, 10)); });
+    var repRow = el('label', { class: 'set-row' });
+    repRow.appendChild(el('span', { text: 'Play each question' }));
+    repRow.appendChild(rep);
+    body.appendChild(repRow);
+
     // voice
     var voices = (LG.Speech.supported ? LG.Speech.listVoices() : []).filter(function (v) {
       return /Neural|Google|Samantha|Zira|David/i.test(v.name);

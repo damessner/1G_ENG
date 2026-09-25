@@ -102,23 +102,51 @@ if ([string]::IsNullOrWhiteSpace((git diff --cached --name-only))) {
 # ---------------------------------------------------------------- 5
 Step 5 "Creating the repository and publishing"
 
-$repoName = "word-quest"
+# Keep this in step with the published URL in DEPLOY.md and the README.
+$repoName = "1G_ENG"
 $exists = $false
 try { gh repo view "$ghUser/$repoName" *> $null; $exists = ($LASTEXITCODE -eq 0) } catch { $exists = $false }
 
 if ($exists) {
     Ok "repository $ghUser/$repoName already exists"
-    git remote get-url origin *> $null
-    if ($LASTEXITCODE -ne 0) { git remote add origin "https://github.com/$ghUser/$repoName.git" }
-    git push -q origin HEAD:main
+    if (-not (git remote get-url origin 2>$null)) {
+        git remote add origin "https://github.com/$ghUser/$repoName.git"
+    } else {
+        git remote set-url origin "https://github.com/$ghUser/$repoName.git"
+    }
+    # Pushing a .github/workflows/ file needs the `workflow` scope, which
+    # `gh auth login` does not grant by default. Check up front so the
+    # failure is explained rather than looking like a mystery rejection.
+    $scopes = (gh api -i /user 2>$null | Select-String '^x-oauth-scopes:').ToString().ToLower()
+    if ($scopes -and $scopes -notmatch '\bworkflow\b') {
+        Need "your token is missing the 'workflow' scope, so the deploy workflow cannot be pushed."
+        Write-Host @"
+
+    Run this in your own terminal, then approve in the browser:
+
+        gh auth refresh -h github.com -s workflow
+
+    The code it prints is single-use and safe to share. Without this scope
+    GitHub refuses any push that contains a file under .github/workflows/.
+
+"@ -ForegroundColor Yellow
+        exit 1
+    }
+    git push origin HEAD:main
     if ($LASTEXITCODE -ne 0) { Need "push failed"; exit 1 }
     Ok "pushed"
 } else {
     Write-Host "    Creating PUBLIC repository $ghUser/$repoName ..." -ForegroundColor Gray
     Write-Host "    (public is required: free GitHub Pages does not serve private repos)`n" -ForegroundColor Gray
-    gh repo create $repoName --public --source=. --push --description "Audio-first English practice games" 2>&1 |
-        ForEach-Object { Write-Host "    $_" -ForegroundColor DarkGray }
-    if ($LASTEXITCODE -ne 0) { Need "repo creation failed"; exit 1 }
+    # Native tools write progress to stderr, which PowerShell would treat as
+    # a terminating error under $ErrorActionPreference='Stop'. Redirect it.
+    $out = gh repo create $repoName --public --source=. --push --description "Audio-first English practice games" 2>&1
+    if ($LASTEXITCODE -ne 0) {
+        $out | ForEach-Object { Write-Host "    $_" -ForegroundColor DarkGray }
+        Need "repo creation failed"
+        exit 1
+    }
+    $out | ForEach-Object { Write-Host "    $_" -ForegroundColor DarkGray }
     Ok "created and pushed"
 }
 

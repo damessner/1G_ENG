@@ -148,6 +148,15 @@ LG.Audio = (function () {
     }, Promise.resolve());
   }
 
+  /**
+   * wait(ms) -- a pause that does NOT touch playback.
+   * Needed between repeated prompts and between the feedback sound and the
+   * next question, so nothing gets cancelled mid-sentence.
+   */
+  function wait(ms) {
+    return new Promise(function (resolve) { setTimeout(resolve, ms || 0); });
+  }
+
   function init(generatedManifest) {
     manifest = generatedManifest || {};
     return manifest;
@@ -163,6 +172,7 @@ LG.Audio = (function () {
     has: has,
     count: function () { return Object.keys(manifest).length; },
     say: say,
+    wait: wait,
     playSequence: playSequence,
     prefetch: prefetch,
     stop: stop,

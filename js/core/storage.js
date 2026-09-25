@@ -24,7 +24,10 @@ LG.Store = (function () {
   function blank() {
     return {
       pupil: { name: '', created: 0 },
-      settings: { voiceURI: 'auto', rate: 0.9, letterMode: 'name' },
+      /* Every persisted setting MUST be declared here. merge() copies only
+         keys that already exist in this shape, so a setting added to the
+         app but not to this list would be silently dropped on reload. */
+      settings: { voiceURI: 'auto', rate: 0.9, repeats: 3 },
       topics: {},              // topicId -> { stars: {levelId: n}, best: {levelId: n} }
       badges: {},              // badgeId -> ISO date earned
       stats: { xp: 0, answered: 0, correct: 0, streakDays: 0, lastPlayed: '', perfectLevels: 0 }

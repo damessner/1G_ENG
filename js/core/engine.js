@@ -17,6 +17,26 @@ LG.Engine = (function () {
   var PRAISE = ['Yes!', 'Well done!', 'Correct!', 'Brilliant!', 'Got it!', 'Perfect!'];
   var RETRY  = ['Not quite', 'Try again', 'Almost!', 'Have another look'];
 
+  /* ---------------- timing ----------------
+     Tuned for a child who is still learning to listen: the prompt is heard
+     three times with a gap, and there is a real silence after the feedback
+     sound before the next question starts. Advancing used to be a fixed
+     820ms guess, which was shorter than the "Well done" clip, so the next
+     prompt cut the praise off mid-word. Everything below now chains off the
+     end of the audio itself instead of guessing.
+  */
+  var TIMING = {
+    firstPlayMs: 320,      // let the layout settle before the first word
+    repeatGapMs: 700,      // silence between repeats of the same prompt
+    afterCorrectMs: 2000,  // silence between "Well done!" and the next one
+    afterWrongMs: 2300     // longer on a mistake -- time to read the answer
+  };
+
+  /* Guards the repeat loop. Starting a new playthrough (or leaving the
+     level) bumps this so any older chain quietly gives up instead of
+     talking over the new audio. */
+  var playToken = 0;
+
   /* ---------------- question generation ---------------- */
 
   function makeQuestions(level) {
@@ -51,6 +71,7 @@ LG.Engine = (function () {
     dom.streakNum = document.getElementById('hudStreakNum');
     dom.promptBox = document.getElementById('promptBox');
     dom.answer    = document.getElementById('answerArea');
+    dom.replay    = document.getElementById('btnReplay');
     dom.feedback  = document.getElementById('feedback');
   }
 
@@ -74,10 +95,21 @@ LG.Engine = (function () {
     UI.clear(dom.promptBox);
     var keys = speakKeysOf(q);
 
+    /* The small re-hear button only makes sense when there is something to
+       hear. Reading levels (the number sequences, "Read and Tap") have no
+       prompt audio, so it is hidden rather than left there doing nothing. */
+    if (dom.replay) dom.replay.hidden = keys.length === 0;
+
     var listen = UI.el('button', { class: 'listen-btn', type: 'button' });
     listen.appendChild(UI.el('span', { class: 'spk', text: '\uD83D\uDD0A' }));
     listen.appendChild(UI.el('span', { class: 'lbl', text: keys.length ? 'Listen' : 'Tap to hear' }));
-    listen.addEventListener('click', function () { playPrompt(q); UI.flashClass(listen, 'pulse', 400); });
+    listen.addEventListener('click', function () {
+      // Tapping restarts the three repeats from the beginning rather than
+      // queueing another set on top of the ones already playing.
+      stopPrompt();
+      playPrompt(q);
+      UI.flashClass(listen, 'pulse', 400);
+    });
     dom.promptBox.appendChild(listen);
 
     if (q.prompt && q.prompt.swatch) {
@@ -91,11 +123,37 @@ LG.Engine = (function () {
     }
   }
 
-  function playPrompt(q) {
+  /* The prompt is a single clip, or an ordered sequence (a word followed by
+     its spelling). The whole thing is repeated, so a pupil hears
+     "cat... c-a-t, c-a-t, c-a-t" rather than each part three times. */
+  function playPrompt(q, repeats) {
     var keys = speakKeysOf(q);
-    if (keys.length === 1) return LG.Audio.say(keys[0]);
-    if (keys.length > 1) return LG.Audio.playSequence(keys);
-    return Promise.resolve();
+    if (!keys.length) return Promise.resolve();
+    var times = repeats || LG.Store.get('settings.repeats', 3);
+    var token = ++playToken;
+
+    function once() {
+      return keys.length === 1
+        ? LG.Audio.say(keys[0])
+        : LG.Audio.playSequence(keys);
+    }
+
+    var chain = Promise.resolve();
+    for (var i = 0; i < times; i++) {
+      if (i > 0) chain = chain.then(function () {
+        return token === playToken ? LG.Audio.wait(TIMING.repeatGapMs) : null;
+      });
+      chain = chain.then(function () {
+        return token === playToken ? once() : null;
+      });
+    }
+    return chain;
+  }
+
+  /* Stop any repeat loop that is still running. */
+  function stopPrompt() {
+    playToken += 1;
+    LG.Audio.stop();
   }
 
   /* ---------------- one question ---------------- */
@@ -140,8 +198,12 @@ LG.Engine = (function () {
     }
 
     // Give the layout a frame before audio, so the first syllable is
-    // not swallowed by the render.
-    setTimeout(function () { if (!S.locked) playPrompt(S.current); }, 160);
+    // not swallowed by the render. Bumping the token cancels any repeats
+    // left over from the previous question.
+    stopPrompt();
+    S.timer = setTimeout(function () {
+      if (S && !S.locked && S.current) playPrompt(S.current);
+    }, TIMING.firstPlayMs);
   }
 
   /* ---------------- answering ---------------- */
@@ -158,6 +220,7 @@ LG.Engine = (function () {
     var seconds = (Date.now() - S.startedAt) / 1000;
     var fast = seconds < 3.2;
     var xp = 0;
+    var feedbackSound;
 
     S.answered += 1;
     LG.Game.bumpStat('stats.answered');
@@ -174,14 +237,16 @@ LG.Engine = (function () {
       if (S.hinted) xp = Math.round(xp * 0.6);
       S.xp += xp;
 
-      LG.Audio.say('ui/correct');
+      stopPrompt();
+      feedbackSound = LG.Audio.say('ui/correct');
       UI.clear(dom.feedback);
       dom.feedback.className = 'feedback good';
       dom.feedback.textContent = Q_pick(PRAISE) + (S.streak >= 3 ? '  ' + S.streak + ' in a row!' : '');
       UI.burst(18, S.tapX, S.tapY);
     } else {
       S.streak = 0;
-      LG.Audio.say('ui/wrong');
+      stopPrompt();
+      feedbackSound = LG.Audio.say('ui/wrong');
       UI.clear(dom.feedback);
       dom.feedback.className = 'feedback bad';
       dom.feedback.textContent = Q_pick(RETRY);
@@ -197,11 +262,21 @@ LG.Engine = (function () {
     dom.streak.hidden = S.streak < 2;
     paintDots();
 
-    var wait = ok ? 820 : 1500;
-    S.timer = setTimeout(function () {
+    /* Wait for the praise to finish, THEN pause, THEN move on. Chaining
+       off the audio end event is what guarantees the next prompt cannot
+       start on top of this one. The safety timeout stops a missing or
+       broken clip from freezing the round for good. */
+    var gap = ok ? TIMING.afterCorrectMs : TIMING.afterWrongMs;
+    var round = S;
+    var advance = function () {
+      if (S !== round) return;          // pupil quit or moved on
       S.index += 1;
       next();
-    }, wait);
+    };
+    feedbackSound
+      .then(function () { return LG.Audio.wait(gap); })
+      .then(advance, advance);
+    S.timer = setTimeout(advance, gap + 8000);
   }
 
   function Q_pick(a) { return a[Math.floor(Math.random() * a.length)]; }
@@ -253,6 +328,19 @@ LG.Engine = (function () {
 
     cacheDom();
     buildDots();
+
+    /* The small re-hear control: a single play-through, for when the three
+       automatic repeats were not enough. Holding the big Listen button is
+       still the way to get the full set again. */
+    if (dom.replay) {
+      dom.replay.addEventListener('click', function () {
+        if (!S || !S.current) return;
+        stopPrompt();
+        playPrompt(S.current, 1);
+        UI.flashClass(dom.replay, 'pulse', 400);
+      });
+    }
+
     dom.streak.hidden = true;
     dom.streakNum.textContent = '0';
     UI.show('game');
@@ -267,9 +355,15 @@ LG.Engine = (function () {
 
   function quit() {
     if (S && S.timer) clearTimeout(S.timer);
+    // Prefer the running level's own topic: App.currentTopic is only set if
+    // we arrived via the level list, and quitting should still land
+    // somewhere sensible if a level was started directly.
+    var topic = (S && S.topic) || LG.App.currentTopic;
     LG.Audio.stop();
+    stopPrompt();
     S = null;
-    LG.App.showLevels(LG.App.currentTopic);
+    if (topic) LG.App.showLevels(topic);
+    else LG.App.showHome();
   }
 
   function isRunning() { return !!S; }
