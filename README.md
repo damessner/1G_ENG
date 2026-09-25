@@ -50,9 +50,15 @@ and without a visible "I am stuck" signal.
 | Setting | Default | Where |
 |---|---|---|
 | Times each prompt repeats | 3 | Settings → *Play each question* (once / twice / three times) |
+| Number keys answer | off | Settings → *Number keys answer* |
 | Gap between repeats | ~1.9 s | `TIMING.repeatGapMs` in `js/core/engine.js` |
 | Silence after "Well done!" | 2.0 s | `TIMING.afterCorrectMs` |
 | Silence after a mistake | 2.3 s | `TIMING.afterWrongMs` |
+
+Number-key answering is **off by default**. It is handy when the site is on a
+projector and a teacher calls answers out, but on a pupil's own laptop a
+stray brush of the number row would answer the question for them — the most
+confusing thing this game could do. Turn it on only for whole-class use.
 
 The pause after feedback **chains off the audio's own end event** rather than a
 fixed timer, so the next question can never start on top of the praise. An

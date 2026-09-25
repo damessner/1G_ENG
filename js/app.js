@@ -211,6 +211,20 @@ LG.App = (function () {
     repRow.appendChild(rep);
     body.appendChild(repRow);
 
+    // number keys answer — useful on a projector, risky on a pupil's laptop
+    var kb = el('input', { type: 'checkbox' });
+    kb.checked = !!LG.Store.get('settings.keyboard', false);
+    kb.addEventListener('change', function () { LG.Store.set('settings.keyboard', kb.checked); });
+    var kbRow = el('label', { class: 'set-row' });
+    kbRow.appendChild(el('span', { text: 'Number keys answer' }));
+    kbRow.appendChild(kb);
+    body.appendChild(kbRow);
+    body.appendChild(el('p', {
+      class: 'set-note',
+      text: 'For when the site is on a projector and you call answers out. Leave off ' +
+            'for pupils on their own devices, so a stray keypress cannot answer for them.'
+    }));
+
     // voice
     var voices = (LG.Speech.supported ? LG.Speech.listVoices() : []).filter(function (v) {
       return /Neural|Google|Samantha|Zira|David/i.test(v.name);
