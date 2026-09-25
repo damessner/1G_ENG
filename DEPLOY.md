@@ -109,6 +109,35 @@ need to re-run the audio build and `git push`.
 
 ---
 
+## After you push: the 10-minute cache
+
+GitHub Pages serves every file with `Cache-Control: max-age=600`, so a browser
+keeps the old copy for ten minutes. Straight after a deploy you can see stale
+behaviour even though the site is correct:
+
+- a setting you just added appears to be missing
+- new audio does not play yet
+- the page half-updates, mixing old and new files
+
+**This is the cache, not a broken deploy.** Check the real file before you start
+debugging:
+
+```powershell
+(Invoke-WebRequest https://damessner.github.io/1G_ENG/js/core/engine.js -UseBasicParsing).Content -match 'longPromptSeconds'
+```
+
+If that is `True`, the deploy is fine. In a browser, a hard refresh
+(**Ctrl+Shift+R**, or **Cmd+Shift+R** on a Mac) forces the new copies.
+
+For a class this only matters in the ten minutes after you change something. If
+you are not sure a pupil has the current version, close and reopen the tab.
+
+The game degrades rather than breaks when it meets an older file: if the audio
+manifest is stale and has no clip lengths, the engine simply repeats every
+prompt the normal number of times instead of capping long ones.
+
+---
+
 ## A note on the audio files
 
 The MP3 pack is 5.1 MB. Commit it once and only re-commit when you actually
