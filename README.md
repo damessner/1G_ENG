@@ -103,7 +103,7 @@ Hearing "pencil" three times is practice; hearing a full sentence three times is
 just waiting, so clue levels play once and rely on the re-hear button.
 
 That is a teaching decision, so it is declared on the level
-(`longPrompt: true` in `js/topics/classroom/levels.js`) rather than inferred.
+(`longPrompt: true` in `js/units/unit1/classroom/levels.js`) rather than inferred.
 Clip lengths are measured at build time and published as `LG.AUDIO_DURATIONS`,
 and are used only as a fallback for a level added later without the flag — not
 for the spelling levels, where a word plus its letter-by-letter spelling is two
