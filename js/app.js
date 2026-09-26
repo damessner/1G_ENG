@@ -136,7 +136,11 @@ LG.App = (function () {
       topic.levels.forEach(function (lv, i) {
         var stars = t.stars[lv.id] || 0;
         var played = t.best[lv.id] != null || stars > 0;
-        var row = el('button', { class: 'level-row', type: 'button' });
+        var row = el('button', {
+          class: 'level-row', type: 'button',
+          // the blurb is hidden on the dense layout, so keep it reachable
+          title: lv.name + ' — ' + lv.blurb
+        });
 
         // number and stars share a top line so the name gets the full width
         var top = el('span', { class: 'level-top' });

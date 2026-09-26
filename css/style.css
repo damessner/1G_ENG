@@ -199,45 +199,63 @@ h2, h3, h4 { margin: 0; }
 .unit-topic-tag { font-size: 12.5px; color: var(--ink-soft); flex: 1; min-width: 0; }
 .unit-topic-stars { font-size: 12px; font-weight: 800; color: #b45309; white-space: nowrap; }
 
-/* ---------------- level cards: a 3-column matrix ---------------- */
+/* ---------------- level cards ----------------
+   The card shows the level name, which is what a pupil scans for. The
+   blurb explains the level to a teacher, so it is dropped as the grid
+   gets denser and the card gets shorter -- it stays in the button's
+   title attribute either way. */
 
 .level-grid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  gap: 12px;
+  gap: 10px;
 }
 
 .level-row {
-  display: flex; flex-direction: column; align-items: stretch; gap: 4px;
-  min-height: 118px;
-  padding: 13px 14px 12px;
+  display: flex; flex-direction: column; align-items: stretch; gap: 3px;
+  min-height: 104px;
+  padding: 11px 12px 10px;
   text-align: left;
   background: var(--card); border: 1px solid var(--line);
-  border-radius: 18px; box-shadow: var(--shadow-sm);
+  border-radius: 16px; box-shadow: var(--shadow-sm);
   transition: transform .14s ease, box-shadow .14s ease;
 }
 .level-row:active { transform: scale(.97); box-shadow: var(--shadow); }
 .level-row.played { border-color: #c7d2fe; }
 
-.level-top { display: flex; align-items: center; justify-content: space-between; gap: 8px; }
-.level-top .star { font-size: 17px; }
+.level-top { display: flex; align-items: center; justify-content: space-between; gap: 6px; }
+.level-top .star { font-size: 15px; }
+.level-top .stars { gap: 1px; }
 
 .level-n {
-  width: 26px; height: 26px; flex: 0 0 26px; border-radius: 9px;
-  display: grid; place-items: center; font-weight: 800; font-size: 13.5px;
+  width: 23px; height: 23px; flex: 0 0 23px; border-radius: 8px;
+  display: grid; place-items: center; font-weight: 800; font-size: 12.5px;
   background: var(--bg-2); color: var(--ink-soft);
 }
 .level-name {
-  font-weight: 800; font-size: 16px; line-height: 1.25;
-  margin-top: 4px;
+  font-weight: 800; font-size: 15px; line-height: 1.22;
+  margin-top: 3px;
 }
 .level-blurb {
-  font-size: 12.5px; color: var(--ink-soft); line-height: 1.35;
+  font-size: 12px; color: var(--ink-soft); line-height: 1.32;
   /* two lines, then ellipsis: keeps every card the same height */
   display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical;
   overflow: hidden;
 }
-.level-meta { font-size: 11px; color: #9aa1b5; margin-top: auto; padding-top: 6px; }
+.level-meta { font-size: 10.5px; color: #9aa1b5; margin-top: auto; padding-top: 5px; }
+
+/* Denser: four across, blurb dropped, shorter cards. */
+@media (min-width: 620px) {
+  .level-grid { grid-template-columns: repeat(4, 1fr); }
+  .level-blurb { display: none; }
+  .level-row { min-height: 86px; }
+}
+
+/* Densest: five across on a wide screen or projector. */
+@media (min-width: 1000px) {
+  .level-grid { grid-template-columns: repeat(5, 1fr); }
+  .level-row { min-height: 80px; }
+}
 
 .stars { display: flex; gap: 3px; }
 .star { font-size: 21px; color: #dde2ee; }
@@ -522,12 +540,11 @@ h2, h3, h4 { margin: 0; }
   .result-stats { grid-template-columns: 1fr; }
   .slot { width: 48px; height: 58px; font-size: 25px; }
   .tile { width: 52px; height: 56px; font-size: 24px; }
-  .level-grid { grid-template-columns: 1fr; }
+  .level-grid { grid-template-columns: repeat(2, 1fr); }
 }
 
-/* Three across needs room; below that, two, then one on a phone. */
-@media (max-width: 760px) {
-  .level-grid { grid-template-columns: repeat(2, 1fr); }
+@media (max-width: 380px) {
+  .level-grid { grid-template-columns: 1fr; }
 }
 
 @media (prefers-reduced-motion: reduce) {
