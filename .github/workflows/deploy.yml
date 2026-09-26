@@ -46,6 +46,43 @@ jobs:
           echo "files: $(find _site -type f | wc -l)"
           echo "size:  $(du -sh _site | cut -f1)"
 
+      # GitHub Pages serves every file with Cache-Control: max-age=600.
+      # Without this a browser can hold the OLD app.js while fetching the
+      # NEW index.html, and the pair no longer match -- which showed up as a
+      # blank home screen for up to ten minutes after a deploy. Tagging
+      # local references with the commit sha means each commit pulls a
+      # self-consistent set of files instead of a mixture.
+      - name: Version local asset references
+        run: |
+          python3 - <<'PY'
+          import os, pathlib, re
+
+          v = os.environ["GITHUB_SHA"][:10]
+          site = pathlib.Path("_site")
+
+          # index.html: local paths only, never the CDN or absolute URLs
+          html = site / "index.html"
+          text = html.read_text(encoding="utf-8")
+
+          def tag(m):
+              path = m.group(2)
+              if path.startswith(("http", "//", "#", "data:")) or "?" in path:
+                  return m.group(0)
+              return m.group(1) + path + "?v=" + v
+
+          text = re.sub(r'(src="|href=")([^"]+)"', tag, text)
+          html.write_text(text, encoding="utf-8")
+
+          # audio/manifest.js: a re-recorded clip keeps its filename, so tag
+          # those paths too or pupils keep hearing the old recording
+          mf = site / "audio" / "manifest.js"
+          text = mf.read_text(encoding="utf-8")
+          text = re.sub(r'(\.mp3)(?=")', r'\1?v=' + v, text)
+          mf.write_text(text, encoding="utf-8")
+
+          print("tagged local references with v=" + v)
+          PY
+
       # Guard: the manifest must describe every clip the game can ask for.
       # A partial `--only` render once rewrote it with only 24 of 373
       # entries; the game still "worked" by silently falling back to Web
