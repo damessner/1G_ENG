@@ -53,10 +53,25 @@ Unit 1  (js/units/unit1/)          <- a syllabus unit, a folder
 
 Nothing above the topic layer knows what "Unit 1" means — a unit is just a
 name, a number and an ordering, which is why Unit 2 is a copy of Unit 1 rather
-than a refactor. The home screen mirrors the syllabus, showing each unit as a
-section.
+than a refactor.
 
-| Topic | Levels | What they practise |
+### Navigation
+
+Three screens, two clicks to play:
+
+```
+Home          one card per unit: an icon, the name, progress
+  └─ Unit     every level in the unit, grouped under its topic
+       └─ Game
+```
+
+The unit card is deliberately the entry point. There is no "choose a topic"
+screen in between: tapping **Unit 1** lands on all 44 levels at once, grouped
+under their topics, and any one of them starts a round. With 8 topics on the
+home screen instead, a pupil had to pick the right topic *before* they could
+start — an extra decision for a ten-year-old who mostly wants to play.
+
+| Level | Levels | What they practise |
 |---|---|---|
 | Alphabet | 7 | letter names, first sound, missing letter, spelling, tricky pairs (b/d, p/q), blends (sh, ch, th), longer words |
 | Numbers | 8 | counting to 10, 20 and 25, counting on, taking away, comparing, missing numbers, hearing 11-25 |

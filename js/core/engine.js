@@ -457,15 +457,15 @@ LG.Engine = (function () {
   }
 
   function quit() {
-    // Prefer the running level's own topic: App.currentTopic is only set if
-    // we arrived via the level list, and quitting should still land
-    // somewhere sensible if a level was started directly.
+    // Prefer the running level's own topic, so we know which unit to return
+    // to even if a level was started directly.
     var topic = (S && S.topic) || LG.App.currentTopic;
     if (S) { clearTimers(); destroyHandle(); }
     LG.Audio.stop();
     stopPrompt();
     S = null;
-    if (topic) LG.App.showLevels(topic);
+    var unitId = (topic && topic.unit) || (LG.App.currentUnit && LG.App.currentUnit.id);
+    if (unitId) LG.App.showUnit(unitId);
     else LG.App.showHome();
   }
 

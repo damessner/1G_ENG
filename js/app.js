@@ -10,7 +10,8 @@ LG.App = (function () {
 
   var UI = LG.UI;
   var el = UI.el;
-  var currentTopic = null;
+  var currentTopic = null;      // the topic of the level being played
+  var currentUnit = null;       // the unit we are browsing
 
   /* ---------------- first run ---------------- */
 
@@ -58,37 +59,31 @@ LG.App = (function () {
     chip.hidden = days < 2;
     document.getElementById('streakDays').textContent = days;
 
-    // topic cards, grouped under their unit
-    var grid = document.getElementById('topicGrid');
+    /* One card per unit: an icon and a single word. The unit is the entry
+       point, so there is no intermediate "choose a topic" screen to click
+       through before reaching a level. */
+    var grid = document.getElementById('unitGrid');
     UI.clear(grid);
     LG.Units.grouped().forEach(function (unit) {
-      var sec = el('section', { class: 'unit-block' });
-      var head = el('div', { class: 'unit-head', style: '--accent:' + (unit.accent || '#4f46e5') });
-      head.appendChild(el('span', { class: 'unit-name', text: unit.name }));
-      if (unit.tagline) head.appendChild(el('span', { class: 'unit-tag', text: unit.tagline }));
-      head.appendChild(el('span', { class: 'unit-stars', text: unit.stars + '/' + unit.maxStars + ' ★' }));
-      sec.appendChild(head);
-
-      var cards = el('div', { class: 'unit-topics' });
-      unit.topics.forEach(function (t) {
-        var stars = LG.Game.topicStars(t.id);
-        var max = t.levels.length * 3;
-        var card = el('button', {
-          class: 'topic-card', type: 'button',
-          style: '--accent:' + t.color + ';--soft:' + t.soft
-        });
-        card.appendChild(el('span', { class: 'topic-icon', text: t.icon }));
-        card.appendChild(el('span', { class: 'topic-name', text: t.name }));
-        card.appendChild(el('span', { class: 'topic-tag', text: t.tagline }));
-        var bar = el('span', { class: 'topic-bar' });
-        bar.appendChild(el('i', { style: 'width:' + (max ? (stars / max) * 100 : 0) + '%' }));
-        card.appendChild(bar);
-        card.appendChild(el('span', { class: 'topic-score', text: stars + ' / ' + max + ' stars' }));
-        card.addEventListener('click', function () { showLevels(t); });
-        cards.appendChild(card);
+      var levelCount = unit.topics.reduce(function (s, t) { return s + t.levels.length; }, 0);
+      var card = el('button', {
+        class: 'unit-card', type: 'button',
+        style: '--accent:' + (unit.accent || '#4f46e5')
       });
-      sec.appendChild(cards);
-      grid.appendChild(sec);
+      card.appendChild(el('span', { class: 'unit-card-icon', text: unit.icon || '\uD83D\uDCD6' }));
+      card.appendChild(el('span', { class: 'unit-card-name', text: unit.name }));
+      card.appendChild(el('span', {
+        class: 'unit-card-meta',
+        text: unit.topics.length + (unit.topics.length === 1 ? ' topic · ' : ' topics · ') + levelCount + ' levels'
+      }));
+      var bar = el('span', { class: 'unit-card-bar' });
+      bar.appendChild(el('i', {
+        style: 'width:' + (unit.maxStars ? (unit.stars / unit.maxStars) * 100 : 0) + '%'
+      }));
+      card.appendChild(bar);
+      card.appendChild(el('span', { class: 'unit-card-stars', text: unit.stars + ' / ' + unit.maxStars + ' stars' }));
+      card.addEventListener('click', function () { showUnit(unit.id); });
+      grid.appendChild(card);
     });
 
     // badges
@@ -107,40 +102,59 @@ LG.App = (function () {
     UI.show('home');
   }
 
-  /* ---------------- level select ---------------- */
+  /* ---------------- unit: pick a level straight away ---------------- */
 
-  function showLevels(topic) {
-    currentTopic = topic;
+  function showUnit(unitId) {
     LG.Audio.stop();
-    document.getElementById('levelsTitle').textContent = topic.name;
-    document.getElementById('levelsSub').textContent = topic.tagline;
-    var total = LG.Game.topicStars(topic.id);
-    document.getElementById('topicStars').textContent = total + '/' + (topic.levels.length * 3);
+    var unit = LG.Units.find(unitId);
+    if (!unit) return showHome();
+    currentTopic = unit.topics[0] || null;
+    currentUnit = unit;
 
-    var list = document.getElementById('levelList');
-    UI.clear(list);
-    var t = LG.Store.topic(topic.id);
+    document.getElementById('unitTitle').textContent = unit.name;
+    document.getElementById('unitSub').textContent = unit.tagline || '';
 
-    topic.levels.forEach(function (lv, i) {
-      var stars = t.stars[lv.id] || 0;
-      var played = !!t.best[lv.id] || stars > 0;
-      var row = el('button', { class: 'level-row', type: 'button' });
-      row.appendChild(el('span', { class: 'level-n', text: String(i + 1) }));
-      var mid = el('span', { class: 'level-mid' });
-      mid.appendChild(el('span', { class: 'level-name', text: lv.name }));
-      mid.appendChild(el('span', { class: 'level-blurb', text: lv.blurb }));
-      mid.appendChild(el('span', { class: 'level-meta', text: lv.count + ' questions · ' + lv.difficulty + '★' }));
-      row.appendChild(mid);
-      row.appendChild(UI.stars(stars));
-      if (played) row.classList.add('played');
-      row.addEventListener('click', function () {
-        LG.Game.touchDay();
-        LG.Engine.start(topic, lv);
+    var levels = unit.topics.reduce(function (s, t) { return s + t.levels.length; }, 0);
+    var got = unit.topics.reduce(function (s, t) { return s + LG.Game.topicStars(t.id); }, 0);
+    document.getElementById('unitStars').textContent = got + '/' + (levels * 3);
+
+    var scroll = document.getElementById('unitScroll');
+    UI.clear(scroll);
+
+    unit.topics.forEach(function (topic) {
+      var sec = el('section', { class: 'unit-topic', style: '--accent:' + topic.color });
+      var head = el('div', { class: 'unit-topic-head' });
+      head.appendChild(el('span', { class: 'unit-topic-icon', text: topic.icon }));
+      head.appendChild(el('span', { class: 'unit-topic-name', text: topic.name }));
+      head.appendChild(el('span', { class: 'unit-topic-tag', text: topic.tagline }));
+      var got = LG.Game.topicStars(topic.id);
+      head.appendChild(el('span', { class: 'unit-topic-stars', text: got + '/' + (topic.levels.length * 3) }));
+      sec.appendChild(head);
+
+      var t = LG.Store.topic(topic.id);
+      topic.levels.forEach(function (lv, i) {
+        var stars = t.stars[lv.id] || 0;
+        var played = t.best[lv.id] != null || stars > 0;
+        var row = el('button', { class: 'level-row', type: 'button' });
+        row.appendChild(el('span', { class: 'level-n', text: String(i + 1) }));
+        var mid = el('span', { class: 'level-mid' });
+        mid.appendChild(el('span', { class: 'level-name', text: lv.name }));
+        mid.appendChild(el('span', { class: 'level-blurb', text: lv.blurb }));
+        mid.appendChild(el('span', { class: 'level-meta', text: lv.count + ' questions · ' + lv.difficulty + '★' }));
+        row.appendChild(mid);
+        row.appendChild(UI.stars(stars));
+        if (played) row.classList.add('played');
+        row.addEventListener('click', function () {
+          currentUnit = unit;
+          LG.Game.touchDay();
+          LG.Engine.start(topic, lv);
+        });
+        sec.appendChild(row);
       });
-      list.appendChild(row);
+      scroll.appendChild(sec);
     });
 
-    UI.show('levels');
+    UI.show('unit');
   }
 
   /* ---------------- result ---------------- */
@@ -182,7 +196,13 @@ LG.App = (function () {
     }
 
     var btns = el('div', { class: 'result-btns' });
-    btns.appendChild(el('button', { class: 'btn btn-ghost', type: 'button', text: 'Topics', onclick: showHome }));
+    btns.appendChild(el('button', {
+      class: 'btn btn-ghost', type: 'button', text: 'All levels',
+      onclick: function () {
+        if (currentUnit) showUnit(currentUnit.id);
+        else showHome();
+      }
+    }));
 
     var idx = r.topic.levels.indexOf(r.level);
     if (!r.isLast) {
@@ -355,9 +375,10 @@ LG.App = (function () {
 
   return {
     showHome: showHome,
-    showLevels: showLevels,
+    showUnit: showUnit,
     showResult: showResult,
     openSettings: openSettings,
-    get currentTopic() { return currentTopic; }
+    get currentTopic() { return currentTopic; },
+    get currentUnit() { return currentUnit; }
   };
 })();

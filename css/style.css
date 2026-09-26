@@ -118,50 +118,6 @@ h2, h3, h4 { margin: 0; }
 }
 .section-title:first-child { margin-top: 6px; }
 
-.topic-grid {
-  display: grid; gap: 20px;
-  grid-template-columns: 1fr;
-}
-
-.unit-head {
-  display: flex; align-items: baseline; gap: 10px; flex-wrap: wrap;
-  padding: 0 4px 10px; margin-bottom: 2px;
-  border-bottom: 2px solid var(--line);
-  border-left: 4px solid var(--accent, #4f46e5);
-  border-radius: 2px;
-}
-.unit-name { font-size: 19px; font-weight: 800; }
-.unit-tag { font-size: 13px; color: var(--ink-soft); flex: 1; min-width: 0; }
-.unit-stars { font-size: 12.5px; font-weight: 800; color: #b45309; white-space: nowrap; }
-
-.unit-topics {
-  display: grid; gap: 14px;
-  grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
-}
-
-.topic-card {
-  position: relative; overflow: hidden;
-  display: flex; flex-direction: column; gap: 4px;
-  padding: 20px; text-align: left;
-  background: var(--card); border-radius: var(--radius);
-  border: 1px solid var(--line); box-shadow: var(--shadow-sm);
-  transition: transform .14s ease, box-shadow .14s ease;
-}
-.topic-card::before {
-  content: ""; position: absolute; inset: 0 0 auto 0; height: 5px;
-  background: var(--accent);
-}
-.topic-card:active { transform: translateY(2px) scale(.99); box-shadow: var(--shadow); }
-.topic-icon { font-size: 34px; line-height: 1; }
-.topic-name { font-size: 20px; font-weight: 800; margin-top: 6px; }
-.topic-tag { font-size: 13.5px; color: var(--ink-soft); }
-.topic-bar {
-  height: 7px; border-radius: 99px; background: var(--bg-2);
-  margin-top: 12px; overflow: hidden;
-}
-.topic-bar i { display: block; height: 100%; background: var(--accent); border-radius: 99px; transition: width .5s ease; }
-.topic-score { font-size: 12.5px; color: var(--ink-soft); margin-top: 6px; }
-
 .badge-grid { display: grid; gap: 10px; grid-template-columns: repeat(auto-fill, minmax(96px, 1fr)); }
 .badge {
   background: var(--card); border: 1px solid var(--line);
@@ -192,7 +148,58 @@ h2, h3, h4 { margin: 0; }
   border-radius: 99px; padding: 7px 14px; font-size: 14px;
 }
 
-.level-list { max-width: 720px; margin: 0 auto; padding: 18px 16px 60px; display: grid; gap: 12px; }
+
+/* ---------------- unit card (the home screen entry point) ---------------- */
+
+.unit-grid {
+  display: grid; gap: 14px;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+}
+
+.unit-card {
+  position: relative; overflow: hidden;
+  display: flex; flex-direction: column; align-items: flex-start; gap: 3px;
+  padding: 22px 22px 20px; text-align: left;
+  background: var(--card); border-radius: 24px;
+  border: 1px solid var(--line); box-shadow: var(--shadow);
+  transition: transform .14s ease, box-shadow .14s ease;
+}
+.unit-card::before {
+  content: ""; position: absolute; inset: 0 0 auto 0; height: 6px;
+  background: var(--accent);
+}
+.unit-card:active { transform: translateY(2px) scale(.99); }
+.unit-card-icon { font-size: 40px; line-height: 1; }
+.unit-card-name { font-size: 24px; font-weight: 800; margin-top: 8px; }
+.unit-card-meta { font-size: 13px; color: var(--ink-soft); }
+.unit-card-bar {
+  width: 100%; height: 8px; border-radius: 99px;
+  background: var(--bg-2); margin-top: 14px; overflow: hidden;
+}
+.unit-card-bar i {
+  display: block; height: 100%; border-radius: 99px;
+  background: var(--accent); transition: width .5s ease;
+}
+.unit-card-stars { font-size: 12.5px; color: var(--ink-soft); margin-top: 7px; }
+
+/* ---------------- unit screen: every level in the unit ---------------- */
+
+.unit-scroll { max-width: 760px; margin: 0 auto; padding: 18px 16px 60px; display: grid; gap: 22px; }
+
+.unit-topic { display: flex; flex-direction: column; gap: 10px; }
+
+.unit-topic-head {
+  display: flex; align-items: center; gap: 9px; flex-wrap: wrap;
+  padding: 0 4px 8px;
+  border-bottom: 2px solid var(--line);
+  border-left: 4px solid var(--accent);
+}
+.unit-topic-icon { font-size: 22px; line-height: 1; }
+.unit-topic-name { font-size: 17.5px; font-weight: 800; }
+.unit-topic-tag { font-size: 12.5px; color: var(--ink-soft); flex: 1; min-width: 0; }
+.unit-topic-stars { font-size: 12px; font-weight: 800; color: #b45309; white-space: nowrap; }
+
+/* ---------------- level rows ---------------- */
 
 .level-row {
   display: flex; align-items: center; gap: 14px;
