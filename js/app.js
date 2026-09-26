@@ -131,26 +131,31 @@ LG.App = (function () {
       head.appendChild(el('span', { class: 'unit-topic-stars', text: got + '/' + (topic.levels.length * 3) }));
       sec.appendChild(head);
 
+      var grid = el('div', { class: 'level-grid' });
       var t = LG.Store.topic(topic.id);
       topic.levels.forEach(function (lv, i) {
         var stars = t.stars[lv.id] || 0;
         var played = t.best[lv.id] != null || stars > 0;
         var row = el('button', { class: 'level-row', type: 'button' });
-        row.appendChild(el('span', { class: 'level-n', text: String(i + 1) }));
-        var mid = el('span', { class: 'level-mid' });
-        mid.appendChild(el('span', { class: 'level-name', text: lv.name }));
-        mid.appendChild(el('span', { class: 'level-blurb', text: lv.blurb }));
-        mid.appendChild(el('span', { class: 'level-meta', text: lv.count + ' questions · ' + lv.difficulty + '★' }));
-        row.appendChild(mid);
-        row.appendChild(UI.stars(stars));
+
+        // number and stars share a top line so the name gets the full width
+        var top = el('span', { class: 'level-top' });
+        top.appendChild(el('span', { class: 'level-n', text: String(i + 1) }));
+        top.appendChild(UI.stars(stars));
+        row.appendChild(top);
+
+        row.appendChild(el('span', { class: 'level-name', text: lv.name }));
+        row.appendChild(el('span', { class: 'level-blurb', text: lv.blurb }));
+        row.appendChild(el('span', { class: 'level-meta', text: lv.count + ' questions · ' + lv.difficulty + '★' }));
         if (played) row.classList.add('played');
         row.addEventListener('click', function () {
           currentUnit = unit;
           LG.Game.touchDay();
           LG.Engine.start(topic, lv);
         });
-        sec.appendChild(row);
+        grid.appendChild(row);
       });
+      sec.appendChild(grid);
       scroll.appendChild(sec);
     });
 
