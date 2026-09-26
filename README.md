@@ -66,10 +66,27 @@ Home          one card per unit: an icon, the name, progress
 ```
 
 The unit card is deliberately the entry point. There is no "choose a topic"
-screen in between: tapping **Unit 1** lands on all 44 levels at once, grouped
-under their topics, and any one of them starts a round. With 8 topics on the
-home screen instead, a pupil had to pick the right topic *before* they could
-start — an extra decision for a ten-year-old who mostly wants to play.
+screen in between: tapping **Unit 1** lands on all its levels at once, grouped
+under their topics, and any one of them starts a round. With 8 topic cards on
+the home screen instead, a pupil had to pick the right topic *before* they
+could start — an extra decision for a ten-year-old who mostly wants to play.
+
+### Sections open one at a time
+
+A new pupil sees **one** section open and the **next** one locked; everything
+after that is not rendered at all. A section opens when the one before it has
+**2 stars or better on every level** — not a running total, because a total can
+be met by grinding one level and skipping the rest.
+
+The locked section shows why it is locked and how far along they are
+("5 of 8 at 2 stars"), so the goal is visible and reachable. It has no level
+cards at all, so a locked level cannot be started by any route.
+
+A crown 👑 beside a heading means every level in that section has been given
+full marks.
+
+Settings → *Show every level* turns the gating off, for a class working
+through the unit together.
 
 | Level | Levels | What they practise |
 |---|---|---|

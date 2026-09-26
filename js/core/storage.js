@@ -29,7 +29,7 @@ LG.Store = (function () {
          app but not to this list would be silently dropped on reload. */
       settings: {
         voiceURI: 'auto', rate: 0.9, repeats: 3, repeatsLong: 1,
-        keyboard: false, variant: 'default'
+        keyboard: false, variant: 'default', unlockAll: false
       },
       topics: {},              // topicId -> { stars: {levelId: n}, best: {levelId: n} }
       badges: {},              // badgeId -> ISO date earned
@@ -99,11 +99,16 @@ LG.Store = (function () {
       return value;
     },
 
+    /* Always hand back a complete record. merge() restores a stored topic
+       exactly as it was saved, so a record written by any path that set
+       `stars` without `best` comes back missing `best` -- and reading a
+       level out of it then throws. Backfill rather than assume. */
     topic: function (topicId) {
-      if (!cache.topics[topicId]) {
-        cache.topics[topicId] = { stars: {}, best: {} };
-      }
-      return cache.topics[topicId];
+      var t = cache.topics[topicId];
+      if (!t || typeof t !== 'object') t = cache.topics[topicId] = {};
+      if (!t.stars || typeof t.stars !== 'object') t.stars = {};
+      if (!t.best || typeof t.best !== 'object') t.best = {};
+      return t;
     },
 
     reset: function () {

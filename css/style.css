@@ -197,7 +197,28 @@ h2, h3, h4 { margin: 0; }
 .unit-topic-icon { font-size: 22px; line-height: 1; }
 .unit-topic-name { font-size: 17.5px; font-weight: 800; }
 .unit-topic-tag { font-size: 12.5px; color: var(--ink-soft); flex: 1; min-width: 0; }
+.unit-topic-mark { display: flex; align-items: center; gap: 7px; }
 .unit-topic-stars { font-size: 12px; font-weight: 800; color: #b45309; white-space: nowrap; }
+
+/* A crown marks a section where every level has been given full marks. */
+.crown { font-size: 17px; line-height: 1; }
+
+/* A locked section is shown greyed with no levels, so there is nothing to
+   click. Sections beyond the first locked one are not rendered at all. */
+.unit-topic.locked { opacity: .72; }
+.unit-topic.locked .unit-topic-name { color: var(--ink-soft); }
+
+.lock-note {
+  display: flex; flex-direction: column; gap: 4px;
+  padding: 16px 18px; border-radius: 16px;
+  background: repeating-linear-gradient(
+    -45deg, #f6f7fb, #f6f7fb 10px, #eff1f7 10px, #eff1f7 20px
+  );
+  border: 2px dashed #d3d8e5;
+  color: var(--ink-soft);
+}
+.lock-note b { font-size: 14.5px; color: #8b93a7; }
+.lock-note span { font-size: 13px; line-height: 1.4; }
 
 /* ---------------- level cards ----------------
    The card shows the level name, which is what a pupil scans for. The

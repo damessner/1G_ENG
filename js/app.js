@@ -121,15 +121,47 @@ LG.App = (function () {
     var scroll = document.getElementById('unitScroll');
     UI.clear(scroll);
 
-    unit.topics.forEach(function (topic) {
-      var sec = el('section', { class: 'unit-topic', style: '--accent:' + topic.color });
+    var visible = LG.Units.visibleIn(unit);
+
+    visible.forEach(function (entry) {
+      var topic = entry.topic;
+      var state = entry.state;
+      var locked = !state.unlocked;
+
+      var sec = el('section', {
+        class: 'unit-topic' + (locked ? ' locked' : ''),
+        style: '--accent:' + (locked ? '#9aa1b5' : topic.color)
+      });
+
       var head = el('div', { class: 'unit-topic-head' });
-      head.appendChild(el('span', { class: 'unit-topic-icon', text: topic.icon }));
+      head.appendChild(el('span', { class: 'unit-topic-icon', text: locked ? '\uD83D\uDD12' : topic.icon }));
       head.appendChild(el('span', { class: 'unit-topic-name', text: topic.name }));
-      head.appendChild(el('span', { class: 'unit-topic-tag', text: topic.tagline }));
-      var got = LG.Game.topicStars(topic.id);
-      head.appendChild(el('span', { class: 'unit-topic-stars', text: got + '/' + (topic.levels.length * 3) }));
+      head.appendChild(el('span', { class: 'unit-topic-tag', text: locked ? '' : topic.tagline }));
+      // a crown marks a topic where every level has been given full marks
+      var mark = el('span', { class: 'unit-topic-mark' });
+      if (state.mastered) mark.appendChild(el('span', { class: 'crown', title: 'All levels mastered', text: '\uD83C\uDFC6' }));
+      mark.appendChild(el('span', {
+        class: 'unit-topic-stars',
+        text: state.stars + '/' + state.maxStars
+      }));
+      head.appendChild(mark);
       sec.appendChild(head);
+
+      if (locked) {
+        // No level cards, and nothing to click: the topic is genuinely not
+        // there yet, so there is no way to reach it from the interface.
+        var need = state.prev ? state.prev.name : 'the previous section';
+        sec.appendChild(el('div', { class: 'lock-note' }, [
+          el('b', { text: '\uD83D\uDD12  Locked' }),
+          el('span', {
+            text: 'Get ' + LG.Units.UNLOCK_STARS + ' stars on every level in ' + need +
+                  ' to open this one.  (' + state.have + ' of ' + state.need + ' at ' +
+                  LG.Units.UNLOCK_STARS + ' stars)'
+          })
+        ]));
+        scroll.appendChild(sec);
+        return;
+      }
 
       var grid = el('div', { class: 'level-grid' });
       var t = LG.Store.topic(topic.id);
@@ -144,11 +176,10 @@ LG.App = (function () {
 
         // number and icon share a top line, with the stars opposite
         var top = el('span', { class: 'level-top' });
-        var mark = el('span', { class: 'level-mark' });
-        mark.appendChild(el('span', { class: 'level-n', text: String(i + 1) }));
-        // fall back to the topic icon so a level added without one still shows
-        mark.appendChild(el('span', { class: 'level-emoji', text: lv.icon || topic.icon || '\u2B50' }));
-        top.appendChild(mark);
+        var mark2 = el('span', { class: 'level-mark' });
+        mark2.appendChild(el('span', { class: 'level-n', text: String(i + 1) }));
+        mark2.appendChild(el('span', { class: 'level-emoji', text: lv.icon || topic.icon || '\u2B50' }));
+        top.appendChild(mark2);
         top.appendChild(UI.stars(stars));
         row.appendChild(top);
 
@@ -305,6 +336,24 @@ LG.App = (function () {
               'game header switches voice straight away.'
       }));
     }
+
+    // sections open one at a time; a teacher can show everything at once
+    var all = el('input', { type: 'checkbox' });
+    all.checked = !!LG.Store.get('settings.unlockAll', false);
+    all.addEventListener('change', function () {
+      LG.Store.set('settings.unlockAll', all.checked);
+      if (currentUnit) showUnit(currentUnit.id); else showHome();
+    });
+    var allRow = el('label', { class: 'set-row' });
+    allRow.appendChild(el('span', { text: 'Show every level' }));
+    allRow.appendChild(all);
+    body.appendChild(allRow);
+    body.appendChild(el('p', {
+      class: 'set-note',
+      text: 'By default each section opens once the one before it has ' +
+            LG.Units.UNLOCK_STARS + ' stars on every level, and the sections after that stay ' +
+            'hidden. Turn this on to show the whole unit, for a class working through it together.'
+    }));
 
     // number keys answer — useful on a projector, risky on a pupil's laptop
     var kb = el('input', { type: 'checkbox' });
