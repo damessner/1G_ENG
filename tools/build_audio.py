@@ -126,9 +126,37 @@ def build_clips(vocab: dict, spell_join: str, with_sounds: bool) -> list[dict]:
             for form in pair[:2]:
                 if isinstance(form, str) and form:
                     word(form)
-        for group in ("names", "emails", "zWords", "sWords"):
+        for group in ("names", "emails", "zWords", "sWords", "prepositions", "short"):
             for w in data.get(group, []):
                 word(w)
+        # Grammar sentences. These are stored in their CORRECT form, so the
+        # recording is a natural sentence and the key matches exactly what a
+        # level asks for. The level chooses which word to blank.
+        for group in ("gaps", "pick", "negative", "thereIs", "me", "other"):
+            for s in data.get(group, []):
+                if isinstance(s, str):
+                    word(s)
+        # Composed sentences. A level that builds a phrase at run time
+        # ("My name is " + name) must still have a recording, so templates
+        # are expanded here against a named word list. Without this, a
+        # level silently falls back to the browser voice for every phrase
+        # it composes.
+        for spec in data.get("patterns", []):
+            tpl = spec.get("template", "")
+            source = spec.get("from", "")
+            # `from` is a dotted path, so one topic can borrow another's
+            # word list: "from": "spellname.names"
+            node: object = vocab
+            for part in source.split("."):
+                node = node.get(part, {}) if isinstance(node, dict) else []
+            pool = node if isinstance(node, list) else []
+            for w in pool:
+                if not isinstance(w, str):
+                    continue
+                try:
+                    word(tpl.format(w=w))
+                except (KeyError, IndexError):
+                    continue
         for a in data.get("actions", []):
             if a.get("text"):
                 word(a["text"])

@@ -110,15 +110,28 @@ LG.Q = (function () {
     };
   }
 
+  /* `answer` may be a string (spelled as letters) or an array of tokens
+     (built as words, for a grammar gap-fill). Both drive the same mode. */
   function assemble(spec) {
-    var word = spec.answer;
+    var tokens = Array.isArray(spec.answer)
+      ? spec.answer.slice()
+      : String(spec.answer).split('');
+    var wordy = tokens.some(function (t) { return String(t).length > 1; });
     return {
       type: 'assemble',
       prompt: spec.prompt,
-      answer: word,
-      letters: word.split(''),
-      revealFirst: spec.revealFirst != null ? spec.revealFirst : (word.length <= 3 ? 1 : 0),
-      dedupe: spec.dedupe || word,
+      answer: wordy ? tokens.join(' ') : tokens.join(''),
+      tokens: tokens,
+      letters: tokens,        // kept so older callers keep working
+      // Tiles that go in the bank but are not part of the answer. Without
+      // these a gap-fill has only one possible tile and tests nothing.
+      extras: (spec.extras || []).slice(),
+      // Slot indices that start already filled. A gap-fill gives the pupil
+      // the sentence and blanks only the word under test; a build-the-
+      // sentence level gives none.
+      given: (spec.given || []).slice(),
+      revealFirst: spec.revealFirst != null ? spec.revealFirst : (wordy ? 0 : (tokens.length <= 3 ? 1 : 0)),
+      dedupe: spec.dedupe || tokens.join('_'),
       explain: spec.explain || null
     };
   }

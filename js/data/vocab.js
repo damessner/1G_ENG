@@ -639,6 +639,353 @@ LG.VOCAB = {
     "lost"
    ]
   },
+  "zooanimals": {
+   "_readme": [
+    "PROPOSED list, not taken from the workbook. The Lehrstoffverteilung",
+    "says '11 words for animals and things in a wildlife park' but does",
+    "not name them. Check against workbook S. 14-21 and edit here."
+   ],
+   "items": [
+    {
+     "word": "lion",
+     "emoji": "🦁",
+     "desc": "It is big and it lives in Africa.",
+     "group": "on the ground"
+    },
+    {
+     "word": "tiger",
+     "emoji": "🐯",
+     "desc": "It has stripes on its orange fur.",
+     "group": "on the ground"
+    },
+    {
+     "word": "elephant",
+     "emoji": "🐘",
+     "desc": "It has a long nose and big ears.",
+     "group": "on the ground"
+    },
+    {
+     "word": "monkey",
+     "emoji": "🐒",
+     "desc": "It has a long tail and it climbs.",
+     "group": "in the trees"
+    },
+    {
+     "word": "giraffe",
+     "emoji": "🦒",
+     "desc": "It has a very long neck.",
+     "group": "on the ground"
+    },
+    {
+     "word": "zebra",
+     "emoji": "🦓",
+     "desc": "It has black and white stripes.",
+     "group": "on the ground"
+    },
+    {
+     "word": "bear",
+     "emoji": "🐻",
+     "desc": "It is big and it has thick fur.",
+     "group": "on the ground"
+    },
+    {
+     "word": "penguin",
+     "emoji": "🐧",
+     "desc": "It cannot fly and it likes the cold.",
+     "group": "in the water"
+    },
+    {
+     "word": "snake",
+     "emoji": "🐍",
+     "desc": "It has no legs.",
+     "group": "on the ground"
+    },
+    {
+     "word": "parrot",
+     "emoji": "🦜",
+     "desc": "It has colourful feathers and it can talk.",
+     "group": "in the trees"
+    },
+    {
+     "word": "crocodile",
+     "emoji": "🐊",
+     "desc": "It lives in the water and it has sharp teeth.",
+     "group": "in the water"
+    }
+   ]
+  },
+  "parkthings": {
+   "_readme": "Also proposed, not from the workbook. See zooanimals.",
+   "items": [
+    {
+     "word": "tree",
+     "emoji": "🌳",
+     "desc": "It is tall and it has leaves.",
+     "place": "in the middle of the park"
+    },
+    {
+     "word": "rock",
+     "emoji": "🪨",
+     "desc": "It is very hard and it does not move.",
+     "place": "next to the path"
+    },
+    {
+     "word": "cave",
+     "emoji": "🕳️",
+     "desc": "It is a hole in the rock.",
+     "place": "in the rock"
+    },
+    {
+     "word": "bridge",
+     "emoji": "🌉",
+     "desc": "You walk over it and it goes above the water.",
+     "place": "over the pond"
+    },
+    {
+     "word": "pond",
+     "emoji": "🏞️",
+     "desc": "It is a small lake with water in it.",
+     "place": "behind the trees"
+    },
+    {
+     "word": "bench",
+     "emoji": "🪑",
+     "desc": "You sit on it.",
+     "place": "under the tree"
+    },
+    {
+     "word": "path",
+     "emoji": "🛤️",
+     "desc": "You walk along it.",
+     "place": "between the trees"
+    },
+    {
+     "word": "flower",
+     "emoji": "🌷",
+     "desc": "It is small, colourful and it grows.",
+     "place": "next to the path"
+    },
+    {
+     "word": "nest",
+     "emoji": "🪢",
+     "desc": "A bird builds it with twigs.",
+     "place": "in the tree"
+    },
+    {
+     "word": "gate",
+     "emoji": "🚪",
+     "desc": "You go through it to get in.",
+     "place": "at the entrance"
+    }
+   ]
+  },
+  "tobe": {
+   "_readme": "Correct sentences. The level blanks the verb; the gap is chosen by the level, not stored here.",
+   "gaps": [
+    "I am a student.",
+    "She is my sister.",
+    "He is twelve years old.",
+    "They are from Austria.",
+    "We are in Vienna.",
+    "You are very kind.",
+    "It is a big elephant.",
+    "My parents are teachers.",
+    "The zoo is very interesting.",
+    "Anna is at school today."
+   ],
+   "positives": [
+    "I am tired.",
+    "She is at home.",
+    "He is my brother.",
+    "They are here.",
+    "We are late.",
+    "You are wrong."
+   ],
+   "pick": [
+    "Are you a student?",
+    "Is she your sister?",
+    "Am I late?",
+    "Are they from Austria?",
+    "Is he twelve?",
+    "Is it raining?"
+   ],
+   "negative": [
+    "I'm not tired.",
+    "She's not at home.",
+    "He's not my brother.",
+    "They're not here.",
+    "We're not late.",
+    "You're not wrong."
+   ],
+   "mistakes": [
+    "She {am} my sister.",
+    "He is twelve {year} old.",
+    "They {is} from Austria.",
+    "We {is} in Vienna.",
+    "It {are} a big elephant.",
+    "I {are} a student.",
+    "My parents {is} teachers.",
+    "You {is} very kind.",
+    "The zoo {are} interesting.",
+    "Anna {are} at school today."
+   ],
+   "short": [
+    "am",
+    "is",
+    "are",
+    "isn't",
+    "aren't",
+    "I'm"
+   ],
+   "paragraphs": [
+    "I am ten years old. My sister is fourteen. She {am} in Vienna. We {is} students. They {is} nice.",
+    "My parents {is} teachers. They {is} from Austria. The school is big. It {are} in a park. My friend is clever.",
+    "Anna {are} at school. She is my friend. We {is} in class 1b. The teacher {are} kind. Our class is great."
+   ]
+  },
+  "whereis": {
+   "_readme": "Correct sentences. The level blanks the preposition or the verb.",
+   "prepositions": [
+    "in",
+    "on",
+    "under",
+    "behind",
+    "next to",
+    "in front of",
+    "between"
+   ],
+   "counts": [
+    "a",
+    "two",
+    "three",
+    "four",
+    "some"
+   ],
+   "patterns": [
+    {
+     "template": "There {w} in the park.",
+     "from": "counts"
+    }
+   ],
+   "places": [
+    {
+     "thing": "the lion",
+     "place": "in the tree"
+    },
+    {
+     "thing": "the bird",
+     "place": "on the cage"
+    },
+    {
+     "thing": "the snake",
+     "place": "under a rock"
+    },
+    {
+     "thing": "the monkey",
+     "place": "behind the giraffe"
+    },
+    {
+     "thing": "the penguin",
+     "place": "next to the water"
+    },
+    {
+     "thing": "the parrot",
+     "place": "in front of the door"
+    },
+    {
+     "thing": "the zebra",
+     "place": "between the trees"
+    },
+    {
+     "thing": "the bear",
+     "place": "behind the rock"
+    }
+   ],
+   "gaps": [
+    "The lion is in the tree.",
+    "The bird is on the cage.",
+    "The snake is under a rock.",
+    "The monkey is behind the giraffe.",
+    "The penguin is next to the water.",
+    "The parrot is in front of the door.",
+    "There is two zebras.",
+    "There is a big crocodile.",
+    "There is some flowers in the park.",
+    "There is four animals in the enclosure."
+   ],
+   "thereIs": [
+    "There is a bridge over the pond.",
+    "There are some rocks near the path.",
+    "There is a nest in the tree.",
+    "There are three bears in the enclosure."
+   ],
+   "sentences": [
+    {
+     "text": "The lion is in the tree.",
+     "prep": "in"
+    },
+    {
+     "text": "The bird is on the cage.",
+     "prep": "on"
+    },
+    {
+     "text": "The snake is under a rock.",
+     "prep": "under"
+    },
+    {
+     "text": "The monkey is behind the giraffe.",
+     "prep": "behind"
+    },
+    {
+     "text": "The penguin is next to the water.",
+     "prep": "next to"
+    },
+    {
+     "text": "The parrot is in front of the door.",
+     "prep": "in front of"
+    },
+    {
+     "text": "The zebra is between the trees.",
+     "prep": "between"
+    },
+    {
+     "text": "The crocodile is under the bridge.",
+     "prep": "under"
+    }
+   ]
+  },
+  "aboutme": {
+   "_readme": "Talking about yourself and others.",
+   "patterns": [
+    {
+     "template": "My name is {w}.",
+     "from": "names"
+    }
+   ],
+   "me": [
+    "I am a student.",
+    "I am ten years old.",
+    "I am from Austria.",
+    "I like animals.",
+    "I live in Vienna.",
+    "My name is Maya."
+   ],
+   "other": [
+    "She is my sister.",
+    "He is my friend.",
+    "They are my classmates.",
+    "It is a nice school.",
+    "We are a good team."
+   ],
+   "dialogue": [
+    "Hello! My name is Maya.",
+    "Hi Maya! I'm Ben.",
+    "Nice to meet you, Ben.",
+    "Are you a new student here?",
+    "Yes, I am. And you?",
+    "I'm in class 1b too!"
+   ]
+  },
   "instructions": {
    "_readme": [
     "pairs are minimal pairs: they differ by one word, so the pupil has",

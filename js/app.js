@@ -185,7 +185,13 @@ LG.App = (function () {
 
         row.appendChild(el('span', { class: 'level-name', text: lv.name }));
         row.appendChild(el('span', { class: 'level-blurb', text: lv.blurb }));
-        row.appendChild(el('span', { class: 'level-meta', text: lv.count + ' questions · ' + lv.difficulty + '★' }));
+        // skill + mechanic, so the coverage across the syllabus's four
+        // strands is visible at a glance instead of buried in the content
+        row.appendChild(el('span', {
+          class: 'level-meta',
+          text: lv.count + ' questions · ' + lv.difficulty + '★ · ' +
+                (lv.mode || '') + (lv.skill ? ' · ' + lv.skill : '')
+        }));
         if (played) row.classList.add('played');
         row.addEventListener('click', function () {
           currentUnit = unit;
