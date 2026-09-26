@@ -36,19 +36,26 @@
 
   LG.topicData('tobe', [
 
-    /* 1 -- hear it, pick the form ---------------------------------- */
+    /* 1 -- read it, produce the form --------------------------------
+       NOT a listening level. Agreement is audible -- playing "She is my
+       sister" and asking for "is" is dictation, not grammar. The pupil
+       has to read the subject and produce the form. */
     {
       id: 'b1', name: 'Am, Is or Are?', mode: 'choice',
-      difficulty: 2, count: 10, icon: '\uD83D\uDC42', skill: 'listening',
-      blurb: 'Hear the sentence. Tap the right word.',
+      difficulty: 3, count: 10, icon: '\uD83D\uDC42', skill: 'writing',
+      blurb: 'Read the sentence. Tap the word that fits.',
       build: function () {
         var s = Q.pick(usable());
         var g = gapIn(s);
         var right = g.tokens[g.gapAt];
+        var show = g.tokens.slice();
+        show[g.gapAt] = '____';
+        // build the options ONCE, then index into the same array
+        var opts = Q.shuffle(BE.map(function (w) { return Q.opt('text', w); }));
         return Q.choice({
-          prompt: Q.audio(Q.wordKey(s)),
-          options: Q.texts(right, Q.sample(BE.filter(function (w) { return w !== right; }), 3)),
-          answer: right,
+          prompt: Q.read(show.join(' ') + '.'),
+          options: opts,
+          correct: opts.findIndex(function (o) { return o.value === right; }),
           dedupe: 'pick' + s
         });
       }
@@ -120,23 +127,29 @@
       }
     },
 
-    /* 5 -- change one word ------------------------------------------ */
+    /* 5 -- change one word ------------------------------------------
+       Four pronouns, not two. With only "I" and "She" on offer this was
+       a coin flip; the pupil now has to know that "I am" pairs with
+       "We are" and neither takes "is". */
     {
       id: 'b5', name: 'Change One Word', mode: 'choice',
-      difficulty: 3, count: 5, icon: '\u270D\uFE0F', skill: 'writing',
-      blurb: 'One word changes who it is about. Which one?',
+      difficulty: 4, count: 5, icon: '\u270D\uFE0F', skill: 'writing',
+      blurb: 'The sentence is about someone else. Which word changes it?',
       build: function () {
         var s = Q.pick(OTHER);
         var toks = s.replace(/[.,!?]/g, '').split(' ');
-        var who = toks[0];
-        var swap = who === 'I' ? 'She' : (who === 'We' ? 'They' : 'I');
-        var changed = [swap].concat(toks.slice(1)).join(' ') + '.';
-        var opts = [Q.opt('text', who, { id: 'a' }), Q.opt('text', swap, { id: 'b' })];
-        opts = Q.shuffle(opts);
+        var right = toks[0] === 'I' ? 'She' : 'I';
+        var wrong = toks[0] === 'I'
+          ? ['I', 'We', 'They', 'It']
+          : ['I', 'He', 'We', 'You'];
+        wrong = wrong.filter(function (w) { return w !== right; }).slice(0, 3);
+        var opts = Q.shuffle([right].concat(wrong).map(function (w) {
+          return Q.opt('text', w, { id: w });
+        }));
         return Q.choice({
-          prompt: Q.audio(Q.wordKey(s)),
+          prompt: Q.read('Who is the "I" in this sentence really about?'),
           options: opts,
-          correct: opts.findIndex(function (o) { return o.id === 'b'; }),
+          correct: opts.findIndex(function (o) { return o.value === right; }),
           dedupe: 'chg' + s
         });
       }

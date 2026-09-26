@@ -66,21 +66,32 @@
       }
     },
 
-    /* 3 -- I or someone else? -------------------------------------- */
+    /* 3 -- I or someone else? --------------------------------------
+       Four sentences, not two. One is what was actually said; the
+       others swap the pronoun, the verb, or both. A pupil who only
+       spots the difference in the verb still has to notice the
+       pronoun, and vice versa. */
     {
       id: 'a3', name: 'I or Someone Else?', mode: 'choice',
-      difficulty: 3, count: 11, icon: '\uD83D\uDC94', skill: 'listening',
-      blurb: 'They sound almost the same. Which one did you hear?',
+      difficulty: 4, count: 11, icon: '\uD83D\uDC94', skill: 'listening',
+      blurb: 'Four sentences. Only one is the one you heard.',
       build: function () {
         var useMe = Math.random() < 0.5;
         var s = useMe ? Q.pick(A.me) : Q.pick(A.other);
         var p = parts(s);
-        var swap = p.who === 'I' ? 'She' : 'I';
-        var twin = [swap].concat(p.tokens.slice(1)).join(' ') + '.';
-        var opts = Q.shuffle([
-          Q.opt('text', s, { id: 'real' }),
-          Q.opt('text', twin, { id: 'twin' })
-        ]);
+        var rest = p.tokens.slice(1);
+        var swapWho = p.who === 'I' ? 'She' : 'I';
+        var swapBe = p.be === 'is' ? 'are' : (p.be === 'are' ? 'is' : 'is');
+        var twins = [
+          [swapWho].concat(rest),                 // pronoun only
+          [p.who, swapBe].concat(rest.slice(1)),  // verb only
+          [swapWho, swapBe].concat(rest.slice(1)) // both
+        ];
+        var opts = Q.shuffle([s].concat(twins.map(function (t) {
+          return t.join(' ') + '.';
+        })).map(function (t, i) {
+          return Q.opt('text', t, { id: i === 0 ? 'real' : 'twin' + i });
+        }));
         return Q.choice({
           prompt: Q.audio(Q.wordKey(s)),
           options: opts,

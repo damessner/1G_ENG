@@ -29,19 +29,27 @@
 
   LG.topicData('whereis', [
 
-    /* 1 -- hear it, pick the preposition ---------------------------- */
+    /* 1 -- read it, choose the preposition --------------------------
+       Also not a listening level. Hearing "The lion is IN the tree"
+       tells the pupil the answer, and a preposition of place cannot be
+       tested by ear at all. */
     {
       id: 'w1', name: 'Which Preposition?', mode: 'choice',
-      difficulty: 2, count: 10, icon: '\uD83C\uDF0E', skill: 'listening',
-      blurb: 'Hear the sentence. Tap the right word.',
+      difficulty: 3, count: 10, icon: '\uD83C\uDF0E', skill: 'reading',
+      blurb: 'Read the sentence. Tap the word that fits.',
       build: function () {
         var s = Q.pick(W.gaps);
         var g = gapIn(s);
         var right = g.tokens[g.gapAt];
+        var show = g.tokens.slice();
+        show[g.gapAt] = '____';
+        var opts = Q.shuffle([right].concat(
+          Q.sample(PREPS.filter(function (p) { return p !== right; }), 3)
+        ).map(function (w) { return Q.opt('text', w, { id: w }); }));
         return Q.choice({
-          prompt: Q.audio(Q.wordKey(s)),
-          options: Q.texts(right, Q.sample(PREPS.filter(function (p) { return p !== right; }), 3)),
-          answer: right,
+          prompt: Q.read(show.join(' ') + '.'),
+          options: opts,
+          correct: opts.findIndex(function (o) { return o.value === right; }),
           dedupe: 'prep' + s
         });
       }
