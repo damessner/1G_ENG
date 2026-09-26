@@ -24,7 +24,7 @@
 
     /* 1 ------------------------------------------------------------- */
     {
-      id: 'o1', name: 'Listen and Find', mode: 'choice',
+      id: 'o1', name: 'Listen and Find', icon: '🔎', mode: 'choice',
       difficulty: 1, count: 10,
       blurb: 'Hear the object. Tap its picture.',
       build: function () {
@@ -42,7 +42,7 @@
 
     /* 2 ------------------------------------------------------------- */
     {
-      id: 'o2', name: 'Read and Find', mode: 'choice',
+      id: 'o2', name: 'Read and Find', icon: '📖', mode: 'choice',
       difficulty: 1, count: 10,
       blurb: 'Read the word. Tap its picture.',
       build: function () {
@@ -60,7 +60,7 @@
 
     /* 3 ------------------------------------------------------------- */
     {
-      id: 'o3', name: 'What Is It?', mode: 'choice',
+      id: 'o3', name: 'What Is It?', icon: '🕵️', mode: 'choice',
       difficulty: 3, count: 10,
       blurb: 'No picture. Just a clue. Which object is it?',
       /* The prompt here is a whole spoken sentence, not a word. Repeating
@@ -83,7 +83,7 @@
 
     /* 4 ------------------------------------------------------------- */
     {
-      id: 'o4', name: 'Real or Fake', mode: 'choice',
+      id: 'o4', name: 'Real or Fake', icon: '🙈', mode: 'choice',
       difficulty: 3, count: 10,
       blurb: 'One is real, one looks like it. Which did you hear?',
       build: function () {
@@ -99,7 +99,7 @@
 
     /* 5 ------------------------------------------------------------- */
     {
-      id: 'o5', name: 'Where Does It Go?', mode: 'choice',
+      id: 'o5', name: 'Where Does It Go?', icon: '📍', mode: 'choice',
       difficulty: 3, count: 9,
       blurb: 'Hear an object. Tap where it belongs.',
       build: function () {

@@ -142,9 +142,13 @@ LG.App = (function () {
           title: lv.name + ' — ' + lv.blurb
         });
 
-        // number and stars share a top line so the name gets the full width
+        // number and icon share a top line, with the stars opposite
         var top = el('span', { class: 'level-top' });
-        top.appendChild(el('span', { class: 'level-n', text: String(i + 1) }));
+        var mark = el('span', { class: 'level-mark' });
+        mark.appendChild(el('span', { class: 'level-n', text: String(i + 1) }));
+        // fall back to the topic icon so a level added without one still shows
+        mark.appendChild(el('span', { class: 'level-emoji', text: lv.icon || topic.icon || '\u2B50' }));
+        top.appendChild(mark);
         top.appendChild(UI.stars(stars));
         row.appendChild(top);
 

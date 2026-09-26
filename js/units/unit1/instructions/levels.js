@@ -19,7 +19,7 @@
 
     /* 1 ------------------------------------------------------------- */
     {
-      id: 'i1', name: 'Which One Did You Hear?', mode: 'choice',
+      id: 'i1', name: 'Which One Did You Hear?', icon: '👂', mode: 'choice',
       difficulty: 2, count: 10,
       blurb: 'Two instructions that sound almost the same. Which was it?',
       build: function () {
@@ -37,7 +37,7 @@
 
     /* 2 ------------------------------------------------------------- */
     {
-      id: 'i2', name: 'Read It and Do It', mode: 'choice',
+      id: 'i2', name: 'Read It and Do It', icon: '📋', mode: 'choice',
       difficulty: 2, count: 10,
       blurb: 'Read the instruction. Tap what it tells you to do.',
       build: function () {
@@ -55,7 +55,7 @@
 
     /* 3 ------------------------------------------------------------- */
     {
-      id: 'i3', name: 'Which Picture?', mode: 'choice',
+      id: 'i3', name: 'Which Picture?', icon: '🖼️', mode: 'choice',
       difficulty: 3, count: 10,
       blurb: 'Hear the instruction. Tap the picture that matches.',
       build: function () {
@@ -73,7 +73,7 @@
 
     /* 4 ------------------------------------------------------------- */
     {
-      id: 'i4', name: 'What Did They Ask?', mode: 'choice',
+      id: 'i4', name: 'What Did They Ask?', icon: '🗣️', mode: 'choice',
       difficulty: 3, count: 10,
       blurb: 'Listen to a longer instruction. Which one was it?',
       build: function () {

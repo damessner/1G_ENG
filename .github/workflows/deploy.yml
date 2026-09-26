@@ -131,6 +131,26 @@ jobs:
       - name: Validate vocabulary and audio pack
         run: python3 tools/validate.py
 
+      # Guard: every script must parse. A doubled comma once took six topic
+      # files out of the running game and the site still deployed "success".
+      # GitHub runners have node, so use it to check rather than a browser.
+      - name: Syntax check every script
+        run: |
+          set -e
+          failed=0
+          while IFS= read -r f; do
+            if ! node --check "$f" 2>/tmp/err; then
+              echo "SYNTAX ERROR in $f"
+              cat /tmp/err
+              failed=1
+            fi
+          done < <(find _site -name '*.js')
+          if [ "$failed" -ne 0 ]; then
+            echo "refusing to publish: a script does not parse"
+            exit 1
+          fi
+          echo "all scripts parse"
+
       - uses: actions/upload-pages-artifact@v3
         with:
           path: _site

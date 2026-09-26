@@ -18,7 +18,7 @@
 
     /* 1 ------------------------------------------------------------- */
     {
-      id: 'c1', name: 'Listen and Tap', mode: 'choice',
+      id: 'c1', name: 'Listen and Tap', icon: '🎨', mode: 'choice',
       difficulty: 1, count: 10,
       blurb: 'Hear the colour. Tap the right one.',
       build: function () {
@@ -34,7 +34,7 @@
 
     /* 2 ------------------------------------------------------------- */
     {
-      id: 'c2', name: 'Read and Tap', mode: 'choice',
+      id: 'c2', name: 'Read and Tap', icon: '👁️', mode: 'choice',
       difficulty: 1, count: 10,
       blurb: 'Read the colour. Tap the right one.',
       build: function () {
@@ -50,7 +50,7 @@
 
     /* 3 ------------------------------------------------------------- */
     {
-      id: 'c3', name: 'Ears or Eyes?', mode: 'choice',
+      id: 'c3', name: 'Ears or Eyes?', icon: '👉', mode: 'choice',
       difficulty: 2, count: 12,
       blurb: 'Sometimes you hear it, sometimes you read it.',
       build: function () {
@@ -67,7 +67,7 @@
 
     /* 4 ------------------------------------------------------------- */
     {
-      id: 'c4', name: 'Colour Trap', mode: 'choice',
+      id: 'c4', name: 'Colour Trap', icon: '🎭', mode: 'choice',
       difficulty: 4, count: 8,
       blurb: 'Each word is printed in a colour. Only one is correct.',
       build: function () {
@@ -95,7 +95,7 @@
 
     /* 5 ------------------------------------------------------------- */
     {
-      id: 'c5', name: 'Name It', mode: 'choice',
+      id: 'c5', name: 'Name It', icon: '🏷️', mode: 'choice',
       difficulty: 3, count: 10,
       blurb: 'The other way round: find the colour\'s name.',
       build: function () {
@@ -111,7 +111,7 @@
 
     /* 6 ------------------------------------------------------------- */
     {
-      id: 'c6', name: 'Odd One Out', mode: 'choice',
+      id: 'c6', name: 'Odd One Out', icon: '🔎', mode: 'choice',
       difficulty: 4, count: 8,
       blurb: 'Eight of these are the same. One is different.',
       build: function () {

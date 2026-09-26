@@ -29,7 +29,7 @@
 
     /* 1 ------------------------------------------------------------- */
     {
-      id: 'a1', name: 'Letter Match', mode: 'choice',
+      id: 'a1', name: 'Letter Match', icon: '🔤', mode: 'choice',
       difficulty: 1, count: 10,
       blurb: 'Hear a letter. Tap the letter you hear.',
       build: function () {
@@ -45,7 +45,7 @@
 
     /* 2 ------------------------------------------------------------- */
     {
-      id: 'a2', name: 'First Sound', mode: 'choice',
+      id: 'a2', name: 'First Sound', icon: '👂', mode: 'choice',
       difficulty: 1, count: 10,
       blurb: 'Hear a word. Tap the letter it starts with.',
       build: function () {
@@ -61,7 +61,7 @@
 
     /* 3 ------------------------------------------------------------- */
     {
-      id: 'a3', name: 'Missing Letter', mode: 'choice',
+      id: 'a3', name: 'Missing Letter', icon: '🕳', mode: 'choice',
       difficulty: 2, count: 10,
       blurb: 'One letter is hidden. Hear the word and find it.',
       build: function () {
@@ -78,7 +78,7 @@
 
     /* 4 ------------------------------------------------------------- */
     {
-      id: 'a4', name: 'Spell It', mode: 'assemble',
+      id: 'a4', name: 'Spell It', icon: '🔡', mode: 'assemble',
       difficulty: 2, count: 8,
       blurb: 'The word is spelled out loud. Tap the letters in order.',
       build: function () {
@@ -93,7 +93,7 @@
 
     /* 5 ------------------------------------------------------------- */
     {
-      id: 'a5', name: 'Tricky Pairs', mode: 'choice',
+      id: 'a5', name: 'Tricky Pairs', icon: '👀', mode: 'choice',
       difficulty: 3, count: 10,
       blurb: 'Two words that sound almost the same. Which one did you hear?',
       build: function () {
@@ -111,7 +111,7 @@
 
     /* 6 ------------------------------------------------------------- */
     {
-      id: 'a6', name: 'Blend It', mode: 'choice',
+      id: 'a6', name: 'Blend It', icon: '🧩', mode: 'choice',
       difficulty: 3, count: 10,
       blurb: 'Words with sh, ch, th, ai, oa. Find the missing letter.',
       build: function () {
@@ -129,7 +129,7 @@
 
     /* 7 ------------------------------------------------------------- */
     {
-      id: 'a7', name: 'Spell It Out', mode: 'assemble',
+      id: 'a7', name: 'Spell It Out', icon: '✍️', mode: 'assemble',
       difficulty: 4, count: 8,
       blurb: 'Longer words, spelled from sound. No letters given.',
       build: function () {

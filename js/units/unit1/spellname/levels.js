@@ -21,7 +21,7 @@
 
     /* 1 ------------------------------------------------------------- */
     {
-      id: 'n1', name: 'How Do You Spell It?', mode: 'assemble',
+      id: 'n1', name: 'How Do You Spell It?', icon: '📠', mode: 'assemble',
       difficulty: 2, count: 8,
       blurb: 'A name is spelled out loud. Tap the letters in order.',
       build: function () {
@@ -37,7 +37,7 @@
 
     /* 2 ------------------------------------------------------------- */
     {
-      id: 'n2', name: 'Spell the Name', mode: 'assemble',
+      id: 'n2', name: 'Spell the Name', icon: '✍️', mode: 'assemble',
       difficulty: 3, count: 6,
       blurb: 'No letter given this time.',
       build: function () {
@@ -53,7 +53,7 @@
 
     /* 3 ------------------------------------------------------------- */
     {
-      id: 'n3', name: 'Two Names', mode: 'choice',
+      id: 'n3', name: 'Two Names', icon: '👥', mode: 'choice',
       difficulty: 2, count: 10,
       blurb: 'Two people say their name. Tap the one you heard.',
       build: function () {
@@ -69,7 +69,7 @@
 
     /* 4 ------------------------------------------------------------- */
     {
-      id: 'n4', name: 'Email Address', mode: 'choice',
+      id: 'n4', name: 'Email Address', icon: '✉️', mode: 'choice',
       difficulty: 4, count: 8,
       blurb: 'Listen to an email address. Which one was it?',
       build: function () {
@@ -85,7 +85,7 @@
 
     /* 5 ------------------------------------------------------------- */
     {
-      id: 'n5', name: 'Read the Address', mode: 'choice',
+      id: 'n5', name: 'Read the Address', icon: '🔖', mode: 'choice',
       difficulty: 4, count: 8,
       blurb: 'Read it instead of listening. Which one is right?',
       build: function () {

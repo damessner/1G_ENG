@@ -227,6 +227,9 @@ h2, h3, h4 { margin: 0; }
 .level-top .star { font-size: 15px; }
 .level-top .stars { gap: 1px; }
 
+.level-mark { display: flex; align-items: center; gap: 6px; min-width: 0; }
+.level-emoji { font-size: 16px; line-height: 1; }
+
 .level-n {
   width: 23px; height: 23px; flex: 0 0 23px; border-radius: 8px;
   display: grid; place-items: center; font-weight: 800; font-size: 12.5px;

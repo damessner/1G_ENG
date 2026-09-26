@@ -18,7 +18,7 @@
 
     /* 1 ------------------------------------------------------------- */
     {
-      id: 'z1', name: 'Z or Not Z?', mode: 'choice',
+      id: 'z1', name: 'Z or Not Z?', icon: '🐝', mode: 'choice',
       difficulty: 2, count: 10,
       blurb: 'Hear the buzzing word. Tap it, not the hissing ones.',
       build: function () {
@@ -34,7 +34,7 @@
 
     /* 2 ------------------------------------------------------------- */
     {
-      id: 'z2', name: 'Buzz or Hiss?', mode: 'choice',
+      id: 'z2', name: 'Buzz or Hiss?', icon: '🐝', mode: 'choice',
       difficulty: 2, count: 12,
       blurb: 'Hear a word. Does it buzz (/z/) or hiss (/s/)?',
       build: function () {
@@ -54,7 +54,7 @@
 
     /* 3 ------------------------------------------------------------- */
     {
-      id: 'z3', name: 'Two Z or Two S?', mode: 'choice',
+      id: 'z3', name: 'Two Z or Two S?', icon: '🐝', mode: 'choice',
       difficulty: 3, count: 10,
       blurb: 'Two words. Which one has the /z/ sound?',
       build: function () {
@@ -71,7 +71,7 @@
 
     /* 4 ------------------------------------------------------------- */
     {
-      id: 'z4', name: 'Spell the Z Word', mode: 'assemble',
+      id: 'z4', name: 'Spell the Z Word', icon: '🔣', mode: 'assemble',
       difficulty: 3, count: 8,
       blurb: 'Hear the word. Spell it — watch out for the zz at the end.',
       build: function () {

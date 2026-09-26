@@ -19,7 +19,7 @@
 
     /* 1 ------------------------------------------------------------- */
     {
-      id: 'p1', name: 'One or Many?', mode: 'choice',
+      id: 'p1', name: 'One or Many?', icon: '1️⃣', mode: 'choice',
       difficulty: 1, count: 10,
       blurb: 'Hear one thing. Tap the word for lots of them.',
       build: function () {
@@ -37,7 +37,7 @@
 
     /* 2 ------------------------------------------------------------- */
     {
-      id: 'p2', name: 'Lots of Them', mode: 'choice',
+      id: 'p2', name: 'Lots of Them', icon: '👥', mode: 'choice',
       difficulty: 2, count: 10,
       blurb: 'Hear lots. Tap the word for just one.',
       build: function () {
@@ -55,7 +55,7 @@
 
     /* 3 ------------------------------------------------------------- */
     {
-      id: 'p3', name: 'Tricky Plurals', mode: 'choice',
+      id: 'p3', name: 'Tricky Plurals', icon: '🧠', mode: 'choice',
       difficulty: 4, count: 12,
       blurb: 'The ones that do not just add -s. child/children, mouse/mice…',
       build: function () {
@@ -74,7 +74,7 @@
 
     /* 4 ------------------------------------------------------------- */
     {
-      id: 'p4', name: 'Read the Plural', mode: 'choice',
+      id: 'p4', name: 'Read the Plural', icon: '📖', mode: 'choice',
       difficulty: 2, count: 10,
       blurb: 'Read the word. Tap the one for just one.',
       build: function () {
@@ -92,7 +92,7 @@
 
     /* 5 ------------------------------------------------------------- */
     {
-      id: 'p5', name: 'The Odd One', mode: 'choice',
+      id: 'p5', name: 'The Odd One', icon: '🔎', mode: 'choice',
       difficulty: 4, count: 8,
       blurb: 'Four are plurals. One is not. Find it.',
       build: function () {

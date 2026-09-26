@@ -28,7 +28,7 @@
 
     /* 1 ------------------------------------------------------------- */
     {
-      id: 'n1', name: 'How Many?', mode: 'quantity',
+      id: 'n1', name: 'How Many?', icon: '☝️', mode: 'quantity',
       difficulty: 1, count: 8,
       blurb: 'Hear a number. Tap that many objects.',
       build: function () {
@@ -44,7 +44,7 @@
 
     /* 2 ------------------------------------------------------------- */
     {
-      id: 'n2', name: 'Bigger Numbers', mode: 'quantity',
+      id: 'n2', name: 'Bigger Numbers', icon: '💯', mode: 'quantity',
       difficulty: 2, count: 8,
       blurb: 'Now up to twenty.',
       build: function () {
@@ -60,7 +60,7 @@
 
     /* 3 ------------------------------------------------------------- */
     {
-      id: 'n3', name: 'What Comes Next?', mode: 'choice',
+      id: 'n3', name: 'What Comes Next?', icon: '➡️', mode: 'choice',
       difficulty: 2, count: 10,
       blurb: 'Count on. Which number comes next?',
       build: function () {
@@ -78,7 +78,7 @@
 
     /* 4 ------------------------------------------------------------- */
     {
-      id: 'n4', name: 'Take Away', mode: 'quantity',
+      id: 'n4', name: 'Take Away', icon: '➖', mode: 'quantity',
       difficulty: 3, count: 8,
       blurb: 'Take the bottom number away. Tap the ones to remove.',
       build: function () {
@@ -97,7 +97,7 @@
 
     /* 5 ------------------------------------------------------------- */
     {
-      id: 'n5', name: 'Which Is More?', mode: 'choice',
+      id: 'n5', name: 'Which Is More?', icon: '⚖️', mode: 'choice',
       difficulty: 3, count: 8,
       blurb: 'Two groups. Which one has more?',
       build: function () {
@@ -119,7 +119,7 @@
 
     /* 6 ------------------------------------------------------------- */
     {
-      id: 'n6', name: 'Missing Number', mode: 'choice',
+      id: 'n6', name: 'Missing Number', icon: '🕳️', mode: 'choice',
       difficulty: 4, count: 10,
       blurb: 'One number is missing from the sequence.',
       build: function () {
@@ -141,7 +141,7 @@
 
     /* 7 ------------------------------------------------------------- */
     {
-      id: 'n7', name: 'Up to Twenty-Five', mode: 'quantity',
+      id: 'n7', name: 'Up to Twenty-Five', icon: '🖐️', mode: 'quantity',
       difficulty: 3, count: 5,
       blurb: 'The Unit 1 numbers: twenty-one to twenty-five.',
       build: function () {
@@ -158,7 +158,7 @@
 
     /* 8 ------------------------------------------------------------- */
     {
-      id: 'n8', name: 'Which Number?', mode: 'choice',
+      id: 'n8', name: 'Which Number?', icon: '🎧', mode: 'choice',
       difficulty: 4, count: 10,
       blurb: 'Hear a number. Tap the one you heard.',
       build: function () {
