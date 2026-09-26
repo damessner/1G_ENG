@@ -60,7 +60,9 @@ jobs:
           v = os.environ["GITHUB_SHA"][:10]
           site = pathlib.Path("_site")
 
-          # index.html: local paths only, never the CDN or absolute URLs
+          # index.html: local paths only, never the CDN or absolute URLs.
+          # The pattern's closing quote is part of the match but not part of
+          # either group, so the replacement has to put it back itself.
           html = site / "index.html"
           text = html.read_text(encoding="utf-8")
 
@@ -68,7 +70,7 @@ jobs:
               path = m.group(2)
               if path.startswith(("http", "//", "#", "data:")) or "?" in path:
                   return m.group(0)
-              return m.group(1) + path + "?v=" + v
+              return m.group(1) + path + "?v=" + v + '"'
 
           text = re.sub(r'(src="|href=")([^"]+)"', tag, text)
           html.write_text(text, encoding="utf-8")
@@ -81,6 +83,44 @@ jobs:
           mf.write_text(text, encoding="utf-8")
 
           print("tagged local references with v=" + v)
+          PY
+
+      # Guard: a malformed rewrite must fail the build, not ship a site
+      # where no script tag ever closes. This caught exactly that mistake.
+      - name: Verify the rewritten site
+        run: |
+          python3 - <<'PY'
+          import pathlib, re, sys
+
+          html = pathlib.Path("_site/index.html").read_text(encoding="utf-8")
+          problems = []
+
+          # every script tag must be well formed
+          for m in re.finditer(r'<script[^>]*>', html):
+              if not m.group(0).endswith(">"):
+                  problems.append("malformed tag: " + m.group(0)[:60])
+          opens = html.count("<script")
+          closes = html.count("</script>")
+          if opens != closes:
+              problems.append(f"{opens} <script> vs {closes} </script>")
+
+          # a known-good reference must survive the rewrite intact
+          if 'src="js/app.js?v=' not in html:
+              problems.append("js/app.js was not tagged correctly")
+          if "</script>" not in html:
+              problems.append("no closing script tags found")
+
+          # no attribute value may have swallowed markup
+          for m in re.finditer(r'(?:src|href)="([^"]*)"', html):
+              if "<" in m.group(1) or ">" in m.group(1):
+                  problems.append("attribute swallowed markup: " + m.group(1)[:60])
+                  break
+
+          if problems:
+              for p in problems:
+                  print("FAIL:", p)
+              sys.exit(1)
+          print("index.html rewrite verified")
           PY
 
       # Guard: the manifest must describe every clip the game can ask for.
