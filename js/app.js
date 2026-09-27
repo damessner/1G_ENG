@@ -112,7 +112,9 @@ LG.App = (function () {
     currentUnit = unit;
 
     document.getElementById('unitTitle').textContent = unit.name;
-    document.getElementById('unitSub').textContent = unit.tagline || '';
+    var unlocked = !!LG.Store.get('settings.unlockAll', false);
+    document.getElementById('unitSub').textContent =
+      (unlocked ? 'all levels shown · ' : '') + (unit.tagline || '');
 
     var levels = unit.topics.reduce(function (s, t) { return s + t.levels.length; }, 0);
     var got = unit.topics.reduce(function (s, t) { return s + LG.Game.topicStars(t.id); }, 0);
@@ -358,7 +360,8 @@ LG.App = (function () {
       class: 'set-note',
       text: 'By default each section opens once the one before it has ' +
             LG.Units.UNLOCK_STARS + ' stars on every level, and the sections after that stay ' +
-            'hidden. Turn this on to show the whole unit, for a class working through it together.'
+            'hidden. Turn this on to show the whole unit, for a class working through it together. ' +
+            'You can also just add ?unlock=all to the address.'
     }));
 
     // number keys answer — useful on a projector, risky on a pupil's laptop
@@ -411,6 +414,23 @@ LG.App = (function () {
 
   function boot() {
     LG.Audio.init(LG.AUDIO_MANIFEST || {});
+
+    /* ?unlock=all   open every level in every unit (and remember it)
+       ?unlock=off   put the normal step-by-step unlocking back
+       ?unlock=reset  forget the choice and go back to the default
+
+       This exists for testing and for teacher-led walkthroughs. It is not
+       the default, because the gating is deliberate: a pupil who is shown
+       all 68 levels at once has no next goal to aim at. */
+    var flag = (location.search.match(/[?&]unlock=(all|off|reset)/) || [])[1];
+    if (flag === 'all') {
+      LG.Store.set('settings.unlockAll', true);
+    } else if (flag === 'off') {
+      LG.Store.set('settings.unlockAll', false);
+    } else if (flag === 'reset') {
+      LG.Store.set('settings.unlockAll', false);
+    }
+
     // Honour a voice chosen in a previous session.
     LG.Audio.setVariant(LG.Store.get('settings.variant', 'default'));
     LG.Speech.refresh();
