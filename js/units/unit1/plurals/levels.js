@@ -10,10 +10,17 @@
 
   var Q = LG.Q;
   var P = LG.VOCAB.topics.plurals.pairs;
-  // The raw pairs are arrays like ["man","men","i"]; every level works with
-  // the object form, so map once here rather than reading .one off an array.
-  var all = P.map(function (p) { return { one: p[0], many: p[1], kind: p[2] }; });
-  var irregular = all.filter(function (p) { return p.kind === 'i'; });
+  var LABELS = LG.VOCAB.topics.plurals.ruleLabels || {};
+  // pair[0] singular, pair[1] plural, pair[3] the rule the plural follows
+  var all = P.map(function (p) {
+    return { one: p[0], many: p[1], kind: p[2], rule: p[3] };
+  });
+  // The rule is the reliable signal; the third field is a legacy marker that
+  // is "r" throughout, so filtering on it would find nothing.
+  var irregular = all.filter(function (p) { return p.rule === 'irregular'; });
+  var byRule = {};
+  all.forEach(function (p) { (byRule[p.rule] = byRule[p.rule] || []).push(p); });
+  var RULES = Object.keys(LABELS).filter(function (r) { return (byRule[r] || []).length >= 3; });
 
   LG.topicData('plurals', [
 
@@ -107,6 +114,36 @@
           correct: cells.findIndex(function (c) { return c.id === odd.one; }),
           dedupe: 'odd' + odd.one
         });
+      }
+    },
+    /* 6 -- categorise by plural rule (LONG) -----------------------
+       The categorising task: a tray of bare singular nouns, and one box for
+       each way the plural can be made. It cannot be guessed from the look
+       of the word -- "box" and "watch" look nothing alike but both take
+       -es, while "photo" and "table" look similar and both take -s. */
+    {
+      id: 'p6', name: 'Sort the Plurals', mode: 'sort',
+      difficulty: 4, count: 4, icon: '\uD83D\uDC00', skill: 'reading',
+      blurb: 'Bare nouns. Drag each into the box for how its plural is made.',
+      build: function () {
+        var rules = Q.sample(RULES, Math.min(4, RULES.length));
+        var items = [];
+        var answer = {};
+        rules.forEach(function (r) {
+          Q.sample(byRule[r], 2).forEach(function (p) {
+            var id = 'i' + items.length;
+            items.push({ id: id, value: p.one });
+            answer[id] = r;
+          });
+        });
+        return {
+          type: 'sort',
+          prompt: Q.read('Drag each noun into the right box.'),
+          bins: rules.map(function (r) { return { id: r, label: LABELS[r] }; }),
+          items: Q.shuffle(items),
+          answerOf: answer,
+          dedupe: 'sortpl' + rules.join('') + items.map(function (i) { return i.value; }).join('')
+        };
       }
     }
   ]);

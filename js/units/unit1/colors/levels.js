@@ -110,24 +110,5 @@
     },
 
     /* 6 ------------------------------------------------------------- */
-    {
-      id: 'c6', name: 'Odd One Out', icon: '🔎', mode: 'choice',
-      difficulty: 4, count: 8,
-      blurb: 'Eight of these are the same. One is different.',
-      build: function () {
-        var base = Q.pick(NAMES);
-        var odd = Q.pick(NAMES.filter(function (c) { return c !== base; }));
-        var cells = [];
-        for (var i = 0; i < 8; i++) cells.push(Q.opt('swatch', base, { bg: HEX[base] }));
-        cells.push(Q.opt('swatch', odd, { bg: HEX[odd] }));
-        cells = Q.shuffle(cells);
-        return Q.choice({
-          prompt: Q.read('Which one is different?'),
-          options: cells,
-          correct: cells.findIndex(function (c) { return c.value === odd; }),
-          dedupe: 'odd' + base + odd
-        });
-      }
-    }
-  ]);
+    ]);
 })();

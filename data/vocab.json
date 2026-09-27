@@ -413,149 +413,267 @@
       ]
     },
     "plurals": {
-      "_readme": "[singular, plural, kind]. kind is 'r' regular (+s) or 'i' irregular.",
+      "_readme": [
+        "[singular, plural, kind, rule]. The 4th field is how the plural is",
+        "made, and is what the sorting exercise groups by. Words were added so",
+        "every rule has enough examples to be a real choice."
+      ],
       "pairs": [
         [
           "book",
           "books",
-          "r"
+          "r",
+          "s"
         ],
         [
-          "chair",
-          "chairs",
-          "r"
+          "cat",
+          "cats",
+          "r",
+          "s"
         ],
         [
           "pen",
           "pens",
-          "r"
+          "r",
+          "s"
         ],
         [
           "desk",
           "desks",
-          "r"
+          "r",
+          "s"
         ],
         [
           "bag",
           "bags",
-          "r"
+          "r",
+          "s"
         ],
         [
           "clock",
           "clocks",
-          "r"
-        ],
-        [
-          "bottle",
-          "bottles",
-          "r"
+          "r",
+          "s"
         ],
         [
           "window",
           "windows",
-          "r"
+          "r",
+          "s"
         ],
         [
           "door",
           "doors",
-          "r"
+          "r",
+          "s"
         ],
         [
           "pencil",
           "pencils",
-          "r"
+          "r",
+          "s"
         ],
         [
           "ruler",
           "rulers",
-          "r"
+          "r",
+          "s"
         ],
         [
           "crayon",
           "crayons",
-          "r"
-        ],
-        [
-          "box",
-          "boxes",
-          "r"
-        ],
-        [
-          "baby",
-          "babies",
-          "r"
-        ],
-        [
-          "city",
-          "cities",
-          "r"
-        ],
-        [
-          "knife",
-          "knives",
-          "i"
-        ],
-        [
-          "leaf",
-          "leaves",
-          "i"
+          "r",
+          "s"
         ],
         [
           "photo",
           "photos",
-          "r"
+          "r",
+          "s"
+        ],
+        [
+          "table",
+          "tables",
+          "r",
+          "s"
+        ],
+        [
+          "chair",
+          "chairs",
+          "r",
+          "s"
+        ],
+        [
+          "bottle",
+          "bottles",
+          "r",
+          "s"
+        ],
+        [
+          "box",
+          "boxes",
+          "r",
+          "es"
+        ],
+        [
+          "bus",
+          "buses",
+          "r",
+          "es"
+        ],
+        [
+          "watch",
+          "watches",
+          "r",
+          "es"
+        ],
+        [
+          "dish",
+          "dishes",
+          "r",
+          "es"
+        ],
+        [
+          "brush",
+          "brushes",
+          "r",
+          "es"
+        ],
+        [
+          "sandwich",
+          "sandwiches",
+          "r",
+          "es"
+        ],
+        [
+          "baby",
+          "babies",
+          "r",
+          "ies"
+        ],
+        [
+          "city",
+          "cities",
+          "r",
+          "ies"
+        ],
+        [
+          "family",
+          "families",
+          "r",
+          "ies"
+        ],
+        [
+          "story",
+          "stories",
+          "r",
+          "ies"
+        ],
+        [
+          "party",
+          "parties",
+          "r",
+          "ies"
+        ],
+        [
+          "knife",
+          "knives",
+          "r",
+          "ves"
+        ],
+        [
+          "leaf",
+          "leaves",
+          "r",
+          "ves"
+        ],
+        [
+          "wife",
+          "wives",
+          "r",
+          "ves"
+        ],
+        [
+          "shelf",
+          "shelves",
+          "r",
+          "ves"
         ],
         [
           "man",
           "men",
-          "i"
+          "r",
+          "irregular"
         ],
         [
           "woman",
           "women",
-          "i"
+          "r",
+          "irregular"
         ],
         [
           "child",
           "children",
-          "i"
+          "r",
+          "irregular"
         ],
         [
           "person",
           "people",
-          "i"
+          "r",
+          "irregular"
         ],
         [
           "foot",
           "feet",
-          "i"
+          "r",
+          "irregular"
         ],
         [
           "tooth",
           "teeth",
-          "i"
+          "r",
+          "irregular"
         ],
         [
           "mouse",
           "mice",
-          "i"
-        ],
-        [
-          "sheep",
-          "sheep",
-          "i"
-        ],
-        [
-          "fish",
-          "fish",
-          "i"
+          "r",
+          "irregular"
         ],
         [
           "goose",
           "geese",
-          "i"
+          "r",
+          "irregular"
+        ],
+        [
+          "fish",
+          "fish",
+          "r",
+          "nochange"
+        ],
+        [
+          "sheep",
+          "sheep",
+          "r",
+          "nochange"
+        ],
+        [
+          "deer",
+          "deer",
+          "r",
+          "nochange"
         ]
-      ]
+      ],
+      "ruleLabels": {
+        "s": "add -s",
+        "es": "add -es",
+        "ies": "-y becomes -ies",
+        "ves": "-f/-fe becomes -ves",
+        "irregular": "irregular",
+        "nochange": "no change"
+      }
     },
     "spellname": {
       "_readme": "Names and email addresses for the spelling-by-sound levels.",
@@ -596,45 +714,6 @@
         "zoe@ok.com",
         "emma@ok.com",
         "noah@ok.com"
-      ]
-    },
-    "soundsz": {
-      "_readme": "The /z/ sound. zWords contain it; sWords are near misses with /s/ or /sh/ and no /z/.",
-      "zWords": [
-        "zebra",
-        "zoo",
-        "zip",
-        "zap",
-        "nose",
-        "buzz",
-        "quiz",
-        "fizz",
-        "size",
-        "prize",
-        "these",
-        "rose",
-        "lazy",
-        "crazy",
-        "is",
-        "his"
-      ],
-      "sWords": [
-        "sun",
-        "sing",
-        "sheep",
-        "ship",
-        "fish",
-        "sock",
-        "six",
-        "fox",
-        "box",
-        "bus",
-        "sit",
-        "sip",
-        "mouse",
-        "press",
-        "grass",
-        "lost"
       ]
     },
     "zooanimals": {
