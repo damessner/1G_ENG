@@ -183,11 +183,61 @@ LG.Q = (function () {
     return randInt(1, word.length - 2);
   }
 
+  /* ---------------- translation ----------------
+     Built on the existing choice mode -- the German column in
+     data/vocab.json is what makes it possible at all. `ask` selects the
+     direction, and each is a genuinely different exercise:
+
+       'de'      hear the German, pick the English  (hardest: production)
+       'de-read' see the German, pick the English
+       'en'      hear the English, pick the German
+  */
+  function translate(spec) {
+    var right = spec.entry.word;
+    var pool = (spec.pool || []).filter(function (e) {
+      return e.word !== right && e.de;
+    });
+    var others = sample(pool, spec.count || 3);
+    var opts = shuffle(others.concat([spec.entry]).map(function (e) {
+      return opt('text', spec.ask === 'en' ? e.de : e.word, { id: e.word });
+    }));
+
+    var prompt;
+    if (spec.ask === 'de') {
+      // clip keys are lower-cased by the builder, so ask for it that way
+      prompt = audio('de/' + right.toLowerCase());   // spoken in German
+    } else if (spec.ask === 'de-read') {
+      prompt = read(spec.entry.de);
+    } else {
+      prompt = audio(wordKey(right));
+    }
+
+    return {
+      type: 'choice',
+      prompt: prompt,
+      options: opts,
+      correct: opts.findIndex(function (o) { return o.id === right; }),
+      dedupe: 'tr' + spec.ask + right
+    };
+  }
+
+  /* Pairs for the match mode: English left, German right. */
+  function translatePairs(entries) {
+    return {
+      type: 'match',
+      left: entries.map(function (e, i) { return { id: 'L' + i, value: e.word }; }),
+      right: entries.map(function (e, i) { return { id: 'R' + i, value: e.de }; }),
+      pairs: entries.reduce(function (m, e, i) { m['R' + i] = 'L' + i; return m; }, {}),
+      dedupe: 'trmatch' + entries.map(function (e) { return e.word; }).join('')
+    };
+  }
+
   return {
     shuffle: shuffle, pick: pick, sample: sample, randInt: randInt,
     audio: audio, read: read, text: text, sequence: sequence,
     opt: opt, letters: letters, texts: texts, emojis: emojis, swatches: swatches,
     choice: choice, assemble: assemble, quantity: quantity,
+    translate: translate, translatePairs: translatePairs,
     wordKey: wordKey, spellKey: spellKey, numberKey: numberKey,
     numberWord: numberWord, gap: gap, gapIndex: gapIndex,
     CONFUSABLE: CONFUSABLE

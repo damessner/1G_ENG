@@ -60,13 +60,14 @@ def unique(base: str, used: set) -> str:
     return name
 
 
-def build_clips(vocab: dict, spell_join: str, with_sounds: bool) -> list[dict]:
+def build_clips(vocab: dict, spell_join: str, with_sounds: bool,
+                de_voice: str = "de-DE-KatjaNeural") -> list[dict]:
     """Expand the vocabulary into a flat list of clips to render."""
     used: dict = {}          # group -> names already taken in that group
     keys: set = set()        # clip keys, so a word in two lists is not rendered twice
     clips: list[dict] = []
 
-    def add(key: str, text: str, group: str):
+    def add(key: str, text: str, group: str, voice: str | None = None):
         # Keys are lowercased to match LG.Q.wordKey() in the game, which
         # lower-cases whatever the topic asks for. Without this, a vocab entry
         # like "Open the window" builds "word/Open the window" while the game
@@ -79,9 +80,32 @@ def build_clips(vocab: dict, spell_join: str, with_sounds: bool) -> list[dict]:
         # spell/alphabet/cat.mp3 can coexist without a _2 suffix.
         seen = used.setdefault(group, set())
         fname = unique(slug(key.split("/", 1)[-1]), seen)
-        clips.append(
-            {"key": key, "text": text, "file": f"{group}/{fname}.mp3", "group": group}
-        )
+        clip = {"key": key, "text": text, "file": f"{group}/{fname}.mp3", "group": group}
+        if voice:
+            clip["voice"] = voice
+        clips.append(clip)
+
+    def german_of(entry):
+        """First German alternative, tidied for speech.
+
+        The files write 'Schreibtisch / Schulpult' and 'Führer/in'; the extra
+        alternatives are there for reading, not for saying.
+        """
+        de = entry.get("de")
+        if not de:
+            return None
+        first = de.split("/")[0].strip()
+        return first or None
+
+    def entry(entry):
+        """Add the English word, its spelling, and its German translation."""
+        w = entry["word"]
+        word(w)
+        if entry.get("ex"):
+            word(entry["ex"])
+        de = german_of(entry)
+        if de:
+            add("de/" + w, de, "de", voice=de_voice)
 
     # ---- letters: name + phonics sound -------------------------------------
     for ch in vocab.get("letters", {}).get("alphabet", ""):
@@ -114,8 +138,16 @@ def build_clips(vocab: dict, spell_join: str, with_sounds: bool) -> list[dict]:
                 word(w)
         for w in data.get("long", []):
             word(w)
-        for w in data.get("words", []):
-            word(w)
+        # Imported topics hold objects ({word, de, ex}); the hand-written ones
+        # hold plain strings. Accept both, and give the imported entries their
+        # example sentence and German clip as well.
+        for group in ("words", "phrases"):
+            for w in data.get(group, []):
+                entry(w) if isinstance(w, dict) else word(w)
+
+        for group in ("names", "emails", "zWords", "sWords", "prepositions", "short"):
+            for w in data.get(group, []):
+                word(w)
         # Generic list for any topic that just needs words rendered. Lets a
         # new topic pack ship audio without touching this file.
         for w in data.get("clips", []):
@@ -170,6 +202,14 @@ def build_clips(vocab: dict, spell_join: str, with_sounds: bool) -> list[dict]:
             if item.get("place"):
                 add(f"place/{item['word']}", item["place"], f"place/{topic}")
 
+    # Clue sentences for the "What Is It?" levels. These live in the
+    # hand-maintained `media` block, so they are rendered from here rather
+    # than from a topic's `items` -- otherwise every picture-based vocabulary
+    # topic asks for a clue clip that was never built.
+    for word, info in (vocab.get("media") or {}).items():
+        if isinstance(info, dict) and info.get("desc"):
+            add("desc/" + word, info["desc"], "desc")
+
     return clips
 
 
@@ -187,10 +227,13 @@ async def render(clips: list[dict], voice: str, rate: str, volume: str, force: b
             skipped += 1
             return
         async with sem:
+            # A clip may carry its own voice (German translations do), so the
+            # translation exercises can speak German from the same player.
+            clip_voice = clip.get("voice") or voice
             for attempt in range(3):
                 try:
                     target.parent.mkdir(parents=True, exist_ok=True)
-                    comm = edge_tts.Communicate(clip["text"], voice, rate=rate, volume=volume)
+                    comm = edge_tts.Communicate(clip["text"], clip_voice, rate=rate, volume=volume)
                     await comm.save(str(target))
                     done += 1
                     return
@@ -416,6 +459,8 @@ def main() -> int:
                          "primary clips, creating a switchable alternative voice. "
                          "The main manifest still describes the primary pack.")
     ap.add_argument("--rate", help="e.g. -12%%")
+    ap.add_argument("--de-voice", default="de-DE-KatjaNeural",
+                    help="voice for the German translations")
     ap.add_argument("--jobs", type=int, default=6, help="parallel requests (default 6)")
     ap.add_argument("--spell-joiner", default=", ", help="separator between spelled letters")
     ap.add_argument("--prune", action="store_true",
@@ -423,12 +468,12 @@ def main() -> int:
     args = ap.parse_args()
 
     vocab = json.loads(VOCAB.read_text(encoding="utf-8"))
-    clips = build_clips(vocab, args.spell_joiner, args.sounds)
+    clips = build_clips(vocab, args.spell_joiner, args.sounds, args.de_voice)
     # The manifest must always describe the WHOLE pack. `--only` narrows
     # which clips get rendered, never which clips the game may ask for --
     # otherwise a partial run would silently delete the other entries and
     # the game would quietly fall back to Web Speech for everything else.
-    all_clips = build_clips(vocab, args.spell_joiner, args.sounds)
+    all_clips = build_clips(vocab, args.spell_joiner, args.sounds, args.de_voice)
 
     global OUT
     if args.variant:

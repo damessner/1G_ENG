@@ -1090,6 +1090,2417 @@
           "emoji": "🔄"
         }
       ]
+    },
+    "u1_in-the-classroom": {
+      "_source": "vocabulary/Unit 1.md / In the classroom",
+      "_unit": "unit1",
+      "words": [
+        {
+          "word": "board",
+          "kind": "word",
+          "de": "Tafel"
+        },
+        {
+          "word": "chair",
+          "kind": "word",
+          "de": "Stuhl"
+        },
+        {
+          "word": "desk",
+          "kind": "word",
+          "de": "Schreibtisch / Schulpult"
+        },
+        {
+          "word": "door",
+          "kind": "word",
+          "de": "Tür"
+        },
+        {
+          "word": "exercise book",
+          "kind": "word",
+          "de": "Übungsheft / Schulheft"
+        },
+        {
+          "word": "floor",
+          "kind": "word",
+          "de": "Boden / Fußboden"
+        },
+        {
+          "word": "glue stick",
+          "kind": "word",
+          "de": "Klebestift"
+        },
+        {
+          "word": "paintbrush",
+          "kind": "word",
+          "de": "Pinsel"
+        },
+        {
+          "word": "pen",
+          "kind": "word",
+          "de": "Füllfederhalter / Stift / Kuli"
+        },
+        {
+          "word": "pencil",
+          "kind": "word",
+          "de": "Bleistift"
+        },
+        {
+          "word": "pencil case",
+          "kind": "word",
+          "de": "Federmäppchen / Federpennal"
+        },
+        {
+          "word": "pencil sharpener",
+          "kind": "word",
+          "de": "Bleistiftspitzer / Anspitzer"
+        },
+        {
+          "word": "projector",
+          "kind": "word",
+          "de": "Beamer / Projektor"
+        },
+        {
+          "word": "rubber",
+          "kind": "word",
+          "de": "Radiergummi"
+        },
+        {
+          "word": "ruler",
+          "kind": "word",
+          "de": "Lineal"
+        },
+        {
+          "word": "school bag",
+          "kind": "word",
+          "de": "Schultasche / Schulranzen"
+        },
+        {
+          "word": "scissors",
+          "kind": "word",
+          "de": "Schere"
+        },
+        {
+          "word": "sound system",
+          "kind": "word",
+          "de": "Soundanlage / Musikanlage"
+        },
+        {
+          "word": "tablet",
+          "kind": "word",
+          "de": "Tablet"
+        },
+        {
+          "word": "watercolours",
+          "kind": "word",
+          "de": "Wasserfarben / Malkasten"
+        },
+        {
+          "word": "window",
+          "kind": "word",
+          "de": "Fenster"
+        }
+      ]
+    },
+    "u1_cool-clothes": {
+      "_source": "vocabulary/Unit 1.md / Cool clothes",
+      "_unit": "unit1",
+      "words": [
+        {
+          "word": "hairband",
+          "kind": "word",
+          "de": "Haarband / Haarreif"
+        },
+        {
+          "word": "hat",
+          "kind": "word",
+          "de": "Mütze / Hut"
+        },
+        {
+          "word": "school tie",
+          "kind": "word",
+          "de": "Schul-Krawatte"
+        },
+        {
+          "word": "shirt",
+          "kind": "word",
+          "de": "Hemd / Bluse"
+        },
+        {
+          "word": "shoe",
+          "kind": "word",
+          "de": "Schuh"
+        },
+        {
+          "word": "skirt",
+          "kind": "word",
+          "de": "Rock"
+        },
+        {
+          "word": "socks",
+          "kind": "word",
+          "de": "Socken / Strümpfe"
+        },
+        {
+          "word": "sunglasses",
+          "kind": "word",
+          "de": "Sonnenbrille"
+        },
+        {
+          "word": "sweater",
+          "kind": "word",
+          "de": "Pullover"
+        }
+      ]
+    },
+    "u1_more": {
+      "_source": "vocabulary/Unit 1.md",
+      "_unit": "unit1",
+      "words": [
+        {
+          "word": "to give",
+          "kind": "verb",
+          "de": "geben",
+          "ex": "Give me your school bag."
+        },
+        {
+          "word": "time",
+          "kind": "word",
+          "de": "Zeit",
+          "ex": "It's time for school."
+        },
+        {
+          "word": "to understand",
+          "kind": "verb",
+          "de": "verstehen",
+          "ex": "I understand the question."
+        },
+        {
+          "word": "to write",
+          "kind": "verb",
+          "de": "schreiben",
+          "ex": "Write the numbers."
+        },
+        {
+          "word": "to enjoy",
+          "kind": "verb",
+          "de": "genießen",
+          "ex": "Enjoy the music.",
+          "marker": "1"
+        },
+        {
+          "word": "to listen",
+          "kind": "verb",
+          "de": "zuhören",
+          "ex": "Listen to the song."
+        },
+        {
+          "word": "to love",
+          "kind": "verb",
+          "de": "lieben",
+          "ex": "I love blue. It's my favourite colour."
+        },
+        {
+          "word": "more",
+          "kind": "word",
+          "de": "mehr",
+          "ex": "I want more!"
+        },
+        {
+          "word": "to read",
+          "kind": "verb",
+          "de": "lesen",
+          "ex": "Read the text."
+        },
+        {
+          "word": "their",
+          "kind": "word",
+          "de": "ihr/e",
+          "ex": "What's their address?",
+          "marker": "2"
+        },
+        {
+          "word": "to ask",
+          "kind": "verb",
+          "de": "fragen",
+          "ex": "Can I ask you a question?",
+          "marker": "4"
+        },
+        {
+          "word": "address",
+          "kind": "word",
+          "de": "Adresse",
+          "ex": "My email address is sara@linkways.com."
+        },
+        {
+          "word": "to meet",
+          "kind": "verb",
+          "de": "kennenlernen; sich treffen",
+          "ex": "Nice to meet you!"
+        },
+        {
+          "word": "then",
+          "kind": "word",
+          "de": "dann, danach",
+          "ex": "Listen to the dialogue. Then read it."
+        },
+        {
+          "word": "your",
+          "kind": "word",
+          "de": "dein/e; Ihr/e; euer/eure",
+          "ex": "What's your email address?"
+        },
+        {
+          "word": "to look",
+          "kind": "verb",
+          "de": "sehen, schauen; Schau mal.",
+          "ex": "Look at the animals.",
+          "marker": "7"
+        },
+        {
+          "word": "or",
+          "kind": "word",
+          "de": "oder",
+          "ex": "Tick or correct the numbers."
+        },
+        {
+          "word": "to eat",
+          "kind": "verb",
+          "de": "essen; fressen",
+          "ex": "I eat insects.",
+          "marker": "8"
+        },
+        {
+          "word": "to go",
+          "kind": "verb",
+          "de": "gehen",
+          "ex": "I must go. Bye."
+        },
+        {
+          "word": "must",
+          "kind": "word",
+          "de": "müssen",
+          "ex": "I must go."
+        },
+        {
+          "word": "how many",
+          "kind": "word",
+          "de": "wie viele",
+          "ex": "How many frogs can you see?",
+          "marker": "9"
+        },
+        {
+          "word": "to hate",
+          "kind": "verb",
+          "de": "hassen, nicht ausstehen können",
+          "ex": "I hate pink.",
+          "marker": "12"
+        },
+        {
+          "word": "here",
+          "kind": "word",
+          "de": "hier",
+          "ex": "Here's your pencil case."
+        },
+        {
+          "word": "it",
+          "kind": "word",
+          "de": "es",
+          "ex": "It's yellow."
+        },
+        {
+          "word": "Let's ...",
+          "kind": "word",
+          "de": "Lass ...",
+          "ex": "Let's sing a song!"
+        },
+        {
+          "word": "midnight",
+          "kind": "word",
+          "de": "Mitternacht",
+          "ex": "It's twelve o'clock – midnight."
+        },
+        {
+          "word": "our",
+          "kind": "word",
+          "de": "unser/e",
+          "ex": "This is our school."
+        },
+        {
+          "word": "favourite",
+          "kind": "word",
+          "de": "Lieblings-",
+          "ex": "Green is my favourite colour.",
+          "marker": "OYW1"
+        },
+        {
+          "word": "to find",
+          "kind": "verb",
+          "de": "finden",
+          "ex": "Can you find my school tie?"
+        },
+        {
+          "word": "light",
+          "kind": "word",
+          "de": "hell",
+          "ex": "My favourite colour is light blue."
+        },
+        {
+          "word": "child",
+          "kind": "word",
+          "de": "Kind",
+          "ex": "The child is in class 1A.",
+          "marker": "15"
+        },
+        {
+          "word": "to clean",
+          "kind": "verb",
+          "de": "sauber machen, putzen",
+          "ex": "Clean the board."
+        },
+        {
+          "word": "to close",
+          "kind": "verb",
+          "de": "schließen, zumachen",
+          "ex": "Close the door."
+        },
+        {
+          "word": "to open",
+          "kind": "verb",
+          "de": "öffnen, aufmachen",
+          "ex": "Open the window."
+        },
+        {
+          "word": "picture",
+          "kind": "word",
+          "de": "Bild",
+          "ex": "Look at the pictures."
+        },
+        {
+          "word": "to sit down",
+          "kind": "verb",
+          "de": "sich setzen",
+          "ex": "Sit down, children."
+        },
+        {
+          "word": "to speak",
+          "kind": "verb",
+          "de": "sprechen",
+          "ex": "Don't speak. Listen."
+        },
+        {
+          "word": "to stand up",
+          "kind": "verb",
+          "de": "aufstehen",
+          "ex": "Don't stand up. Sit down."
+        },
+        {
+          "word": "to take out",
+          "kind": "verb",
+          "de": "herausnehmen",
+          "ex": "Take out your books."
+        },
+        {
+          "word": "class",
+          "kind": "word",
+          "de": "Klasse",
+          "ex": "I'm in class 1A.",
+          "marker": "18"
+        }
+      ],
+      "phrases": [
+        {
+          "word": "How are you?",
+          "kind": "phrase",
+          "de": "Wie geht es dir/Ihnen/euch?"
+        },
+        {
+          "word": "I am fine.",
+          "kind": "phrase",
+          "de": "Es geht mir gut."
+        }
+      ]
+    },
+    "u2_at-the-wildlife-park": {
+      "_source": "vocabulary/Unit 2.md / At the wildlife park",
+      "_unit": "unit2",
+      "words": [
+        {
+          "word": "giraffe",
+          "kind": "word",
+          "de": "Giraffe"
+        },
+        {
+          "word": "guide",
+          "kind": "word",
+          "de": "Führer/in"
+        },
+        {
+          "word": "lion",
+          "kind": "word",
+          "de": "Löwe"
+        },
+        {
+          "word": "monkey",
+          "kind": "word",
+          "de": "Affe"
+        },
+        {
+          "word": "parrot",
+          "kind": "word",
+          "de": "Papagei"
+        },
+        {
+          "word": "penguin",
+          "kind": "word",
+          "de": "Pinguin"
+        },
+        {
+          "word": "train",
+          "kind": "word",
+          "de": "Zug"
+        },
+        {
+          "word": "tree",
+          "kind": "word",
+          "de": "Baum"
+        }
+      ]
+    },
+    "u2_prepositions-of-place": {
+      "_source": "vocabulary/Unit 2.md / Prepositions of place",
+      "_unit": "unit2",
+      "words": [
+        {
+          "word": "behind",
+          "kind": "word",
+          "de": "hinter"
+        },
+        {
+          "word": "in",
+          "kind": "word",
+          "de": "in / drinnen"
+        },
+        {
+          "word": "in front of",
+          "kind": "word",
+          "de": "vor"
+        },
+        {
+          "word": "next to",
+          "kind": "word",
+          "de": "neben"
+        },
+        {
+          "word": "on",
+          "kind": "word",
+          "de": "auf"
+        },
+        {
+          "word": "under",
+          "kind": "word",
+          "de": "unter"
+        }
+      ]
+    },
+    "u2_more": {
+      "_source": "vocabulary/Unit 2.md",
+      "_unit": "unit2",
+      "words": [
+        {
+          "word": "zoo",
+          "kind": "word",
+          "de": "Zoo",
+          "ex": "There are many animals in the zoo."
+        },
+        {
+          "word": "beautiful",
+          "kind": "word",
+          "de": "schön, hübsch",
+          "ex": "The parrot is blue and yellow. It's beautiful.",
+          "marker": "1"
+        },
+        {
+          "word": "behind",
+          "kind": "word",
+          "de": "hinter",
+          "ex": "The chair is behind the desk."
+        },
+        {
+          "word": "big",
+          "kind": "word",
+          "de": "groß",
+          "ex": "There's a big giraffe."
+        },
+        {
+          "word": "in front of",
+          "kind": "word",
+          "de": "vor",
+          "ex": "The tree is in front of you."
+        },
+        {
+          "word": "next to",
+          "kind": "word",
+          "de": "neben",
+          "ex": "The parrot is next to the monkeys."
+        },
+        {
+          "word": "now",
+          "kind": "word",
+          "de": "jetzt",
+          "ex": "Where is it now?"
+        },
+        {
+          "word": "on",
+          "kind": "word",
+          "de": "auf",
+          "ex": "Look! The parrot is on Buddy now."
+        },
+        {
+          "word": "there is",
+          "kind": "word",
+          "de": "es gibt, da ist",
+          "ex": "There's a book on my desk."
+        },
+        {
+          "word": "there are",
+          "kind": "word",
+          "de": "es gibt, da sind",
+          "ex": "There are three books on my desk."
+        },
+        {
+          "word": "tree",
+          "kind": "word",
+          "de": "Baum",
+          "ex": "The monkeys are behind the tree."
+        },
+        {
+          "word": "under",
+          "kind": "word",
+          "de": "unter",
+          "ex": "There's a book under my desk."
+        },
+        {
+          "word": "where",
+          "kind": "word",
+          "de": "wo",
+          "ex": "Where is it?"
+        },
+        {
+          "word": "small",
+          "kind": "word",
+          "de": "klein",
+          "ex": "The monkey isn't big. It's small.",
+          "marker": "2"
+        },
+        {
+          "word": "adult",
+          "kind": "word",
+          "de": "Erwachsene/r",
+          "ex": "Adults are £14.40.",
+          "marker": "4"
+        },
+        {
+          "word": "at",
+          "kind": "word",
+          "de": "bei; an; hier: in",
+          "ex": "The children are at the zoo."
+        },
+        {
+          "word": "to bring",
+          "kind": "verb",
+          "de": "bringen",
+          "ex": "Can I bring my dog, Buddy?"
+        },
+        {
+          "word": "but",
+          "kind": "word",
+          "de": "aber",
+          "ex": "Dogs are welcome. But they can't run around."
+        },
+        {
+          "word": "to feed",
+          "kind": "verb",
+          "de": "füttern",
+          "ex": "Let's go and feed the penguins."
+        },
+        {
+          "word": "guide",
+          "kind": "word",
+          "de": "Führer/in",
+          "ex": "Listen to the guide."
+        },
+        {
+          "word": "to run around",
+          "kind": "verb",
+          "de": "herumlaufen",
+          "ex": "Dogs are welcome, but they can't run around."
+        },
+        {
+          "word": "train",
+          "kind": "word",
+          "de": "Zug",
+          "ex": "Let's go on a train."
+        },
+        {
+          "word": "to",
+          "kind": "word",
+          "de": "zu; bis; vor; hier: in",
+          "ex": "Welcome to the wildlife park!"
+        },
+        {
+          "word": "welcome",
+          "kind": "word",
+          "de": "willkommen",
+          "ex": "Welcome to London."
+        },
+        {
+          "word": "from",
+          "kind": "word",
+          "de": "aus",
+          "ex": "They are from California.",
+          "marker": "6"
+        },
+        {
+          "word": "year",
+          "kind": "word",
+          "de": "Jahr; Jahrgangsstufe",
+          "ex": "I'm in Year 7."
+        },
+        {
+          "word": "he",
+          "kind": "word",
+          "de": "er",
+          "ex": "He likes animals.",
+          "marker": "7"
+        },
+        {
+          "word": "she",
+          "kind": "word",
+          "de": "sie",
+          "ex": "She is from England."
+        },
+        {
+          "word": "to talk",
+          "kind": "verb",
+          "de": "sprechen, sich unterhalten",
+          "ex": "Talk about the boys and girls."
+        },
+        {
+          "word": "they",
+          "kind": "word",
+          "de": "sie",
+          "ex": "Rahim and Sue are 11. They are from Manchester."
+        },
+        {
+          "word": "we",
+          "kind": "word",
+          "de": "wir",
+          "ex": "We're Sophie and John."
+        },
+        {
+          "word": "for",
+          "kind": "word",
+          "de": "für",
+          "ex": "Here's a chant for you.",
+          "marker": "9"
+        },
+        {
+          "word": "happy",
+          "kind": "word",
+          "de": "glücklich, fröhlich; zufrieden",
+          "ex": "Buddy is happy."
+        },
+        {
+          "word": "to let somebody out",
+          "kind": "verb",
+          "de": "jemanden herauslassen",
+          "ex": "Let us out!"
+        },
+        {
+          "word": "us",
+          "kind": "word",
+          "de": "uns",
+          "ex": "Can you see us?"
+        },
+        {
+          "word": "car",
+          "kind": "word",
+          "de": "Auto",
+          "ex": "The parrot is in the car.",
+          "marker": "10"
+        },
+        {
+          "word": "At last.",
+          "kind": "word",
+          "de": "Endlich.",
+          "marker": "S1"
+        },
+        {
+          "word": "How strange!",
+          "kind": "word",
+          "de": "Wie komisch!"
+        },
+        {
+          "word": "stone",
+          "kind": "word",
+          "de": "Stein",
+          "ex": "Colour your stone."
+        }
+      ],
+      "phrases": [
+        {
+          "word": "What is it?",
+          "kind": "phrase",
+          "de": "Was ist los?"
+        },
+        {
+          "word": "Let me see.",
+          "kind": "phrase",
+          "de": "Lass mich mal schauen."
+        }
+      ]
+    },
+    "u3_pirates": {
+      "_source": "vocabulary/Unit 3.md / Pirates",
+      "_unit": "unit3",
+      "words": [
+        {
+          "word": "hook",
+          "kind": "word",
+          "de": "Haken"
+        },
+        {
+          "word": "pirate",
+          "kind": "word",
+          "de": "Pirat"
+        },
+        {
+          "word": "sea",
+          "kind": "word",
+          "de": "Meer / See"
+        },
+        {
+          "word": "ship",
+          "kind": "word",
+          "de": "Schiff"
+        },
+        {
+          "word": "treasure",
+          "kind": "word",
+          "de": "Schatz"
+        },
+        {
+          "word": "wooden leg",
+          "kind": "word",
+          "de": "Holzbein"
+        }
+      ]
+    },
+    "u3_the-body": {
+      "_source": "vocabulary/Unit 3.md / The body",
+      "_unit": "unit3",
+      "words": [
+        {
+          "word": "beard",
+          "kind": "word",
+          "de": "Bart"
+        },
+        {
+          "word": "ear",
+          "kind": "word",
+          "de": "Ohr"
+        },
+        {
+          "word": "eye",
+          "kind": "word",
+          "de": "Auge"
+        },
+        {
+          "word": "finger",
+          "kind": "word",
+          "de": "Finger"
+        },
+        {
+          "word": "foot",
+          "kind": "word",
+          "de": "Fuß"
+        },
+        {
+          "word": "hair",
+          "kind": "word",
+          "de": "Haar"
+        },
+        {
+          "word": "left arm",
+          "kind": "word",
+          "de": "linker Arm"
+        },
+        {
+          "word": "leg",
+          "kind": "word",
+          "de": "Bein"
+        },
+        {
+          "word": "mouth",
+          "kind": "word",
+          "de": "Mund"
+        },
+        {
+          "word": "nose",
+          "kind": "word",
+          "de": "Nase"
+        },
+        {
+          "word": "right arm",
+          "kind": "word",
+          "de": "rechter Arm"
+        },
+        {
+          "word": "shoulder",
+          "kind": "word",
+          "de": "Schulter"
+        },
+        {
+          "word": "tooth",
+          "kind": "word",
+          "de": "Zahn"
+        }
+      ]
+    },
+    "u3_opposites-adjectives": {
+      "_source": "vocabulary/Unit 3.md / Opposites / Adjectives",
+      "_unit": "unit3",
+      "words": [
+        {
+          "word": "tall",
+          "kind": "word",
+          "de": "groß",
+          "opposite": "short"
+        },
+        {
+          "word": "short",
+          "kind": "word",
+          "de": "klein",
+          "opposite": "tall"
+        },
+        {
+          "word": "big",
+          "kind": "word",
+          "de": "groß",
+          "opposite": "small"
+        },
+        {
+          "word": "small",
+          "kind": "word",
+          "de": "klein",
+          "opposite": "big"
+        },
+        {
+          "word": "long",
+          "kind": "word",
+          "de": "lang",
+          "opposite": "short"
+        },
+        {
+          "word": "short",
+          "kind": "word",
+          "de": "kurz",
+          "opposite": "long"
+        }
+      ]
+    },
+    "u3_more": {
+      "_source": "vocabulary/Unit 3.md",
+      "_unit": "unit3",
+      "words": [
+        {
+          "word": "also",
+          "kind": "word",
+          "de": "auch",
+          "ex": "Tamara is also a pirate.",
+          "marker": "1"
+        },
+        {
+          "word": "famous",
+          "kind": "word",
+          "de": "berühmt",
+          "ex": "Greybeard is a famous pirate."
+        },
+        {
+          "word": "him",
+          "kind": "word",
+          "de": "ihm/ihn",
+          "ex": "Peter is nice. We like him."
+        },
+        {
+          "word": "his",
+          "kind": "word",
+          "de": "sein/e",
+          "ex": "His pirate name is Blackbeard."
+        },
+        {
+          "word": "ship",
+          "kind": "word",
+          "de": "Schiff",
+          "ex": "Greybeard has got a big ship."
+        },
+        {
+          "word": "to be scared",
+          "kind": "verb",
+          "de": "Angst haben",
+          "ex": "The kids are scared of the ship."
+        },
+        {
+          "word": "very",
+          "kind": "word",
+          "de": "sehr",
+          "ex": "They are very scared."
+        },
+        {
+          "word": "strong",
+          "kind": "word",
+          "de": "stark, kräftig",
+          "ex": "Greybeard hasn't got a strong left leg.",
+          "marker": "3"
+        },
+        {
+          "word": "captain",
+          "kind": "word",
+          "de": "Kapitän",
+          "ex": "The captain has got a blue ship.",
+          "marker": "4"
+        },
+        {
+          "word": "pretty",
+          "kind": "word",
+          "de": "hübsch",
+          "ex": "Polly is a pretty pirate.",
+          "marker": "5"
+        },
+        {
+          "word": "purple",
+          "kind": "word",
+          "de": "violett, lila",
+          "ex": "She has got purple hair."
+        },
+        {
+          "word": "bed",
+          "kind": "word",
+          "de": "Bett",
+          "ex": "Dana is in bed now."
+        },
+        {
+          "word": "dream",
+          "kind": "word",
+          "de": "Traum",
+          "ex": "It's a dream!"
+        },
+        {
+          "word": "tired",
+          "kind": "word",
+          "de": "müde",
+          "ex": "Dana is in bed. She is tired."
+        },
+        {
+          "word": "to guess",
+          "kind": "verb",
+          "de": "raten",
+          "ex": "Listen and guess the pirate.",
+          "marker": "8"
+        },
+        {
+          "word": "brother",
+          "kind": "word",
+          "de": "Bruder",
+          "ex": "Fred is Frank's brother.",
+          "marker": "11"
+        },
+        {
+          "word": "blonde",
+          "kind": "word",
+          "de": "blond",
+          "ex": "He has got blonde hair."
+        },
+        {
+          "word": "real",
+          "kind": "word",
+          "de": "echt; wirklich",
+          "ex": "His left leg isn't real. It's wooden."
+        },
+        {
+          "word": "short",
+          "kind": "word",
+          "de": "klein",
+          "ex": "Greybeard is short."
+        },
+        {
+          "word": "tall",
+          "kind": "word",
+          "de": "groß",
+          "ex": "Tamara is tall."
+        },
+        {
+          "word": "wrong",
+          "kind": "word",
+          "de": "falsch, nicht in Ordnung",
+          "ex": "Say what's wrong."
+        },
+        {
+          "word": "Good idea.",
+          "kind": "word",
+          "de": "Gute Idee.",
+          "marker": "T1"
+        },
+        {
+          "word": "true",
+          "kind": "word",
+          "de": "wahr",
+          "ex": "Is it true?"
+        }
+      ],
+      "phrases": [
+        {
+          "word": "have got / has got",
+          "kind": "phrase",
+          "de": "haben",
+          "ex": "I have got brown hair. Tamara has got red hair."
+        },
+        {
+          "word": "a lot of / lots of",
+          "kind": "phrase",
+          "de": "viel/e",
+          "ex": "She has got a lot of books about pirates.",
+          "marker": "6"
+        },
+        {
+          "word": "It's your turn.",
+          "kind": "phrase",
+          "de": "Du bist an der Reihe."
+        }
+      ]
+    },
+    "u4_feelings": {
+      "_source": "vocabulary/Unit 4.md / Feelings",
+      "_unit": "unit4",
+      "words": [
+        {
+          "word": "angry",
+          "kind": "word",
+          "de": "wütend, zornig"
+        },
+        {
+          "word": "bored",
+          "kind": "word",
+          "de": "gelangweilt"
+        },
+        {
+          "word": "cold",
+          "kind": "word",
+          "de": "kalt; frierend"
+        },
+        {
+          "word": "excited",
+          "kind": "word",
+          "de": "aufgeregt, begeistert"
+        },
+        {
+          "word": "happy",
+          "kind": "word",
+          "de": "glücklich, fröhlich"
+        },
+        {
+          "word": "hot",
+          "kind": "word",
+          "de": "heiß; schwitzend"
+        },
+        {
+          "word": "hungry",
+          "kind": "word",
+          "de": "hungrig"
+        },
+        {
+          "word": "nervous",
+          "kind": "word",
+          "de": "nervös"
+        },
+        {
+          "word": "proud",
+          "kind": "word",
+          "de": "stolz"
+        },
+        {
+          "word": "sad",
+          "kind": "word",
+          "de": "traurig"
+        },
+        {
+          "word": "scared",
+          "kind": "word",
+          "de": "verängstigt, voller Angst"
+        },
+        {
+          "word": "tired",
+          "kind": "word",
+          "de": "müde"
+        }
+      ]
+    },
+    "u4_times-of-the-day": {
+      "_source": "vocabulary/Unit 4.md / Times of the day",
+      "_unit": "unit4",
+      "words": [
+        {
+          "word": "morning",
+          "kind": "word",
+          "de": "Vormittag / Morgen"
+        },
+        {
+          "word": "lunchtime",
+          "kind": "word",
+          "de": "Mittagszeit / Mittagspause"
+        },
+        {
+          "word": "afternoon",
+          "kind": "word",
+          "de": "Nachmittag"
+        },
+        {
+          "word": "evening",
+          "kind": "word",
+          "de": "Abend"
+        },
+        {
+          "word": "night",
+          "kind": "word",
+          "de": "Nacht"
+        }
+      ]
+    },
+    "u4_days-of-the-week": {
+      "_source": "vocabulary/Unit 4.md / Days of the week",
+      "_unit": "unit4",
+      "words": [
+        {
+          "word": "Monday",
+          "kind": "word",
+          "de": "Montag"
+        },
+        {
+          "word": "Tuesday",
+          "kind": "word",
+          "de": "Dienstag"
+        },
+        {
+          "word": "Wednesday",
+          "kind": "word",
+          "de": "Mittwoch"
+        },
+        {
+          "word": "Thursday",
+          "kind": "word",
+          "de": "Donnerstag"
+        },
+        {
+          "word": "Friday",
+          "kind": "word",
+          "de": "Freitag"
+        },
+        {
+          "word": "Saturday",
+          "kind": "word",
+          "de": "Samstag"
+        },
+        {
+          "word": "Sunday",
+          "kind": "word",
+          "de": "Sonntag"
+        }
+      ]
+    },
+    "u4_more": {
+      "_source": "vocabulary/Unit 4.md",
+      "_unit": "unit4",
+      "words": [
+        {
+          "word": "after",
+          "kind": "word",
+          "de": "nach",
+          "ex": "After school I meet my friends.",
+          "marker": "3"
+        },
+        {
+          "word": "day",
+          "kind": "word",
+          "de": "Tag",
+          "ex": "On the big day, Mike is nervous."
+        },
+        {
+          "word": "end",
+          "kind": "word",
+          "de": "Ende",
+          "ex": "At the end of the play, Mike is very happy."
+        },
+        {
+          "word": "fun",
+          "kind": "word",
+          "de": "Spaß",
+          "ex": "It's great fun."
+        },
+        {
+          "word": "Go away!",
+          "kind": "word",
+          "de": "Geh weg!"
+        },
+        {
+          "word": "to help",
+          "kind": "verb",
+          "de": "helfen",
+          "ex": "Let me help you."
+        },
+        {
+          "word": "home",
+          "kind": "word",
+          "de": "zu/nach Hause; Zuhause",
+          "ex": "Mike is at home."
+        },
+        {
+          "word": "mum",
+          "kind": "word",
+          "de": "Mama, Mutti",
+          "ex": "She is his mum."
+        },
+        {
+          "word": "next",
+          "kind": "word",
+          "de": "nächster/nächste/nächstes",
+          "ex": "The next day."
+        },
+        {
+          "word": "still",
+          "kind": "word",
+          "de": "immer noch",
+          "ex": "Miss Baker still isn't happy."
+        },
+        {
+          "word": "to be asleep",
+          "kind": "verb",
+          "de": "schlafen",
+          "ex": "He's in bed and he's asleep."
+        },
+        {
+          "word": "early",
+          "kind": "word",
+          "de": "früh",
+          "ex": "It's early. He's still in bed."
+        },
+        {
+          "word": "life",
+          "kind": "word",
+          "de": "Leben",
+          "ex": "Elephants have a long life."
+        },
+        {
+          "word": "lunchtime",
+          "kind": "word",
+          "de": "Mittagspause",
+          "ex": "It's lunchtime. He's hungry."
+        },
+        {
+          "word": "sun",
+          "kind": "word",
+          "de": "Sonne",
+          "ex": "The sun is out."
+        },
+        {
+          "word": "homework",
+          "kind": "word",
+          "de": "Hausaufgaben",
+          "ex": "We have got a lot of homework today."
+        },
+        {
+          "word": "into",
+          "kind": "word",
+          "de": "in",
+          "ex": "Go into the classroom!"
+        },
+        {
+          "word": "Oh dear!",
+          "kind": "word",
+          "de": "Du meine Güte!"
+        },
+        {
+          "word": "room",
+          "kind": "word",
+          "de": "Zimmer, Raum",
+          "ex": "There's a rat in our room."
+        },
+        {
+          "word": "why",
+          "kind": "word",
+          "de": "warum",
+          "ex": "Why are you tired?"
+        },
+        {
+          "word": "bad",
+          "kind": "word",
+          "de": "schlecht, böse",
+          "ex": "Thursday and Friday aren't bad.",
+          "marker": "8"
+        },
+        {
+          "word": "tomorrow",
+          "kind": "word",
+          "de": "morgen",
+          "ex": "Tomorrow is Monday."
+        },
+        {
+          "word": "birthday",
+          "kind": "word",
+          "de": "Geburtstag",
+          "ex": "Happy birthday, David!",
+          "marker": "9"
+        },
+        {
+          "word": "friend",
+          "kind": "word",
+          "de": "Freund/Freundin",
+          "ex": "Tom is his friend."
+        },
+        {
+          "word": "Be yourself.",
+          "kind": "word",
+          "de": "Sei du selbst.",
+          "marker": "11"
+        },
+        {
+          "word": "bottle",
+          "kind": "word",
+          "de": "Flasche",
+          "ex": "The feelings are in the bottle.",
+          "marker": "12"
+        },
+        {
+          "word": "to get back",
+          "kind": "verb",
+          "de": "zurückholen, zurückbekommen",
+          "ex": "I will get the feelings back."
+        },
+        {
+          "word": "mad",
+          "kind": "word",
+          "de": "wütend, zornig",
+          "ex": "I am nice, Bob is mad."
+        },
+        {
+          "word": "magic",
+          "kind": "word",
+          "de": "magisch",
+          "ex": "This is a magic bottle."
+        },
+        {
+          "word": "to rob",
+          "kind": "verb",
+          "de": "stehlen; ausrauben",
+          "ex": "I'm a monster and I rob feelings."
+        },
+        {
+          "word": "to break",
+          "kind": "verb",
+          "de": "brechen",
+          "ex": "I must break the bottle.",
+          "marker": "13"
+        },
+        {
+          "word": "to go to sleep",
+          "kind": "verb",
+          "de": "schlafen gehen",
+          "ex": "Go back to sleep."
+        },
+        {
+          "word": "because",
+          "kind": "word",
+          "de": "weil",
+          "ex": "I'm happy because it's the weekend.",
+          "marker": "15"
+        },
+        {
+          "word": "It's me.",
+          "kind": "word",
+          "de": "Ich bin's.",
+          "marker": "S2"
+        },
+        {
+          "word": "Try it!",
+          "kind": "word",
+          "de": "Versuch es!"
+        },
+        {
+          "word": "Let go!",
+          "kind": "word",
+          "de": "Lass los!"
+        },
+        {
+          "word": "What's happening?",
+          "kind": "word",
+          "de": "Was ist los?"
+        }
+      ],
+      "phrases": [
+        {
+          "word": "It's no good.",
+          "kind": "phrase",
+          "de": "Es hat keinen Zweck."
+        },
+        {
+          "word": "a day in the life of",
+          "kind": "phrase",
+          "de": "ein Tag im Leben von",
+          "ex": "The story is about a day in the life of Richard.",
+          "marker": "4"
+        },
+        {
+          "word": "Are you OK?",
+          "kind": "phrase",
+          "de": "Geht's dir/euch/Ihnen gut?",
+          "marker": "6"
+        },
+        {
+          "word": "Don't be late.",
+          "kind": "phrase",
+          "de": "Komm nicht zu spät., Sei pünktlich."
+        },
+        {
+          "word": "no one else",
+          "kind": "phrase",
+          "de": "niemand anders",
+          "ex": "Be yourself and no one else."
+        }
+      ]
+    },
+    "u5_musicians-and-instruments": {
+      "_source": "vocabulary/Unit 5.md / Musicians and instruments",
+      "_unit": "unit5",
+      "words": [
+        {
+          "word": "drummer",
+          "kind": "word",
+          "de": "Schlagzeuger/in"
+        },
+        {
+          "word": "drums",
+          "kind": "word",
+          "de": "Schlagzeug"
+        },
+        {
+          "word": "guitar",
+          "kind": "word",
+          "de": "Gitarre"
+        },
+        {
+          "word": "guitarist",
+          "kind": "word",
+          "de": "Gitarrist/in"
+        },
+        {
+          "word": "keyboard",
+          "kind": "word",
+          "de": "Keyboard"
+        },
+        {
+          "word": "keyboard player",
+          "kind": "word",
+          "de": "Keyboarder/in, Keyboardspieler/in"
+        },
+        {
+          "word": "saxophone",
+          "kind": "word",
+          "de": "Saxofon"
+        },
+        {
+          "word": "saxophone player",
+          "kind": "word",
+          "de": "Saxofonist/in, Saxofonspieler/in"
+        },
+        {
+          "word": "singer",
+          "kind": "word",
+          "de": "Sänger/in"
+        }
+      ]
+    },
+    "u5_more": {
+      "_source": "vocabulary/Unit 5.md",
+      "_unit": "unit5",
+      "words": [
+        {
+          "word": "boyfriend",
+          "kind": "word",
+          "de": "fester Freund",
+          "ex": "Jack is her boyfriend.",
+          "marker": "2"
+        },
+        {
+          "word": "its",
+          "kind": "word",
+          "de": "sein/e; ihr/e",
+          "ex": "This is my band. Its name is Project 11."
+        },
+        {
+          "word": "to play",
+          "kind": "verb",
+          "de": "spielen",
+          "ex": "They play the guitar."
+        },
+        {
+          "word": "sister",
+          "kind": "word",
+          "de": "Schwester",
+          "ex": "Jessica is my sister."
+        },
+        {
+          "word": "concert",
+          "kind": "word",
+          "de": "Konzert",
+          "ex": "Let's go to the concert tomorrow."
+        },
+        {
+          "word": "to dance",
+          "kind": "verb",
+          "de": "tanzen",
+          "ex": "Let's dance to the music!"
+        },
+        {
+          "word": "Don't worry.",
+          "kind": "word",
+          "de": "Keine Sorge."
+        },
+        {
+          "word": "job",
+          "kind": "word",
+          "de": "Arbeit; Aufgabe",
+          "ex": "She has a good job."
+        },
+        {
+          "word": "perfect",
+          "kind": "word",
+          "de": "perfekt",
+          "ex": "The job is perfect for you."
+        },
+        {
+          "word": "to carry",
+          "kind": "verb",
+          "de": "tragen",
+          "ex": "Can you carry my guitar?",
+          "marker": "7"
+        },
+        {
+          "word": "to stand on",
+          "kind": "verb",
+          "de": "auf etwas stehen",
+          "ex": "I can stand on my head.",
+          "marker": "8"
+        },
+        {
+          "word": "tongue",
+          "kind": "word",
+          "de": "Zunge",
+          "ex": "He can touch his nose with his tongue."
+        },
+        {
+          "word": "to touch",
+          "kind": "verb",
+          "de": "berühren",
+          "ex": "Please don't touch my guitar."
+        },
+        {
+          "word": "to walk on",
+          "kind": "verb",
+          "de": "auf etwas gehen",
+          "ex": "Can you walk on your hands?"
+        },
+        {
+          "word": "to wiggle",
+          "kind": "verb",
+          "de": "wackeln",
+          "ex": "He can wiggle his ears."
+        },
+        {
+          "word": "can",
+          "kind": "word",
+          "de": "Dose",
+          "ex": "Look, he carries fifteen cans.",
+          "marker": "9"
+        },
+        {
+          "word": "to drink",
+          "kind": "verb",
+          "de": "trinken",
+          "ex": "I can't drink fifteen cans."
+        },
+        {
+          "word": "hundred",
+          "kind": "word",
+          "de": "hundert",
+          "ex": "Can you eat a hundred apples?"
+        },
+        {
+          "word": "in one go",
+          "kind": "word",
+          "de": "in einem Zug, auf einmal",
+          "ex": "Can you drink five cans in one go?"
+        },
+        {
+          "word": "economy",
+          "kind": "word",
+          "de": "Wirtschaft",
+          "ex": "The economy is the world of money.",
+          "marker": "OYW2"
+        },
+        {
+          "word": "hospital",
+          "kind": "word",
+          "de": "Krankenhaus",
+          "ex": "The Clown Doctors go to hospitals and help children."
+        },
+        {
+          "word": "to laugh",
+          "kind": "verb",
+          "de": "lachen",
+          "ex": "They make children laugh."
+        },
+        {
+          "word": "money",
+          "kind": "word",
+          "de": "Geld",
+          "ex": "I get my pocket money from my mum and dad."
+        },
+        {
+          "word": "pound",
+          "kind": "word",
+          "de": "Pfund",
+          "ex": "A cup of apple juice is 2 pounds."
+        },
+        {
+          "word": "profit",
+          "kind": "word",
+          "de": "Gewinn, Profit",
+          "ex": "It's 120 pounds. That's my profit."
+        },
+        {
+          "word": "school canteen",
+          "kind": "word",
+          "de": "Schulkantine",
+          "ex": "We have apple juice in our school canteen."
+        },
+        {
+          "word": "table",
+          "kind": "word",
+          "de": "Tisch",
+          "ex": "I put a table in our playground."
+        },
+        {
+          "word": "teacher",
+          "kind": "word",
+          "de": "Lehrer/Lehrerin",
+          "ex": "Mr Davis is my teacher at school."
+        },
+        {
+          "word": "uncle",
+          "kind": "word",
+          "de": "Onkel",
+          "ex": "My uncle is my dad's brother."
+        },
+        {
+          "word": "to wash",
+          "kind": "verb",
+          "de": "waschen",
+          "ex": "I wash my mum's car."
+        },
+        {
+          "word": "nothing",
+          "kind": "word",
+          "de": "nichts",
+          "ex": "There's nothing in the garden.",
+          "marker": "T2"
+        },
+        {
+          "word": "Sorry?",
+          "kind": "word",
+          "de": "Entschuldigung?, Wie bitte?"
+        }
+      ],
+      "phrases": [
+        {
+          "word": "can; cannot / can't",
+          "kind": "phrase",
+          "de": "können; nicht können",
+          "ex": "She can play the drums. He can't sing.",
+          "marker": "3"
+        },
+        {
+          "word": "Is that so?",
+          "kind": "phrase",
+          "de": "Ach wirklich?"
+        },
+        {
+          "word": "This is me.",
+          "kind": "phrase",
+          "de": "Das bin ich.",
+          "marker": "12"
+        }
+      ]
+    },
+    "u6_around-town": {
+      "_source": "vocabulary/unit_6_vocabulary.md / Around town",
+      "_unit": "unit6",
+      "words": [
+        {
+          "word": "city",
+          "kind": "word",
+          "de": "Stadt"
+        },
+        {
+          "word": "market",
+          "kind": "word",
+          "de": "Markt"
+        },
+        {
+          "word": "park",
+          "kind": "word",
+          "de": "Park"
+        },
+        {
+          "word": "river",
+          "kind": "word",
+          "de": "Fluss"
+        },
+        {
+          "word": "street",
+          "kind": "word",
+          "de": "Straße"
+        },
+        {
+          "word": "supermarket",
+          "kind": "word",
+          "de": "Supermarkt"
+        },
+        {
+          "word": "tree",
+          "kind": "word",
+          "de": "Baum"
+        },
+        {
+          "word": "woods",
+          "kind": "word",
+          "de": "Wald"
+        }
+      ]
+    },
+    "u6_action-verbs": {
+      "_source": "vocabulary/unit_6_vocabulary.md / Action verbs",
+      "_unit": "unit6",
+      "words": [
+        {
+          "word": "to bump into a tree",
+          "kind": "verb",
+          "de": "gegen einen Baum stoßen / prallen"
+        },
+        {
+          "word": "to climb up a tree",
+          "kind": "verb",
+          "de": "auf einen Baum klettern"
+        },
+        {
+          "word": "to fall out of the tree",
+          "kind": "verb",
+          "de": "vom Baum fallen"
+        },
+        {
+          "word": "to go to the park",
+          "kind": "verb",
+          "de": "in den Park gehen"
+        },
+        {
+          "word": "to jump into the river",
+          "kind": "verb",
+          "de": "in den Fluss springen"
+        },
+        {
+          "word": "to leave the office",
+          "kind": "verb",
+          "de": "das Büro verlassen"
+        },
+        {
+          "word": "to look for something",
+          "kind": "verb",
+          "de": "nach etwas suchen"
+        },
+        {
+          "word": "to look in the mirror",
+          "kind": "verb",
+          "de": "in den Spiegel schauen"
+        },
+        {
+          "word": "to look out the window",
+          "kind": "verb",
+          "de": "aus dem Fenster schauen"
+        },
+        {
+          "word": "to pick something up",
+          "kind": "verb",
+          "de": "etwas aufheben"
+        },
+        {
+          "word": "to pull",
+          "kind": "verb",
+          "de": "ziehen"
+        },
+        {
+          "word": "to run out of the office",
+          "kind": "verb",
+          "de": "aus dem Büro rennen / laufen"
+        },
+        {
+          "word": "to sit in a tree",
+          "kind": "verb",
+          "de": "auf einem Baum sitzen"
+        }
+      ]
+    },
+    "u6_more": {
+      "_source": "vocabulary/unit_6_vocabulary.md",
+      "_unit": "unit6",
+      "words": [
+        {
+          "word": "to climb",
+          "kind": "verb",
+          "de": "klettern",
+          "ex": "Sherlock Groans climbs up a tree.",
+          "marker": "1"
+        },
+        {
+          "word": "to jump",
+          "kind": "verb",
+          "de": "hüpfen",
+          "ex": "A bird jumps on Sherlock Groans' head."
+        },
+        {
+          "word": "to leave",
+          "kind": "verb",
+          "de": "verlassen, weggehen",
+          "ex": "Doctor Grey leaves the office."
+        },
+        {
+          "word": "mirror",
+          "kind": "word",
+          "de": "Spiegel",
+          "ex": "There is a mirror on a wall."
+        },
+        {
+          "word": "to put on",
+          "kind": "verb",
+          "de": "aufsetzen, anziehen",
+          "ex": "Sherlock puts his hat on."
+        },
+        {
+          "word": "to smile",
+          "kind": "verb",
+          "de": "lächeln",
+          "ex": "He smiles in the mirror."
+        },
+        {
+          "word": "to take off",
+          "kind": "verb",
+          "de": "abnehmen, ausziehen",
+          "ex": "He takes off his hat."
+        },
+        {
+          "word": "away",
+          "kind": "word",
+          "de": "weg",
+          "ex": "Go away!",
+          "marker": "2"
+        },
+        {
+          "word": "best",
+          "kind": "word",
+          "de": "bester/beste/bestes",
+          "ex": "Sherlock Groans is the world's best detective!"
+        },
+        {
+          "word": "detective",
+          "kind": "word",
+          "de": "Detektiv/Detektivin",
+          "ex": "He's the world's best detective."
+        },
+        {
+          "word": "Help me!",
+          "kind": "word",
+          "de": "Hilf mir!"
+        },
+        {
+          "word": "to look for",
+          "kind": "verb",
+          "de": "suchen",
+          "ex": "He looks for his hat in the park."
+        },
+        {
+          "word": "old",
+          "kind": "word",
+          "de": "alt",
+          "ex": "His skateboard isn't new. It's very old."
+        },
+        {
+          "word": "to pick up",
+          "kind": "verb",
+          "de": "aufheben",
+          "ex": "He picks up the hat."
+        },
+        {
+          "word": "to run out",
+          "kind": "verb",
+          "de": "hinausrennen",
+          "ex": "Sherlock runs out of the office."
+        },
+        {
+          "word": "to run down",
+          "kind": "verb",
+          "de": "hinunterlaufen",
+          "ex": "Sherlock runs down the street."
+        },
+        {
+          "word": "to find",
+          "kind": "verb",
+          "de": "finden",
+          "ex": "The dog finds Sherlock Groans.",
+          "marker": "5"
+        },
+        {
+          "word": "to pull",
+          "kind": "verb",
+          "de": "ziehen",
+          "ex": "The dog pulls Sherlock Groans out of the river."
+        },
+        {
+          "word": "to catch",
+          "kind": "verb",
+          "de": "fangen; erwischen; festnehmen",
+          "ex": "He always catches the bad people.",
+          "marker": "6"
+        },
+        {
+          "word": "clever",
+          "kind": "word",
+          "de": "klug, schlau",
+          "ex": "Sherlock is really clever."
+        },
+        {
+          "word": "to come to",
+          "kind": "verb",
+          "de": "hinkommen",
+          "ex": "He comes to a park."
+        },
+        {
+          "word": "to live",
+          "kind": "verb",
+          "de": "leben, wohnen",
+          "ex": "Peter lives in London."
+        },
+        {
+          "word": "pipe",
+          "kind": "word",
+          "de": "Pfeife",
+          "ex": "Sherlock often has a pipe in his mouth."
+        },
+        {
+          "word": "to smoke",
+          "kind": "verb",
+          "de": "rauchen",
+          "ex": "Groans smokes a pipe."
+        },
+        {
+          "word": "violin",
+          "kind": "word",
+          "de": "Geige",
+          "ex": "He can play the violin."
+        },
+        {
+          "word": "to wear",
+          "kind": "verb",
+          "de": "tragen",
+          "ex": "Trevor wears a black hat."
+        },
+        {
+          "word": "to call",
+          "kind": "verb",
+          "de": "rufen",
+          "ex": "Sherlock Groans calls Doctor Grey.",
+          "marker": "9"
+        },
+        {
+          "word": "Come on!",
+          "kind": "word",
+          "de": "Komm jetzt!, Mach schon!"
+        },
+        {
+          "word": "to solve",
+          "kind": "verb",
+          "de": "lösen",
+          "ex": "Detectives solve problems."
+        },
+        {
+          "word": "to wait",
+          "kind": "verb",
+          "de": "warten",
+          "ex": "But ... wait ... what's that?",
+          "marker": "10"
+        },
+        {
+          "word": "to watch",
+          "kind": "verb",
+          "de": "beobachten, zuschauen",
+          "ex": "He watches the people in the streets."
+        },
+        {
+          "word": "street",
+          "kind": "word",
+          "de": "Straße",
+          "ex": "Anna lives in York Street."
+        },
+        {
+          "word": "to get up",
+          "kind": "verb",
+          "de": "aufstehen",
+          "ex": "He gets up at 7 o'clock in the morning.",
+          "marker": "G"
+        },
+        {
+          "word": "to become",
+          "kind": "verb",
+          "de": "werden",
+          "ex": "Emma becomes a tiger.",
+          "marker": "S3"
+        },
+        {
+          "word": "Go on.",
+          "kind": "word",
+          "de": "weitermachen; Erzähl weiter!"
+        },
+        {
+          "word": "Well done.",
+          "kind": "word",
+          "de": "Gut gemacht."
+        }
+      ],
+      "phrases": [
+        {
+          "word": "a lot of / lots of",
+          "kind": "phrase",
+          "de": "viel/e, jede Menge",
+          "ex": "There are lots of beautiful trees in the park.",
+          "marker": "7"
+        },
+        {
+          "word": "But it's true!",
+          "kind": "phrase",
+          "de": "Aber es stimmt!"
+        }
+      ]
+    }
+  },
+  "imported": {
+    "source": "vocabulary/*.md",
+    "files": [
+      "Unit 1.md",
+      "Unit 2.md",
+      "Unit 3.md",
+      "Unit 4.md",
+      "Unit 5.md",
+      "unit_6_vocabulary.md"
+    ],
+    "topics": [
+      "u1_cool-clothes",
+      "u1_in-the-classroom",
+      "u1_more",
+      "u2_at-the-wildlife-park",
+      "u2_more",
+      "u2_prepositions-of-place",
+      "u3_more",
+      "u3_opposites-adjectives",
+      "u3_pirates",
+      "u3_the-body",
+      "u4_days-of-the-week",
+      "u4_feelings",
+      "u4_more",
+      "u4_times-of-the-day",
+      "u5_more",
+      "u5_musicians-and-instruments",
+      "u6_action-verbs",
+      "u6_around-town",
+      "u6_more"
+    ]
+  },
+  "media": {
+    "chair": {
+      "emoji": "🪑",
+      "desc": "You sit on it."
+    },
+    "desk": {
+      "emoji": "🗄️",
+      "desc": "You do your work at it."
+    },
+    "door": {
+      "emoji": "🚪",
+      "desc": "You go through it."
+    },
+    "exercise book": {
+      "emoji": "📓",
+      "desc": "You write your answers in it."
+    },
+    "floor": {
+      "emoji": "🟢",
+      "desc": "It is under your feet."
+    },
+    "glue stick": {
+      "emoji": "🧴",
+      "desc": "You stick things together with it."
+    },
+    "paintbrush": {
+      "emoji": "🖌️",
+      "desc": "You paint with it."
+    },
+    "pen": {
+      "emoji": "🖊️",
+      "desc": "You write with ink."
+    },
+    "pencil": {
+      "emoji": "✏️",
+      "desc": "You write and draw with it."
+    },
+    "pencil case": {
+      "emoji": "🧰",
+      "desc": "Your pencils live in it."
+    },
+    "projector": {
+      "emoji": "📽️",
+      "desc": "The teacher shows pictures with it."
+    },
+    "rubber": {
+      "emoji": "🧽",
+      "desc": "You rub out mistakes with it."
+    },
+    "ruler": {
+      "emoji": "📏",
+      "desc": "You measure with it."
+    },
+    "school bag": {
+      "emoji": "🎒",
+      "desc": "You carry your books in it."
+    },
+    "scissors": {
+      "emoji": "✂️",
+      "desc": "You cut with it."
+    },
+    "sound system": {
+      "emoji": "🔊",
+      "desc": "It plays the music."
+    },
+    "tablet": {
+      "emoji": "💻",
+      "desc": "You can do your work on it."
+    },
+    "watercolours": {
+      "emoji": "🎨",
+      "desc": "You paint with them."
+    },
+    "window": {
+      "emoji": "🪟",
+      "desc": "You can see through it."
+    },
+    "hairband": {
+      "emoji": "🎀",
+      "desc": "You wear it in your hair."
+    },
+    "hat": {
+      "emoji": "🧢",
+      "desc": "You wear it on your head."
+    },
+    "school tie": {
+      "emoji": "👔",
+      "desc": "You wear it with your shirt."
+    },
+    "shirt": {
+      "emoji": "👕",
+      "desc": "You wear it on the top."
+    },
+    "shoe": {
+      "emoji": "👟",
+      "desc": "You wear it on your foot."
+    },
+    "skirt": {
+      "emoji": "👗",
+      "desc": "Girls wear it below the waist."
+    },
+    "socks": {
+      "emoji": "🧦",
+      "desc": "You wear them on your feet."
+    },
+    "sunglasses": {
+      "emoji": "🕶️",
+      "desc": "You wear them on a sunny day."
+    },
+    "sweater": {
+      "emoji": "🧥",
+      "desc": "It is warm, you wear it on the top."
+    },
+    "giraffe": {
+      "emoji": "🦒",
+      "desc": "It has a very long neck."
+    },
+    "guide": {
+      "emoji": "🧑‍🏫",
+      "desc": "He shows people around the park."
+    },
+    "lion": {
+      "emoji": "🦁",
+      "desc": "It has a big mane and it roars."
+    },
+    "monkey": {
+      "emoji": "🐒",
+      "desc": "It has a long tail and it climbs."
+    },
+    "parrot": {
+      "emoji": "🦜",
+      "desc": "It has colourful feathers and it can talk."
+    },
+    "penguin": {
+      "emoji": "🐧",
+      "desc": "It cannot fly and it likes the cold."
+    },
+    "train": {
+      "emoji": "🚂",
+      "desc": "It goes on rails and it is long."
+    },
+    "tree": {
+      "emoji": "🌳",
+      "desc": "It is tall and it has leaves."
+    },
+    "in": {
+      "emoji": "📦",
+      "desc": "It is inside something."
+    },
+    "on": {
+      "emoji": "⬛️",
+      "desc": "It is on top of something."
+    },
+    "under": {
+      "emoji": "📎",
+      "desc": "It is below something."
+    },
+    "behind": {
+      "emoji": "🚫",
+      "desc": "It is hidden at the back of something."
+    },
+    "next to": {
+      "emoji": "🤝",
+      "desc": "It is right beside something."
+    },
+    "in front of": {
+      "emoji": "🙈",
+      "desc": "It is at the front of something."
+    },
+    "beard": {
+      "emoji": "🧔",
+      "desc": "Some men have one on their face."
+    },
+    "ear": {
+      "emoji": "👂",
+      "desc": "You hear with it."
+    },
+    "eye": {
+      "emoji": "👁️",
+      "desc": "You see with it."
+    },
+    "finger": {
+      "emoji": "☝️",
+      "desc": "It is at the end of your hand."
+    },
+    "foot": {
+      "emoji": "👞",
+      "desc": "You walk on it."
+    },
+    "hair": {
+      "emoji": "🦰",
+      "desc": "It grows on your head."
+    },
+    "leg": {
+      "emoji": "🦵",
+      "desc": "You walk on it."
+    },
+    "mouth": {
+      "emoji": "👂",
+      "desc": "You speak with it."
+    },
+    "nose": {
+      "emoji": "👃",
+      "desc": "You smell with it."
+    },
+    "shoulder": {
+      "emoji": "👐",
+      "desc": "Your arm hangs from it."
+    },
+    "tooth": {
+      "emoji": "🦷",
+      "desc": "You have them in your mouth."
+    },
+    "angry": {
+      "emoji": "😠",
+      "desc": "You are not happy at all."
+    },
+    "bored": {
+      "emoji": "🥱",
+      "desc": "There is nothing fun to do."
+    },
+    "cold": {
+      "emoji": "🧊",
+      "desc": "You feel chilly."
+    },
+    "excited": {
+      "emoji": "🤩",
+      "desc": "Something wonderful is happening."
+    },
+    "happy": {
+      "emoji": "😃",
+      "desc": "You feel very good."
+    },
+    "hot": {
+      "emoji": "🥵",
+      "desc": "You feel too warm."
+    },
+    "hungry": {
+      "emoji": "🍽",
+      "desc": "You want to eat."
+    },
+    "nervous": {
+      "emoji": "😰",
+      "desc": "You feel worried and unsure."
+    },
+    "proud": {
+      "emoji": "😎",
+      "desc": "You did something and you are happy about it."
+    },
+    "sad": {
+      "emoji": "😢",
+      "desc": "You feel bad about something."
+    },
+    "scared": {
+      "emoji": "😨",
+      "desc": "Something frightens you."
+    },
+    "tired": {
+      "emoji": "😴",
+      "desc": "You need a sleep."
     }
   }
 }

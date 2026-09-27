@@ -176,6 +176,67 @@ Tap") there is nothing to hear, so both are hidden.
 
 ---
 
+## Adding words
+
+**The markdown files in `vocabulary/` are the source of truth.** Edit them in
+any text editor, then:
+
+```
+python tools\import_vocab.py     # merge vocabulary/*.md into data/vocab.json
+python tools\build_audio.py      # render the new audio
+python tools\validate.py         # check nothing is broken
+git push                         # the site redeploys itself
+```
+
+`import_vocab.py` is idempotent — it replaces the imported topics rather than
+appending, so deleting a word from the markdown removes it from the game. It
+never touches the `media` block in `vocab.json` (emoji and clue sentences),
+the level files, or the settings.
+
+Three vocabulary layouts are understood, matched by column *name* rather than
+position, because the files differ: the WORD FILE tables (English, German, and
+sometimes Opposite) and the numbered MORE tables (Marker, English, Example
+Sentence, German).
+
+### What each word list becomes
+
+Six levels per word list, built by `js/core/vocabkit.js`:
+
+| Level | Mechanic | Skill |
+|---|---|---|
+| Listen and Find | hear it, tap the picture | listening |
+| Read and Find | read it, tap the picture | reading |
+| What Is It? | a spoken clue, no picture | listening |
+| **German In, English Out** | **hear German, pick English** | listening |
+| **Read the German** | see German, pick English | reading |
+| **Match the Translation** | **drag EN → DE, 5 pairs** | reading |
+
+The German exercises are the reason the German column matters. *"Hear the
+German, produce the English"* is production, not recognition — it is the one
+direction the app could not test before this.
+
+Picture games only appear where the picture is unambiguous; emoji cannot show
+a *board* or a *pencil sharpener*. Those words get the translation exercises
+instead, which work for everything.
+
+German is rendered with a separate voice (`de-DE-KatjaNeural` by default,
+`--de-voice` to change it) and only the first alternative is spoken — the
+files write `Schreibtisch / Schulpult` and `Führer/in`, and the extra
+alternatives are for reading, not for saying.
+
+### Audio size
+
+The pack is now ~48 MB, up from 5 MB, because every imported word gets a word
+clip, a spelling clip, a German clip, and an example sentence. That is
+comfortable for GitHub Pages (1 GB) and pupils only download clips they
+actually play, but it does make each commit that changes audio large.
+
+If the repository gets unwieldy, the cheapest saving is to stop rendering
+`spell/` clips for imported words — they are only used by the spelling levels,
+not by the translation games.
+
+---
+
 ## Layout
 
 ```
