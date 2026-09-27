@@ -572,7 +572,6 @@ h2, h3, h4 { margin: 0; }
   border-bottom: 2px solid transparent;
 }
 .err-word:hover { background: var(--bg-2); }
-.err-word.is-error { border-bottom-color: #fca5a5; }
 .err-word.is-picked { background: #ede9fe; border-bottom-color: var(--primary); }
 .err-word.right { background: var(--good-soft); border-bottom-color: var(--good); }
 .err-word.wrong { background: var(--bad-soft); border-bottom-color: var(--bad); }

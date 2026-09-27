@@ -54,7 +54,7 @@ LG.Modes.findError = (function () {
           var key = si + ':' + wi;
           wi += 1;
           if (isError) { errorAt[key] = true; wantCount += 1; }
-          line.appendChild(makeWord(raw, key, isError));
+          line.appendChild(makeWord(raw, key));
           line.appendChild(document.createTextNode(' '));
         }
         paper.appendChild(line);
@@ -63,10 +63,15 @@ LG.Modes.findError = (function () {
       /* Built in its own function so `key` is a real parameter. Declaring
          it with var inside the loop above would hoist one shared binding
          to this scope, and every tap would then register against the
-         LAST word of its sentence rather than the one tapped. */
-      function makeWord(text, key, isError) {
+         LAST word of its sentence rather than the one tapped.
+
+         The answer lives ONLY in the `errorAt` map -- never in the class
+         list or any attribute. An is-error class, styled even faintly,
+         would mark the mistake before the pupil starts, which is the
+         whole exercise handed over. */
+      function makeWord(text, key) {
         var span = UI.el('button', {
-          class: 'err-word' + (isError ? ' is-error' : ''),
+          class: 'err-word',
           type: 'button', text: text, 'data-k': key
         });
         span.addEventListener('click', function () {
