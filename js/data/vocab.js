@@ -1047,7 +1047,13 @@ LG.VOCAB = {
     "I am from Austria.",
     "I like animals.",
     "I live in Vienna.",
-    "My name is Maya."
+    "My name is Maya.",
+    "I am a pupil.",
+    "I am happy.",
+    "I am at school.",
+    "I am hungry.",
+    "I am ready.",
+    "I am a friend."
    ],
    "other": [
     "She is my sister.",

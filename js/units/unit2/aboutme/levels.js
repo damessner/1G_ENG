@@ -52,21 +52,23 @@
        just be matching it against the options. */
     {
       id: 'a3', name: 'I or Someone Else?', mode: 'choice',
-      difficulty: 4, count: 10, icon: '\uD83D\uDC94', skill: 'writing',
+      difficulty: 4, count: 9, icon: '\uD83D\uDC94', skill: 'writing',
       blurb: 'It is about someone else now. Which sentence is right?',
       build: function () {
-        var me = Q.pick(A.me);
-        var toks = me.replace(/[.,!?]/g, '').split(' ');
-        var rest = toks.slice(1).join(' ');          // "am a student"
-        var right = 'She is ' + rest + '.';
+        // only sentences that are "I am/is ..." can be turned into a
+        // third-person question; "My name is Maya." has no be-verb to move
+        var usable = A.me.filter(function (s) { return /^I (am|is|are) /.test(s); });
+        var me = Q.pick(usable);
+        var rest = me.replace(/^I (am|is|are) /, '');
+        var right = 'She is ' + rest;
         var opts = Q.shuffle([
           right,
-          'She are ' + rest + '.',
-          'They is ' + rest + '.',
-          'He am ' + rest + '.'
+          'She are ' + rest,
+          'They is ' + rest,
+          'He am ' + rest
         ].map(function (t) { return Q.opt('text', t, { id: t }); }));
         return Q.choice({
-          prompt: Q.read('"' + me + '" is about Maya. Which one is correct?'),
+          prompt: Q.read('"' + me + '"  is about Maya. Which one is correct?'),
           options: opts,
           correct: opts.findIndex(function (o) { return o.id === right; }),
           dedupe: 'transform' + me
