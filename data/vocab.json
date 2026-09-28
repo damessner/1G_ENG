@@ -3738,6 +3738,504 @@
         "classroom": "Klassenzimmer",
         "wall": "Wand"
       }
+    },
+    {
+      "id": "r_clothes",
+      "unit": "unit1",
+      "title": "My School Uniform",
+      "speak": "On Monday I wear my school uniform. It is not very cool, but it is comfortable. I have a white shirt and a blue skirt. My socks are white and my shoe is black. I always wear a school tie. In winter I put on my sweater, because it is cold. On my head I have a red hairband. On a sunny day I wear my sunglasses. I do not like my hat. It is too big for me.",
+      "text": "On Monday I wear my {school uniform}. It is not very cool, but it is comfortable. I have a white {shirt} and a blue {skirt}. My {socks} are white and my {shoe} is black. I always wear a {school tie}. In winter I put on my {sweater}, because it is cold. On my head I have a red {hairband}. On a sunny day I wear my {sunglasses}. I do not like my {hat}. It is too big for me.",
+      "gloss": {
+        "school uniform": "Schuluniform",
+        "shoe": "Schuh",
+        "socks": "Socken",
+        "school tie": "Schulkrawatte"
+      },
+      "questions": [
+        {
+          "type": "truefalse",
+          "q": "The narrator thinks the uniform is very cool.",
+          "answer": false
+        },
+        {
+          "type": "single",
+          "q": "What colour is the shirt?",
+          "options": [
+            "White",
+            "Blue",
+            "Red"
+          ],
+          "answer": 0
+        },
+        {
+          "type": "multi",
+          "q": "What does the narrator wear in winter? (tap all that apply)",
+          "options": [
+            "shirt",
+            "sweater",
+            "sunglasses",
+            "skirt"
+          ],
+          "answer": [
+            1,
+            2
+          ]
+        },
+        {
+          "type": "open",
+          "q": "What colour are the socks? Write one word.",
+          "answer": [
+            "white"
+          ]
+        },
+        {
+          "type": "single",
+          "q": "What is too big?",
+          "options": [
+            "the hairband",
+            "the hat",
+            "the tie"
+          ],
+          "answer": 1
+        },
+        {
+          "type": "truefalse",
+          "q": "The narrator likes the hat.",
+          "answer": false
+        },
+        {
+          "type": "single",
+          "q": "When does the narrator wear the sunglasses?",
+          "options": [
+            "In winter",
+            "On a sunny day",
+            "At school"
+          ],
+          "answer": 1
+        },
+        {
+          "type": "vocabMatch",
+          "q": "Drag each English word to its German.",
+          "pairs": [
+            [
+              "shirt",
+              "Hemd"
+            ],
+            [
+              "skirt",
+              "Rock"
+            ],
+            [
+              "socks",
+              "Socken"
+            ],
+            [
+              "sunglasses",
+              "Sonnenbrille"
+            ],
+            [
+              "sweater",
+              "Pullover"
+            ]
+          ]
+        },
+        {
+          "type": "vocabSort",
+          "q": "Drag each thing to where you wear it.",
+          "bins": [
+            {
+              "id": "head",
+              "label": "on your head"
+            },
+            {
+              "id": "body",
+              "label": "on your body"
+            },
+            {
+              "id": "feet",
+              "label": "on your feet"
+            }
+          ],
+          "items": [
+            {
+              "value": "hat",
+              "bin": "head"
+            },
+            {
+              "value": "hairband",
+              "bin": "head"
+            },
+            {
+              "value": "shirt",
+              "bin": "body"
+            },
+            {
+              "value": "skirt",
+              "bin": "body"
+            },
+            {
+              "value": "school tie",
+              "bin": "body"
+            },
+            {
+              "value": "shoe",
+              "bin": "feet"
+            },
+            {
+              "value": "socks",
+              "bin": "feet"
+            }
+          ]
+        },
+        {
+          "type": "vocabSpell",
+          "word": "sunglasses",
+          "hint": "You wear them on a sunny day."
+        }
+      ]
+    },
+    {
+      "id": "r_everyday",
+      "unit": "unit1",
+      "title": "My First Day at School",
+      "speak": "Hello! How are you? I am fine, thank you. This is my classroom. Nice to meet you! Sit down, children. Open the window, please. Don't speak. Listen to me. Clean the board. Read the text. Close the door. Take out your books. I understand the question. It's time for school. See you tomorrow!",
+      "text": "Hello! {How are you?} I am {fine}, thank you. This is my classroom. {Nice to meet you!} {Sit down}, children. {Open the window}, please. {Don't speak.} {Listen to me}. {Clean the board}. {Read the text}. {Close the door}. {Take out your books}. I {understand} the question. {It's time for school}. See you tomorrow!",
+      "gloss": {
+        "How are you?": "Wie geht es dir?",
+        "fine": "gut",
+        "Nice to meet you!": "Nett, dich kennenzulernen!",
+        "Sit down": "Setz dich",
+        "Open the window": "Mach das Fenster auf",
+        "Don't speak.": "Sprich nicht.",
+        "Listen to me": "Hört mir zu",
+        "Clean the board": "Putz die Tafel",
+        "Read the text": "Lies den Text",
+        "Close the door": "Mach die Tür zu",
+        "Take out your books": "Nimm die Bücher heraus",
+        "understand": "verstehen",
+        "It's time for school": "Es ist Schulzeit"
+      },
+      "questions": [
+        {
+          "type": "single",
+          "q": "How does the speaker answer the greeting?",
+          "options": [
+            "I am fine",
+            "I am late",
+            "I am hungry"
+          ],
+          "answer": 0
+        },
+        {
+          "type": "truefalse",
+          "q": "The speaker says everyone should talk loudly.",
+          "answer": false
+        },
+        {
+          "type": "single",
+          "q": "What is the speaker cleaning?",
+          "options": [
+            "The board",
+            "The door",
+            "The window"
+          ],
+          "answer": 0
+        },
+        {
+          "type": "multi",
+          "q": "Which of these does the speaker tell the children to do? (tap all that apply)",
+          "options": [
+            "Sit down",
+            "Clean the board",
+            "Run around",
+            "Close the door"
+          ],
+          "answer": [
+            0,
+            1,
+            3
+          ]
+        },
+        {
+          "type": "open",
+          "q": "What must the children take out? Write one or two words.",
+          "answer": [
+            "books",
+            "the books",
+            "your books",
+            "his books"
+          ],
+          "hint": "You read from them."
+        },
+        {
+          "type": "open",
+          "q": "What must the children NOT do? Write one or two words.",
+          "answer": [
+            "speak",
+            "talk"
+          ],
+          "hint": "The speaker says 'Don't speak.'"
+        },
+        {
+          "type": "vocabSort",
+          "q": "Drag each instruction into the right box.",
+          "bins": [
+            {
+              "id": "do",
+              "label": "do this"
+            },
+            {
+              "id": "dont",
+              "label": "do NOT do this"
+            }
+          ],
+          "items": [
+            {
+              "value": "Open the window",
+              "bin": "do"
+            },
+            {
+              "value": "Clean the board",
+              "bin": "do"
+            },
+            {
+              "value": "Take out your books",
+              "bin": "do"
+            },
+            {
+              "value": "Don't speak",
+              "bin": "dont"
+            },
+            {
+              "value": "Close the window",
+              "bin": "dont"
+            }
+          ]
+        },
+        {
+          "type": "vocabSpell",
+          "word": "classroom",
+          "hint": "The room where the lesson happens."
+        },
+        {
+          "type": "truefalse",
+          "q": "The speaker says it is time for school at the end.",
+          "answer": true
+        }
+      ]
+    },
+    {
+      "id": "r_zoo",
+      "unit": "unit2",
+      "title": "A Day at the Wildlife Park",
+      "speak": "Welcome to the zoo! It is a beautiful day. A guide takes us in a train to the park. First we see a lion. He is very big. Then there is a giraffe. She is very tall. Where is the monkey? She is next to the big tree. The parrot is on the branch. Look, the penguin is under the water. I am very happy.",
+      "text": "{Welcome} to the {zoo}! It is a {beautiful} day. A {guide} takes us in a {train} to the park. First we see a {lion}. He is very {big}. Then there is a {giraffe}. She is very {tall}. Where is the {monkey}? She is {next to} the big {tree}. The {parrot} is {on} the branch. Look, the {penguin} is {under} the water. I am very {happy}.",
+      "gloss": {
+        "tall": "groß"
+      },
+      "questions": [
+        {
+          "type": "single",
+          "q": "How do they get to the park?",
+          "options": [
+            "By car",
+            "By train",
+            "On foot"
+          ],
+          "answer": 1
+        },
+        {
+          "type": "truefalse",
+          "q": "The lion is small.",
+          "answer": false
+        },
+        {
+          "type": "single",
+          "q": "Where is the monkey?",
+          "options": [
+            "Next to the tree",
+            "On the branch",
+            "Under the water"
+          ],
+          "answer": 0
+        },
+        {
+          "type": "single",
+          "q": "Where is the parrot?",
+          "options": [
+            "On a branch",
+            "Under the water",
+            "Next to the train"
+          ],
+          "answer": 0
+        },
+        {
+          "type": "multi",
+          "q": "Which animals are in the text? (tap all that apply)",
+          "options": [
+            "lion",
+            "giraffe",
+            "elephant",
+            "penguin"
+          ],
+          "answer": [
+            0,
+            1,
+            3
+          ]
+        },
+        {
+          "type": "open",
+          "q": "Who takes them to the park? Write one word.",
+          "answer": [
+            "guide",
+            "a guide",
+            "the guide"
+          ],
+          "hint": "This person shows visitors around."
+        },
+        {
+          "type": "open",
+          "q": "Where is the penguin? Write two or three words.",
+          "answer": [
+            "under the water",
+            "in the water"
+          ],
+          "hint": "It is a bird that cannot fly."
+        },
+        {
+          "type": "vocabMatch",
+          "q": "Drag each English word to its German.",
+          "pairs": [
+            [
+              "lion",
+              "Löwe"
+            ],
+            [
+              "giraffe",
+              "Giraffe"
+            ],
+            [
+              "monkey",
+              "Affe"
+            ],
+            [
+              "parrot",
+              "Papagei"
+            ],
+            [
+              "penguin",
+              "Pinguin"
+            ]
+          ]
+        },
+        {
+          "type": "vocabSpell",
+          "word": "welcome",
+          "hint": "You say it when a visitor arrives."
+        }
+      ]
+    },
+    {
+      "id": "r_me",
+      "unit": "unit2",
+      "title": "This Is Me",
+      "speak": "Hello! My name is Maya. I am ten years old. I am from Austria. This is my friend Ben. He is eleven. Ben is from England. We are in the same class. These are my sisters. They are eight and six. Come here, please. We are friends. I am happy!",
+      "text": "Hello! My name is Maya. I am ten {years} old. I am {from} Austria. This is my friend, Ben. {He} is eleven. Ben is from England. {We} are in the same {class}. These are my sisters. {They} are eight and six. Come here, please. {We} are friends. I am happy!",
+      "gloss": {
+        "years": "Jahre",
+        "from": "aus",
+        "class": "Klasse"
+      },
+      "questions": [
+        {
+          "type": "single",
+          "q": "How old is Maya?",
+          "options": [
+            "Eight",
+            "Ten",
+            "Eleven"
+          ],
+          "answer": 1
+        },
+        {
+          "type": "truefalse",
+          "q": "Ben is from Austria.",
+          "answer": false
+        },
+        {
+          "type": "single",
+          "q": "Where is Maya from?",
+          "options": [
+            "England",
+            "Austria",
+            "Germany"
+          ],
+          "answer": 1
+        },
+        {
+          "type": "truefalse",
+          "q": "Maya has one sister.",
+          "answer": false
+        },
+        {
+          "type": "open",
+          "q": "How old is Ben? Write one word.",
+          "answer": [
+            "eleven"
+          ]
+        },
+        {
+          "type": "open",
+          "q": "How many sisters does Maya have? Write one number.",
+          "answer": [
+            "two",
+            "2"
+          ]
+        },
+        {
+          "type": "multi",
+          "q": "Who is in the same class as Maya? (tap all that apply)",
+          "options": [
+            "Maya",
+            "Ben",
+            "the sisters",
+            "the teacher"
+          ],
+          "answer": [
+            0,
+            1,
+            2
+          ]
+        },
+        {
+          "type": "vocabMatch",
+          "q": "Drag each English word to its German.",
+          "pairs": [
+            [
+              "he",
+              "er"
+            ],
+            [
+              "she",
+              "sie"
+            ],
+            [
+              "we",
+              "wir"
+            ],
+            [
+              "they",
+              "sie"
+            ]
+          ]
+        },
+        {
+          "type": "vocabSpell",
+          "word": "friend",
+          "hint": "This person is not in your family."
+        }
+      ]
     }
   ]
 }

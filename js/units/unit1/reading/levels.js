@@ -12,7 +12,7 @@
 (function () {
   'use strict';
 
-  var READINGS = ['r_classroom'];
+  var READINGS = ['r_classroom', 'r_clothes', 'r_everyday', 'r_zoo', 'r_me'];
 
   LG.topicData('reading', READINGS.map(function (id) {
     var r = LG.Readings.byId(id) || { id: id, questions: [] };

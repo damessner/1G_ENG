@@ -92,22 +92,25 @@ LG.Modes.worksheet = (function () {
         var state = {};
         var mark = function (ok) { return ok; };
 
-        if (it.type === 'single' || it.type === 'tf') {
-          var opts = it.type === 'tf'
+        /* "truefalse", not "tf" -- the readings data and the step builders
+           both use the long form. The short spelling silently sent every
+           true/false row down the fallback, so it was always wrong. */
+        if (it.type === 'single' || it.type === 'truefalse') {
+          var opts = it.type === 'truefalse'
             ? [['True', true], ['False', false]]
             : it.options.map(function (o) { return [o, false]; });
-          if (it.type === 'tf') state.answer = !!it.answer;
+          if (it.type === 'truefalse') state.answer = !!it.answer;
           else state.answer = it.answer;
 
           var order = opts.map(function (o, i) { return i; });
-          if (it.type !== 'tf') order = Q.shuffle(order);
+          if (it.type !== 'truefalse') order = Q.shuffle(order);
           order.forEach(function (i) {
             var b = UI.el('button', { class: 'ws-opt', type: 'button', text: opts[i][0] });
             b.addEventListener('click', function () {
               if (marked) return;
               host.querySelectorAll('.ws-opt').forEach(function (x) { x.classList.remove('is-on'); });
               b.classList.add('is-on');
-              state.picked = (it.type === 'tf') ? opts[i][1] : i;
+              state.picked = (it.type === 'truefalse') ? opts[i][1] : i;
             });
             host.appendChild(b);
           });
@@ -115,7 +118,7 @@ LG.Modes.worksheet = (function () {
             var ok = state.picked === state.answer;
             host.querySelectorAll('.ws-opt').forEach(function (x, i) {
               x.disabled = true;
-              var val = (it.type === 'tf') ? opts[i][1] : i;
+              var val = (it.type === 'truefalse') ? opts[i][1] : i;
               if (val === state.answer) x.classList.add('is-right');
               else if (x.classList.contains('is-on')) x.classList.add('is-wrong');
             });
@@ -177,9 +180,12 @@ LG.Modes.worksheet = (function () {
           var bin = host;
           bin.classList.add('ws-match');
           pairs.forEach(function (p, i) {
-            var slot = UI.el('button', { class: 'ws-slot', type: 'button', 'data-right': String(i) },
+            var slot = UI.el('button', { class: 'ws-slot drop-zone', type: 'button', 'data-right': String(i) },
               [UI.el('span', { text: p[1] })]);
             bin.appendChild(slot);
+            /* A target must answer a tap as well as a drag, or a pupil who
+               cannot drag a tile is stuck on the question. */
+            LG.Drag.makeTarget(slot, { zoneSelector: '.ws-slot' });
           });
           pairs.forEach(function (p, i) {
             var piece = UI.el('button', { class: 'ws-piece', type: 'button', 'data-left': String(i) },
@@ -221,6 +227,7 @@ LG.Modes.worksheet = (function () {
             var binEl = UI.el('div', { class: 'ws-bin drop-zone', 'data-bin': b.id },
               [UI.el('span', { class: 'ws-bin-label', text: b.label })]);
             sb.appendChild(binEl);
+            LG.Drag.makeTarget(binEl, { zoneSelector: '.ws-bin' });
           });
           it.items.forEach(function (item, i) {
             var piece = UI.el('button', { class: 'ws-piece', type: 'button', 'data-item': String(i) },
