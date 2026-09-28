@@ -49,6 +49,11 @@ LG.Engine = (function () {
   /* ---------------- question generation ---------------- */
 
   function makeQuestions(level) {
+    /* A level may hand over a fixed sequence instead of sampling. A reading
+       needs this: the text must come first, then its own questions in a set
+       order, and each one is a different mode. */
+    if (level.steps) return level.steps.slice();
+
     var out = [], seen = {}, guard = 0;
     while (out.length < level.count && guard < level.count * 40) {
       guard += 1;
@@ -242,9 +247,15 @@ LG.Engine = (function () {
     paintDots();
     paintPrompt(S.current);
 
-    var mode = LG.Modes[S.level.mode];
+    /* Each question names its own mode, which is how a reading can move
+       from the text to a multiple choice to a typed answer. Levels without
+       it fall back to the level's own mode, so nothing else changes.
+       Q.choice / Q.assemble / Q.quantity already set `type`, which is why
+       this is safe for every existing level. */
+    var modeName = (S.current && S.current.type) || S.level.mode;
+    var mode = LG.Modes[modeName];
     if (!mode) {
-      UI.toast('Missing game mode: ' + S.level.mode);
+      UI.toast('Missing game mode: ' + modeName);
       return finish();
     }
 
@@ -290,15 +301,26 @@ LG.Engine = (function () {
     var xp = 0;
     var feedbackSound;
 
-    S.answered += 1;
-    LG.Game.bumpStat('stats.answered');
+    /* A worksheet reports the whole page at once -- 7 right out of 10. Count
+       those as ten answers, so the stars reflect partial credit instead of
+       the pupil getting everything or nothing. */
+    var counted = (meta && meta.total) ? meta.total : 1;
+    var rightCount = (meta && meta.total) ? (meta.correct || 0) : (ok ? 1 : 0);
+
+    S.answered += counted;
+    LG.Game.bumpStat('stats.answered', counted);
+
+    /* Partial credit is credited even when the round as a whole does not
+       "pass". A worksheet that reports 3 right out of 10 must not be
+       recorded as 0 of 10. */
+    if (rightCount) {
+      S.correct += rightCount;
+      LG.Game.bumpStat('stats.correct', rightCount);
+    }
 
     if (ok) {
-      S.correct += 1;
       S.streak += 1;
       S.bestStreak = Math.max(S.bestStreak, S.streak);
-      LG.Game.bumpStat('stats.correct');
-
       xp = 10 * S.level.difficulty;
       xp += Math.min(S.streak, 5) * 2;
       if (fast) xp += 3;
@@ -362,6 +384,7 @@ LG.Engine = (function () {
     clearTimers();
     stopPrompt();
     destroyHandle();
+    if (dom.answer) UI.clear(dom.answer);
     LG.Audio.stop();
     var stars = LG.Game.starsFor(S.correct, S.answered);
     var accuracy = S.answered ? S.correct / S.answered : 0;
@@ -461,6 +484,7 @@ LG.Engine = (function () {
     // to even if a level was started directly.
     var topic = (S && S.topic) || LG.App.currentTopic;
     if (S) { clearTimers(); destroyHandle(); }
+    if (dom.answer) UI.clear(dom.answer);
     LG.Audio.stop();
     stopPrompt();
     S = null;

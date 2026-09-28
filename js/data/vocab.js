@@ -3589,5 +3589,157 @@ LG.VOCAB = {
    "emoji": "😴",
    "desc": "You need a sleep."
   }
- }
+ },
+ "readings": [
+  {
+   "id": "r_classroom",
+   "unit": "unit1",
+   "title": "My Classroom",
+   "speak": "This is my classroom. It is not very big, but it is light and it is clean. The board is on the wall. My desk is next to the window, and the door is behind me. On my desk there is a pen, a ruler and a rubber. My pencil case is under the chair. My friend likes the scissors, but I do not like them!",
+   "text": "This is my {classroom}. It is not very big, but it is light and it is clean. The {board} is on the {wall}. My {desk} is next to the {window}, and the {door} is behind me. On my {desk} there is a {pen}, a {ruler} and a {rubber}. My {pencil case} is under the {chair}. My friend likes the {scissors}, but I do not like them!",
+   "questions": [
+    {
+     "type": "truefalse",
+     "q": "The classroom is very big.",
+     "answer": false
+    },
+    {
+     "type": "single",
+     "q": "Where is the board?",
+     "options": [
+      "On the desk",
+      "On the wall",
+      "Under the chair"
+     ],
+     "answer": 1
+    },
+    {
+     "type": "multi",
+     "q": "What is on the desk? (tap all that apply)",
+     "options": [
+      "A pen",
+      "A ruler",
+      "A rubber",
+      "The scissors"
+     ],
+     "answer": [
+      0,
+      1,
+      2
+     ]
+    },
+    {
+     "type": "open",
+     "q": "What is under the chair? Write one or two words.",
+     "answer": [
+      "pencil case",
+      "the pencil case"
+     ],
+     "hint": "It is something you keep your pencils in."
+    },
+    {
+     "type": "truefalse",
+     "q": "The narrator likes the scissors.",
+     "answer": false
+    },
+    {
+     "type": "open",
+     "q": "Is the narrator a girl or a boy? Write one word.",
+     "answer": [
+      "girl"
+     ],
+     "hint": "The narrator says 'I do not like them' about the scissors."
+    },
+    {
+     "type": "vocabMatch",
+     "q": "Drag each English word to its German.",
+     "pairs": [
+      [
+       "board",
+       "Tafel"
+      ],
+      [
+       "chair",
+       "Stuhl"
+      ],
+      [
+       "desk",
+       "Schreibtisch"
+      ],
+      [
+       "ruler",
+       "Lineal"
+      ],
+      [
+       "window",
+       "Fenster"
+      ]
+     ]
+    },
+    {
+     "type": "vocabSort",
+     "q": "Drag each thing to where it is.",
+     "bins": [
+      {
+       "id": "on",
+       "label": "on the desk"
+      },
+      {
+       "id": "under",
+       "label": "under / behind"
+      },
+      {
+       "id": "wall",
+       "label": "on the wall"
+      }
+     ],
+     "items": [
+      {
+       "value": "pen",
+       "bin": "on"
+      },
+      {
+       "value": "ruler",
+       "bin": "on"
+      },
+      {
+       "value": "rubber",
+       "bin": "on"
+      },
+      {
+       "value": "pencil case",
+       "bin": "under"
+      },
+      {
+       "value": "door",
+       "bin": "under"
+      },
+      {
+       "value": "board",
+       "bin": "wall"
+      }
+     ]
+    },
+    {
+     "type": "vocabSpell",
+     "word": "window",
+     "hint": "You can see through it."
+    },
+    {
+     "type": "single",
+     "q": "How many things are on the desk?",
+     "options": [
+      "Two",
+      "Three",
+      "Four"
+     ],
+     "answer": 1
+    }
+   ],
+   "gloss": {
+    "classroom": "Klassenzimmer",
+    "wall": "Wand"
+   }
+  }
+ ]
 };

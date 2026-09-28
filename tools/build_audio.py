@@ -18,6 +18,7 @@ from __future__ import annotations
 
 import argparse
 import asyncio
+import hashlib
 import json
 import re
 import sys
@@ -44,11 +45,20 @@ UI_LINES = {
 }
 
 SAFE = re.compile(r"[^a-z0-9]+")
+# Windows caps a whole path at 260 characters, and the spoken text of a
+# reading can be 400+. Cap the file name and add a short hash so two long
+# texts sharing a prefix still get distinct files.
+MAX_NAME = 80
 
 
 def slug(text: str) -> str:
     s = SAFE.sub("_", text.lower()).strip("_")
-    return s or "x"
+    if not s:
+        return "x"
+    if len(s) > MAX_NAME:
+        digest = hashlib.sha1(s.encode("utf-8")).hexdigest()[:8]
+        s = s[:MAX_NAME - 9].rstrip("_") + "_" + digest
+    return s
 
 
 def unique(base: str, used: set) -> str:
@@ -201,6 +211,13 @@ def build_clips(vocab: dict, spell_join: str, with_sounds: bool,
                 add(f"desc/{item['word']}", item["desc"], f"desc/{topic}")
             if item.get("place"):
                 add(f"place/{item['word']}", item["place"], f"place/{topic}")
+
+    # Readings: the spoken version of each text, so a pupil can listen to
+    # the whole thing before reading it. The vocabSpell exercises reuse the
+    # German clips the imported word lists already produce.
+    for reading in (vocab.get("readings") or []):
+        if reading.get("speak"):
+            word(reading["speak"])
 
     # Clue sentences for the "What Is It?" levels. These live in the
     # hand-maintained `media` block, so they are rendered from here rather
