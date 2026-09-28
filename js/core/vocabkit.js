@@ -140,18 +140,9 @@ LG.Vocab = (function () {
       }
     });
 
-    /* 6 -- connect English to German (LONG) ------------------------ */
-    out.push({
-      id: prefix + '6', name: 'Match the Translation', mode: 'match',
-      difficulty: 3, count: 4, icon: '\U0001F517',
-      skill: 'reading', blurb: 'Five pairs. Drag each English word to its German.',
-      build: function () {
-        var picks = Q.sample(all, 5);
-        var q = Q.translatePairs(picks);
-        q.prompt = Q.read('Drag each English word to its German.');
-        return q;
-      }
-    });
+    // A sixth level, matching English to German, was removed. It put German
+    // on both sides of the exercise with no English production anywhere in
+    // it, so it was German literacy practice wearing an English objective.
 
     return out;
   }

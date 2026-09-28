@@ -98,24 +98,6 @@
     },
 
     /* 5 ------------------------------------------------------------- */
-    {
-      id: 'p5', name: 'The Odd One', icon: '🔎', mode: 'choice',
-      difficulty: 4, count: 8,
-      blurb: 'Four are plurals. One is not. Find it.',
-      build: function () {
-        var odd = Q.pick(all);                      // the singular
-        var pool = Q.sample(all.filter(function (x) { return x.many !== odd.many; }), 3);
-        var cells = pool.map(function (x) { return Q.opt('text', x.many, { id: x.many }); });
-        cells.push(Q.opt('text', odd.one, { id: odd.one }));
-        cells = Q.shuffle(cells);
-        return Q.choice({
-          prompt: Q.read('Which one is the odd one?'),
-          options: cells,
-          correct: cells.findIndex(function (c) { return c.id === odd.one; }),
-          dedupe: 'odd' + odd.one
-        });
-      }
-    },
     /* 6 -- categorise by plural rule (LONG) -----------------------
        The categorising task: a tray of bare singular nouns, and one box for
        each way the plural can be made. It cannot be guessed from the look

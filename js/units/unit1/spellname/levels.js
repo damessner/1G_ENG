@@ -52,37 +52,7 @@
     },
 
     /* 3 ------------------------------------------------------------- */
-    {
-      id: 'n3', name: 'Two Names', icon: '👥', mode: 'choice',
-      difficulty: 2, count: 10,
-      blurb: 'Two people say their name. Tap the one you heard.',
-      build: function () {
-        var a = Q.pick(N.names), b = Q.pick(N.names.filter(function (n) { return n !== a; }));
-        return Q.choice({
-          prompt: Q.audio(Q.wordKey(a)),
-          options: Q.texts(a, [b]),
-          answer: a,
-          dedupe: 'two' + a + b
-        });
-      }
-    },
-
     /* 4 ------------------------------------------------------------- */
-    {
-      id: 'n4', name: 'Email Address', icon: '✉️', mode: 'choice',
-      difficulty: 4, count: 8,
-      blurb: 'Listen to an email address. Which one was it?',
-      build: function () {
-        var a = Q.pick(N.emails);
-        return Q.choice({
-          prompt: { speak: [Q.wordKey(a), Q.spellKey(a)], show: null, long: true },
-          options: Q.texts(a, Q.sample(N.emails.filter(function (e) { return e !== a; }), 2)),
-          answer: a,
-          dedupe: 'mail' + a
-        });
-      }
-    },
-
     /* 5 ------------------------------------------------------------- */
     {
       id: 'n5', name: 'Read the Address', icon: '🔖', mode: 'choice',

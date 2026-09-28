@@ -28,21 +28,6 @@
   LG.topicData('alphabet', [
 
     /* 1 ------------------------------------------------------------- */
-    {
-      id: 'a1', name: 'Letter Match', icon: '🔤', mode: 'choice',
-      difficulty: 1, count: 10,
-      blurb: 'Hear a letter. Tap the letter you hear.',
-      build: function () {
-        var ch = Q.pick(ALPHA);
-        return Q.choice({
-          prompt: Q.audio('letter/name/' + ch),
-          options: Q.letters(ch, 3, ALPHA),
-          answer: ch,
-          dedupe: 'nm' + ch
-        });
-      }
-    },
-
     /* 2 ------------------------------------------------------------- */
     {
       id: 'a2', name: 'First Sound', icon: '👂', mode: 'choice',
